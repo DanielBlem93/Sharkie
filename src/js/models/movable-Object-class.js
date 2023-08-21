@@ -2,10 +2,11 @@ class MovableObjekt {
     x = 0;
     y = 0;
     img;
-    height = 50;
-    width = 50;
+    height = 150;
+    width = 100;
 
     loadImage(path) {
+    
         this.img = new Image()
         this.img.src = path
     }

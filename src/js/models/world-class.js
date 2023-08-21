@@ -3,9 +3,9 @@ class World {
 
     character = new Character()
     enemies = [
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
     ]
     ctx;
     canvas;
@@ -25,7 +25,7 @@ class World {
         //Draw wird immer wieder aufgerufen
         self = this;
         requestAnimationFrame(function() {
-            self.draw()
+            self.draw();
         })
     }
 
