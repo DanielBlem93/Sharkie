@@ -6,11 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharkie</title>
     <link rel="stylesheet" href="src/styles/style.css">
+    <script src="src/js/models/movable-Object-class.js"></script>
+    <script src="src/js/models/character-class.js"></script>
+    <script src="src/js/models/puffer-fish-class.js"></script>
+    <script src="src/js/models/world-class.js"></script>
+    <script src="src/js/game.js"></script>
 </head>
 
-<body>
-    <canvas></canvas>
-    <script src="src/js/game.js"></script>
+<body onload="init()">
+    <h1>Sharkie</h1>
+    <canvas style="width: 720px; height: 480px;" id="canvas"></canvas>
+
 
 </body>
 
