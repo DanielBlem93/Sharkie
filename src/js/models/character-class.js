@@ -25,7 +25,22 @@ class Character extends MovableObjekt {
         'src/img/2_character_pepe/3_jump/J-37.png',
         'src/img/2_character_pepe/3_jump/J-38.png',
         'src/img/2_character_pepe/3_jump/J-39.png',
-        'src/img/2_character_pepe/3_jump/J-40.png',
+    ]
+
+    IMAGES_DEAD = [
+        'src/img/2_character_pepe/5_dead/D-51.png',
+        'src/img/2_character_pepe/5_dead/D-52.png',
+        'src/img/2_character_pepe/5_dead/D-53.png',
+        'src/img/2_character_pepe/5_dead/D-54.png',
+        'src/img/2_character_pepe/5_dead/D-55.png',
+        'src/img/2_character_pepe/5_dead/D-56.png',
+        'src/img/2_character_pepe/5_dead/D-57.png',
+    ]
+
+    IMAGES_HURT = [
+        'src/img/2_character_pepe/4_hurt/H-41.png',
+        'src/img/2_character_pepe/4_hurt/H-42.png',
+        'src/img/2_character_pepe/4_hurt/H-43.png',
     ]
 
     world;
@@ -36,6 +51,8 @@ class Character extends MovableObjekt {
         super().loadImage('src/img/2_character_pepe/2_walk/W-21.png')
         this.loadImages(this.IMAGES_WALKING)
         this.loadImages(this.IMAGES_JUMPING)
+        this.loadImages(this.IMAGES_DEAD)
+        this.loadImages(this.IMAGES_HURT)
         this.applyGravity()
         this.animate()
     }
@@ -62,8 +79,14 @@ class Character extends MovableObjekt {
         }, 1000 / 30);
 
         setInterval(() => {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD)
+            }
+            else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT)
+            }
 
-            if (this.isAboveGround()) {
+            else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING)
 
             } else {
