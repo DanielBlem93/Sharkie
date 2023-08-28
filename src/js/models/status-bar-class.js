@@ -10,7 +10,7 @@ class StatusBar extends DrawableObject {
 
     ]
 
-    percentage = 100
+    health = 100
 
     constructor() {
         super()
@@ -18,38 +18,42 @@ class StatusBar extends DrawableObject {
         this.x = 40
         this.y = 0
         this.width = 200
-        this.height = 50
-        this.setPercentage(100)
+        this.height = 60
+        this.setHealth(100)
 
     }
 
 
-    setPercentage(percentage) {
-        this.percentage = percentage
-        let path = this.STATUSBAR_IMAGES[this.resolveIMageIndex()]
+    setHealth(hp) {
+        this.health = hp
+        this.changeBarValues(this.STATUSBAR_IMAGES, this.health)
+    }
+
+    changeBarValues(arr, variable) {
+        let path = arr[this.resolveIMageIndex(variable)]
         this.img = this.imageCache[path]
-
-
     }
 
-    resolveIMageIndex() {
-        if (this.percentage == 100) {
+    resolveIMageIndex(variable) {
+        if (variable == 100) {
             return 0
         }
-        else if (this.percentage > 80) {
+        else if (variable >= 80) {
             return 1
         }
-        else if (this.percentage > 60) {
+        else if (variable >= 60) {
             return 2
         }
-        else if (this.percentage > 40) {
+        else if (variable >= 40) {
             return 3
         }
-        else if (this.percentage > 20) {
+        else if (variable >= 20) {
             return 4
         }
-        else if (this.percentage == 0) {
+
+        else {
             return 5
+
         }
 
     }

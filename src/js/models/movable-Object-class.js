@@ -30,6 +30,8 @@ class MovableObjekt extends DrawableObject {
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit // differece in ms
         timepassed = timepassed / 1000 // difference in s
+        world.statusBar.setHealth(this.energy)
+   
         return timepassed < 1 
     }
 
