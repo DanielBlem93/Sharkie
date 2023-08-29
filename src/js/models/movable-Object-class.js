@@ -1,7 +1,7 @@
 class MovableObjekt extends DrawableObject {
 
     speed = 0.15
-    speedY = 0
+    speedY = 1
     acceleration = 2.5
     otherDirection = false
     energy = 100
@@ -46,21 +46,24 @@ class MovableObjekt extends DrawableObject {
         this.currentImage++
     }
 
-    applyGravity() {
+    applyGravity(gravityOn) {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (gravityOn.call(this) || this.speedY > 0) {
                 this.y -= this.speedY
                 this.speedY -= this.acceleration
-                this.CharacterOnGround = false
+          
             } else {
-                this.CharacterOnGround = true
+    
             }
 
         }, 1000 / 25);
     }
 
-    isAboveGround() {
+    isCharacterAboveGround() {
         return this.y < 135
+    }
+    isBottleAboveGround() {
+        return this.y < 331
     }
 
     jump() {

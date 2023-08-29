@@ -27,12 +27,12 @@ window.addEventListener('keydown', (e) => {
 
     else if (e.key === 's') {
         keyboard.down = true
-   
+
     }
 
     else if (e.key === 'd') {
         keyboard.right = true
-  
+
     }
 
     else if (e.code === 'Space') {
@@ -47,7 +47,7 @@ window.addEventListener('keydown', (e) => {
 
     else if (e.key === 'ArrowLeft') {
         keyboard.left = true
- 
+
     }
 
     else if (e.key === 'ArrowDown') {
@@ -59,6 +59,10 @@ window.addEventListener('keydown', (e) => {
         keyboard.right = true
 
     }
+    else if (e.key === 'f') {
+        keyboard.throw = true
+
+    }
 })
 
 
@@ -67,17 +71,17 @@ window.addEventListener('keyup', (e) => {
 
     if (e.key === 'w') {
         keyboard.up = false
- 
+
     }
 
     else if (e.key === 'a') {
         keyboard.left = false
-     
+
     }
 
     else if (e.key === 's') {
         keyboard.down = false
-        
+
     }
 
     else if (e.key === 'd') {
@@ -91,12 +95,12 @@ window.addEventListener('keyup', (e) => {
 
     else if (e.key === 'ArrowUp') {
         keyboard.up = false
-  
+
     }
 
     else if (e.key === 'ArrowLeft') {
         keyboard.left = false
-       
+
     }
 
     else if (e.key === 'ArrowDown') {
@@ -106,6 +110,10 @@ window.addEventListener('keyup', (e) => {
 
     else if (e.key === 'ArrowRight') {
         keyboard.right = false
-        
+
+    }
+    else if (e.key === 'f') {
+        keyboard.throw = false
+
     }
 })

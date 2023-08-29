@@ -2,7 +2,6 @@ class World {
 
 
     character = new Character()
-    level = level1
     canvas;
     ctx;
     keyboard;
@@ -11,42 +10,59 @@ class World {
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
 
+    bottles = []
+    level = level1
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d')
         this.canvas = canvas
         this.keyboard = keyboard
         this.draw()
         this.setWorld()
-        this.checkCollisions()
+        this.run()
     }
 
     setWorld() {
         this.character.world = this
     }
-
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit()
-                    // console.log('collision with character', enemy, 'Energy:', this.character.energy)
-                }
-            })
+            this.checkCollisions()
+            this.checThrowObjects()
         }, 200);
+
+    }
+
+    checThrowObjects(){
+        if (this.keyboard.throw) {
+            let bottle = new ThrowableObject(this.character.x+100,this.character.y+100)
+            this.bottles.push(bottle)
+            
+        }
+    }
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit()
+                // console.log('collision with character', enemy, 'Energy:', this.character.energy)
+            }
+        })
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, canvas.height)
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.backgroundObjects)
+        this.addObjectsToMap(this.level.clouds)
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
         this.addToMap(this.bottlesBar)
         this.ctx.translate(this.camera_x, 0)
-        this.addToMap(this.character)
         this.addObjectsToMap(this.level.enemies)
-        this.addObjectsToMap(this.level.clouds)
+        this.addToMap(this.character)
+        this.addObjectsToMap(this.bottles)
+
 
         this.ctx.translate(-this.camera_x, 0)
 

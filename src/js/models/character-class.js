@@ -1,6 +1,6 @@
 class Character extends MovableObjekt {
     x = 120;
-    y = 0;//135
+    y = 135;//135
     height = 300;
     width = 150;
     speed = 10
@@ -53,7 +53,7 @@ class Character extends MovableObjekt {
         this.loadImages(this.IMAGES_JUMPING)
         this.loadImages(this.IMAGES_DEAD)
         this.loadImages(this.IMAGES_HURT)
-        this.applyGravity()
+        this.applyGravity(this.isCharacterAboveGround)
         this.animate()
     }
     animate() {
@@ -71,7 +71,7 @@ class Character extends MovableObjekt {
                 this.walking_sound.play()
             }
 
-            if (this.world.keyboard.space && !this.isAboveGround()) {
+            if (this.world.keyboard.space && !this.isCharacterAboveGround()) {
                 this.jump()
             }
 
@@ -87,7 +87,7 @@ class Character extends MovableObjekt {
                 
             }
 
-            else if (this.isAboveGround()) {
+            else if (this.isCharacterAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING)
 
             } else {
