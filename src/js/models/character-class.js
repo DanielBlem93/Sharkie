@@ -6,7 +6,8 @@ class Character extends MovableObjekt {
     speed = 10
     dead = false
     died = false
-    j=0
+    j = 0
+    s = 0
 
 
     IMAGES_WALKING = [
@@ -64,7 +65,7 @@ class Character extends MovableObjekt {
     animate() {
         setInterval(() => {
             this.walking_sound.pause()
-            if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.dead)  {
+            if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.dead) {
                 this.otherDirection = false
                 this.moveRight()
                 this.walking_sound.play()
@@ -90,18 +91,14 @@ class Character extends MovableObjekt {
 
             }
 
-            else if(this.died){
-            
+            else if (this.died) {
+
                 this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
             }
 
-            else if (this.isCharacterAboveGround()&& !this.dead) {
-               
-                this.playAnimation(this.IMAGES_JUMPING)
+            else {
 
-            } else {
-
-                if (this.world.keyboard.right || this.world.keyboard.left && !this.dead) {
+                if (this.world.keyboard.right && !this.dead || this.world.keyboard.left && !this.dead) {
 
                     //walk animation
                     this.playAnimation(this.IMAGES_WALKING)
@@ -109,23 +106,46 @@ class Character extends MovableObjekt {
             }
         }, 60);
 
-       this.dieing()
+        this.dieing()
+        this.jumping()
 
-        
+
     }
-    dieing(){
+
+
+    dieing() {
         setInterval(() => {
-
             if (this.dead) {
-                if (this.j < 7){
+                if (this.j < 7) {
                     this.playDeathAnimation(this.IMAGES_DEAD)
-                   
-                    
-                }else{
+
+                } else {
                     this.died = true
-                }       
-             
+                }
+
             }
-        }, 1000/7);
+        }, 1000 / 7);
     }
+    jumping() {
+
+        setInterval(() => {
+            if (this.isCharacterAboveGround() && !this.dead) {
+                if (this.s < this.IMAGES_JUMPING.length)
+                    this.playJumpAnimation(this.IMAGES_JUMPING)
+            } 
+            else if (!this.isCharacterAboveGround()) {
+                this.s = 0
+            }
+        }, 1000 / 9);
+
+
+
+    }
+
+
+
+
+
+
+
 }

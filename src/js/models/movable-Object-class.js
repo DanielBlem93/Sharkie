@@ -1,13 +1,13 @@
 class MovableObjekt extends DrawableObject {
 
     speed = 0.15
-    speedY = 1
+    speedY = 0
     acceleration = 2.5
     otherDirection = false
     energy = 100
     lastHit = 0
     godmode = false
-    
+
 
 
     // 
@@ -18,16 +18,16 @@ class MovableObjekt extends DrawableObject {
             this.y < mo.y + mo.height
     }
     hit() {
-        
+
         if (this.godmode) {
-            console.log('No damge taken, Godmode on')
+            console.log('No damge takden, Godmode on')
         } else {
-            this.damgeTaken();
+            this.takingDamge();
             this.godmodeON();
         }
     }
-    godmodeON(){
-        
+    godmodeON() {
+
         this.godmode = true
         setTimeout(() => {
             this.godmode = false
@@ -36,7 +36,7 @@ class MovableObjekt extends DrawableObject {
 
     }
 
-    damgeTaken() {
+    takingDamge() {
 
         this.energy -= 49
         world.statusBar.setHealth(this.energy)
@@ -49,13 +49,11 @@ class MovableObjekt extends DrawableObject {
         }
     }
 
-    // isHurt(){
-    //     let timepassed = new Date().getTime() - this.lastHit // differece in ms
-    //     timepassed = timepassed / 1000 // difference in s
-    //     world.statusBar.setHealth(this.energy)
-
-    //     return timepassed < 1
-    // }
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit // differece in ms
+        timepassed = timepassed / 1000 // difference in s
+        return timepassed < 1
+    }
 
 
 
@@ -66,12 +64,20 @@ class MovableObjekt extends DrawableObject {
         this.currentImage++
     }
 
+
+
     playDeathAnimation(deathImgArray) {
-      
+
         let path = deathImgArray[this.j]
         this.img = this.imageCache[path]
         this.j++
-        
+
+    }
+
+    playJumpAnimation(jumpImgArray) {
+        let path = jumpImgArray[this.s]
+        this.img = this.imageCache[path]
+        this.s++
     }
 
     applyGravity(gravityOn) {
@@ -79,7 +85,7 @@ class MovableObjekt extends DrawableObject {
             if (gravityOn.call(this) || this.speedY > 0) {
                 this.y -= this.speedY
                 this.speedY -= this.acceleration
-            } else {}
+            } else { }
         }, 1000 / 25);
     }
 

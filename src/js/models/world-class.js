@@ -28,15 +28,16 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions()
-            this.checThrowObjects()
-        }, 200);
+            this.checkThrowObjects()
+        }, 100);
 
     }
 
-    checThrowObjects(){
-        if (this.keyboard.throw) {
+    checkThrowObjects(){
+        if (this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead) {
             let bottle = new ThrowableObject(this.character.x+100,this.character.y+100)
             this.bottles.push(bottle)
+            
             
         }
     }
