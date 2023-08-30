@@ -19,7 +19,7 @@ class StatusBar extends DrawableObject {
         this.y = 0
         this.width = 200
         this.height = 60
-        this.setHealth(100)
+        this.setHealth(this.health)
 
     }
 

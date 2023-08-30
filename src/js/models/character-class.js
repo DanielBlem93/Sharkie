@@ -4,6 +4,10 @@ class Character extends MovableObjekt {
     height = 300;
     width = 150;
     speed = 10
+    dead = false
+    died = false
+    j=0
+
 
     IMAGES_WALKING = [
         'src/img/2_character_pepe/2_walk/W-21.png',
@@ -48,7 +52,8 @@ class Character extends MovableObjekt {
 
 
     constructor() {
-        super().loadImage('src/img/2_character_pepe/2_walk/W-21.png')
+        super()
+        this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
         this.loadImages(this.IMAGES_WALKING)
         this.loadImages(this.IMAGES_JUMPING)
         this.loadImages(this.IMAGES_DEAD)
@@ -59,19 +64,19 @@ class Character extends MovableObjekt {
     animate() {
         setInterval(() => {
             this.walking_sound.pause()
-            if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.dead)  {
                 this.otherDirection = false
                 this.moveRight()
                 this.walking_sound.play()
             }
 
-            if (this.world.keyboard.left && this.x > 0) {
+            else if (this.world.keyboard.left && this.x > 0 && !this.dead) {
                 this.otherDirection = true
                 this.moveLeft()
                 this.walking_sound.play()
             }
 
-            if (this.world.keyboard.space && !this.isCharacterAboveGround()) {
+            if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead) {
                 this.jump()
             }
 
@@ -79,25 +84,48 @@ class Character extends MovableObjekt {
         }, 1000 / 30);
 
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD)
-            }
-            else if (this.isHurt()) {
+
+            if (this.godmode && !this.dead) {
                 this.playAnimation(this.IMAGES_HURT)
-                
+
             }
 
-            else if (this.isCharacterAboveGround()) {
+            else if(this.died){
+            
+                this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
+            }
+
+            else if (this.isCharacterAboveGround()&& !this.dead) {
+               
                 this.playAnimation(this.IMAGES_JUMPING)
 
             } else {
 
-                if (this.world.keyboard.right || this.world.keyboard.left) {
+                if (this.world.keyboard.right || this.world.keyboard.left && !this.dead) {
 
                     //walk animation
                     this.playAnimation(this.IMAGES_WALKING)
                 }
             }
         }, 60);
+
+       this.dieing()
+
+        
+    }
+    dieing(){
+        setInterval(() => {
+
+            if (this.dead) {
+                if (this.j < 7){
+                    this.playDeathAnimation(this.IMAGES_DEAD)
+                   
+                    
+                }else{
+                    this.died = true
+                }       
+             
+            }
+        }, 1000/7);
     }
 }

@@ -6,7 +6,8 @@ class MovableObjekt extends DrawableObject {
     otherDirection = false
     energy = 100
     lastHit = 0
-
+    godmode = false
+    
 
 
     // 
@@ -17,33 +18,60 @@ class MovableObjekt extends DrawableObject {
             this.y < mo.y + mo.height
     }
     hit() {
-
-        this.energy -= 5
         
-        if (this.energy < 0) {
+        if (this.godmode) {
+            console.log('No damge taken, Godmode on')
+        } else {
+            this.damgeTaken();
+            this.godmodeON();
+        }
+    }
+    godmodeON(){
+        
+        this.godmode = true
+        setTimeout(() => {
+            this.godmode = false
+            this.loadImage('src/img/2_character_pepe/2_walk/W-21.png')
+        }, 1000);
+
+    }
+
+    damgeTaken() {
+
+        this.energy -= 49
+        world.statusBar.setHealth(this.energy)
+
+        if (this.energy <= 0) {
             this.energy = 0
-        }else{
+            this.dead = true
+        } else {
             this.lastHit = new Date().getTime()
         }
     }
 
-    isHurt(){
-        let timepassed = new Date().getTime() - this.lastHit // differece in ms
-        timepassed = timepassed / 1000 // difference in s
-        world.statusBar.setHealth(this.energy)
-   
-        return timepassed < 1 
-    }
+    // isHurt(){
+    //     let timepassed = new Date().getTime() - this.lastHit // differece in ms
+    //     timepassed = timepassed / 1000 // difference in s
+    //     world.statusBar.setHealth(this.energy)
 
-    isDead() {
-        return this.energy == 0
-    }
+    //     return timepassed < 1
+    // }
+
+
 
     playAnimation(images) {
-        let i = this.currentImage % images.length; //let i = 8%6 0> 1, Rest 1
+        let i = this.currentImage % images.length; //let i = 8%6 0> 1, Rest 2
         let path = images[i]
         this.img = this.imageCache[path]
         this.currentImage++
+    }
+
+    playDeathAnimation(deathImgArray) {
+      
+        let path = deathImgArray[this.j]
+        this.img = this.imageCache[path]
+        this.j++
+        
     }
 
     applyGravity(gravityOn) {
@@ -51,11 +79,7 @@ class MovableObjekt extends DrawableObject {
             if (gravityOn.call(this) || this.speedY > 0) {
                 this.y -= this.speedY
                 this.speedY -= this.acceleration
-          
-            } else {
-    
-            }
-
+            } else {}
         }, 1000 / 25);
     }
 
