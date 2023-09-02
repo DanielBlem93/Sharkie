@@ -108,13 +108,11 @@ class MovableObjekt extends DrawableObject {
     }
 
     jump() {
-        if (this.jumped == true) {
-            console.log('jump not possible')
-        } else {
+        if (!this.jumped) {
+
             this.jumped = true
             setTimeout(() => {
                 this.speedY = 30
-
             }, 300);
         }
 

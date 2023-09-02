@@ -81,11 +81,14 @@ class Character extends MovableObjekt {
             this.jumping()
             this.playWalkAnimation()
             this.hurtAnimation() 
-            console.log(this.s)
+          
         }, 60);
 
         this.dieing()
+    }
 
+    fixCameraOnCharacter() {
+        this.world.camera_x = -this.x + 100
     }
 
 
@@ -102,11 +105,9 @@ class Character extends MovableObjekt {
             }
         }, 1000 / 7);
     }
-   
-
-    hurtAnimation() {
-        if (this.godmode && !this.dead) {
-            this.playAnimation(this.IMAGES_HURT)
+    disableCharacter() {
+        if (this.died) {
+            this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
         }
     }
 
@@ -118,22 +119,7 @@ class Character extends MovableObjekt {
             this.playAnimation(this.IMAGES_WALKING)
         }
     }
-
-    disableCharacter() {
-        if (this.died) {
-            this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
-        }
-    }
-
-    fixCameraOnCharacter() {
-        this.world.camera_x = -this.x + 100
-    }
-
-    playWalkingSound() {
-        if (!this.isCharacterAboveGround())
-            this.walking_sound.play()
-    }
-
+        
     walkingRight() {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.dead) {
             this.otherDirection = false
@@ -150,6 +136,11 @@ class Character extends MovableObjekt {
         }
     }
 
+    playWalkingSound() {
+        if (!this.isCharacterAboveGround())
+            this.walking_sound.play()
+    }
+
     jumping() {
         if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped) {
             this.jump()
@@ -157,20 +148,22 @@ class Character extends MovableObjekt {
         }
     }
 
-    // jumpingAnimation() {
+    hurtAnimation() {
+        if (this.godmode && !this.dead) {
+            this.playAnimation(this.IMAGES_HURT)
+        }
+    }
 
-    //     setInterval(() => {
-    //         if (this.isCharacterAboveGround() && !this.dead) {
-    //             if (this.s < this.IMAGES_JUMPING.length)
-    //                 this.playJumpAnimation(this.IMAGES_JUMPING)
-    //         }
-    //         else if (!this.isCharacterAboveGround()) {
-    //             this.s = 0
-    //         }
-    //     }, 1000 / 9);
-    // }
+  
 
 
+  
+
+
+
+  
+
+ 
 
 
 
