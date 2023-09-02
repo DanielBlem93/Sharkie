@@ -8,6 +8,7 @@ class Character extends MovableObjekt {
     died = false
     j = 0
     s = 0
+    jumped=false
 
 
     IMAGES_WALKING = [
@@ -71,19 +72,19 @@ class Character extends MovableObjekt {
             this.walking_sound.pause()
             this.walkingRight()
             this.walkingLeft()
-            this.jumping()
             this.fixCameraOnCharacter()
+           
         }, 1000 / 30);
 
         setInterval(() => {
-
-            this.hurtAnimation()
+            
+            this.jumping()
             this.playWalkAnimation()
-
+            this.hurtAnimation() 
+            console.log(this.s)
         }, 60);
 
         this.dieing()
-        this.jumpingAnimation()
 
     }
 
@@ -150,23 +151,24 @@ class Character extends MovableObjekt {
     }
 
     jumping() {
-        if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead) {
+        if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped) {
             this.jump()
+            this.playJumpAnimation(this.IMAGES_JUMPING)
         }
     }
 
-    jumpingAnimation() {
+    // jumpingAnimation() {
 
-        setInterval(() => {
-            if (this.isCharacterAboveGround() && !this.dead) {
-                if (this.s < this.IMAGES_JUMPING.length)
-                    this.playJumpAnimation(this.IMAGES_JUMPING)
-            }
-            else if (!this.isCharacterAboveGround()) {
-                this.s = 0
-            }
-        }, 1000 / 9);
-    }
+    //     setInterval(() => {
+    //         if (this.isCharacterAboveGround() && !this.dead) {
+    //             if (this.s < this.IMAGES_JUMPING.length)
+    //                 this.playJumpAnimation(this.IMAGES_JUMPING)
+    //         }
+    //         else if (!this.isCharacterAboveGround()) {
+    //             this.s = 0
+    //         }
+    //     }, 1000 / 9);
+    // }
 
 
 

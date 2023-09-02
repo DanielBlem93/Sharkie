@@ -75,9 +75,20 @@ class MovableObjekt extends DrawableObject {
     }
 
     playJumpAnimation(jumpImgArray) {
-        let path = jumpImgArray[this.s]
-        this.img = this.imageCache[path]
-        this.s++
+        let animation; // Variable außerhalb der if-else-Anweisung deklarieren
+        animation = setInterval(() => {
+            if (this.s >= 9 ) {
+                clearInterval(animation); // Animation nach 9 Durchläufen stoppen
+                this.s = 0;
+                this.jumped = false
+            } else {
+                let path = jumpImgArray[this.s];
+                this.img = this.imageCache[path];
+                this.s++;
+            }
+
+
+        }, 1000 / 7);
     }
 
     applyGravity(gravityOn) {
@@ -97,7 +108,18 @@ class MovableObjekt extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 30
+        if (this.jumped == true) {
+            console.log('jump not possible')
+        } else {
+            this.jumped = true
+            setTimeout(() => {
+                this.speedY = 30
+
+            }, 300);
+        }
+
+
+
     }
     moveRight() {
         this.x += this.speed
