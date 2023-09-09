@@ -10,6 +10,8 @@ class World {
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
 
+   
+    
     bottles = []
     level = level1
 
@@ -45,6 +47,17 @@ class World {
         }
 
     }
+
+    checkBottleBar() {
+        if (this.bottlesBar.bottles <= 0) {
+            return false
+        } else {
+            return true
+        }
+
+    }
+
+  
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -111,10 +124,10 @@ class World {
 
     querys(s) {
         if (s === 1) {
-            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection
+            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection && this.checkBottleBar() && this.character.setCooldown()
         }
         else if (s === 2) {
-            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection
+            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.checkBottleBar() && this.character.setCooldown()
 
         }
 

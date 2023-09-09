@@ -11,20 +11,21 @@ class BottlesBar extends StatusBar {
     ]
 
 
-    bottles = 0
+    bottles = 100
 
     constructor() {
 
         super()
         this.loadImages(this.BOTTLESBAR_IMAGES)
         this.y = 50
-        this.setBottles(2)
+        this.setBottles(0)
     }
 
     setBottles(bottles) {
-        this.bottles = bottles
+        this.bottles -= bottles
         this.changeBarValues(this.BOTTLESBAR_IMAGES, this.bottles)
     }
+
 
 
 }

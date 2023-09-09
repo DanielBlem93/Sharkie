@@ -102,7 +102,7 @@ class MovableObjekt extends DrawableObject {
     }
     isBottleAboveGround() {
        
-        return this.y <= 350
+        return this.y < 350
     }
 
     jump() {

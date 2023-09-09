@@ -9,6 +9,8 @@ class Character extends MovableObjekt {
     j = 0
     s = 0
     jumped = false
+    sperre = false
+    CoolDownTime = 1300 //  /1000=sec
 
 
     IMAGES_WALKING = [
@@ -156,6 +158,16 @@ class Character extends MovableObjekt {
 
     playDeathAnimation() {
         this.j = this.animateImageOnce(this.IMAGES_DEAD, this.j);
+    }
+
+    setCooldown() {
+        if (!this.sperre) {
+            this.sperre = true
+            setTimeout(() => {
+                this.sperre = false;
+            }, this.CoolDownTime);
+            return true
+        }
     }
 
 
