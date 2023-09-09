@@ -28,15 +28,13 @@ class ThrowableObject extends MovableObjekt {
         this.height = 80
         this.throwInDirection()
 
-
-
     }
 
     throwInDirection() {
         if (!world.character.otherDirection) {
-            this.throw('forward')
+            this.throw('right')
         } else {
-            this.throw('backward')
+            this.throw('left')
         }
     }
 
@@ -44,26 +42,29 @@ class ThrowableObject extends MovableObjekt {
         this.speedY = 20
         this.applyGravity(this.isBottleAboveGround)
 
-        if (direction === 'forward') {
+        this.intervalId = setInterval(() => {
 
-            this.intervalId = setInterval(() => {
-                this.x += 5
-                this.checkBottle()
+            if (direction === 'right') {
+                this.throwRight()
+            }
 
-            }, 1000 / 60);
-            this.bottleCracking()
+            else if (direction === 'left') {
+                this.throwLeft()
+            }
 
-        } else if (direction === 'backward') {
+            this.checkBottle()
 
-            this.intervalId = setInterval(() => {
-                this.x -= 5
-                this.checkBottle()
-            }, 1000 / 60);
-            this.bottleCracking()
-        }
+        }, 1000 / 60);
+
+        this.bottleCracking()
     }
 
-   
+    throwRight() {
+        this.x += 5
+    }
+    throwLeft() {
+        this.x -= 5
+    }
 
     bottleCracking() {
         setInterval(() => {
@@ -84,7 +85,7 @@ class ThrowableObject extends MovableObjekt {
 
     destroyBottle() {
         if (this.t >= this.SPLASH_IMAGES.length)
-        world.bottles.splice(0,1)
+            world.bottles.splice(0, 1)
     }
 
     checkBottle() {
