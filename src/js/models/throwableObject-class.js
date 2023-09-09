@@ -5,31 +5,95 @@ class ThrowableObject extends MovableObjekt {
         'src/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'src/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ]
+    SPLASH_IMAGES = [
+        'src/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
+    ]
+    t = 0
+    intervalId
+    bottleOnGround = false
 
     constructor(x, y) {
         super().loadImage('src/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
         this.loadImages(this.BOTTLE_IMAGES)
+        this.loadImages(this.SPLASH_IMAGES)
         this.x = x
         this.y = y
         this.width = 70
         this.height = 80
-        this.throw()
-        this.animate()
+        this.throwInDirection()
+
+
+
     }
 
-    throw() {
+    throwInDirection() {
+        if (!world.character.otherDirection) {
+            this.throw('forward')
+        } else {
+            this.throw('backward')
+        }
+    }
+
+    throw(direction) {
         this.speedY = 20
         this.applyGravity(this.isBottleAboveGround)
-        setInterval(() => {
-            this.x += 30
 
-        }, 60); 
+        if (direction === 'forward') {
+
+            this.intervalId = setInterval(() => {
+                this.x += 5
+                this.checkBottle()
+
+            }, 1000 / 60);
+            this.bottleCracking()
+
+        } else if (direction === 'backward') {
+
+            this.intervalId = setInterval(() => {
+                this.x -= 5
+                this.checkBottle()
+            }, 1000 / 60);
+            this.bottleCracking()
+        }
     }
-    animate(){
+
+   
+
+    bottleCracking() {
         setInterval(() => {
-            this.playAnimation(this.BOTTLE_IMAGES)
-        }, 1000/12);
+            if (this.bottleOnGround) {
+                if (this.t < this.SPLASH_IMAGES.length) {
+                    this.splashAnimation()
+                    this.destroyBottle()
+                }
+            }
+        }, 1000 / 7);
     }
+
+    splashAnimation() {
+        let path = this.SPLASH_IMAGES[this.t]
+        this.img = this.imageCache[path]
+        this.t++
+    }
+
+    destroyBottle() {
+        if (this.t >= this.SPLASH_IMAGES.length)
+        world.bottles.splice(0,1)
+    }
+
+    checkBottle() {
+        if (this.y >= 300) {
+            this.bottleOnGround = true
+            clearInterval(this.intervalId)
+        }
+    }
+
 
 
 }

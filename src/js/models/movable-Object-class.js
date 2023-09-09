@@ -1,6 +1,6 @@
 class MovableObjekt extends DrawableObject {
 
-    speed = 0.15
+    speed = 0.2
     speedY = 0
     acceleration = 2.5
     otherDirection = false
@@ -104,7 +104,8 @@ class MovableObjekt extends DrawableObject {
         return this.y < 135
     }
     isBottleAboveGround() {
-        return this.y < 331
+       
+        return this.y <= 350
     }
 
     jump() {
@@ -115,9 +116,6 @@ class MovableObjekt extends DrawableObject {
                 this.speedY = 30
             }, 300);
         }
-
-
-
     }
     moveRight() {
         this.x += this.speed

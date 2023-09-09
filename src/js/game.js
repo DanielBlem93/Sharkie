@@ -15,22 +15,22 @@ function init() {
 //keydown
 window.addEventListener('keydown', (e) => {
 
-    if (e.key === 'w') {
+    if (e.key === 'w'|| e.key ==='W') {
         keyboard.up = true
 
     }
 
-    else if (e.key === 'a') {
+    else if (e.key === 'a' || e.key ==='A') {
         keyboard.left = true
 
     }
 
-    else if (e.key === 's') {
+    else if (e.key === 's' || e.key ==='S') {
         keyboard.down = true
 
     }
 
-    else if (e.key === 'd') {
+    else if (e.key === 'd' || e.key ==='D') {
         keyboard.right = true
 
     }
@@ -69,22 +69,22 @@ window.addEventListener('keydown', (e) => {
 // keyup
 window.addEventListener('keyup', (e) => {
 
-    if (e.key === 'w') {
+    if (e.key === 'w' || e.key ==='W') {
         keyboard.up = false
 
     }
 
-    else if (e.key === 'a') {
+    else if (e.key === 'a' || e.key ==='A') {
         keyboard.left = false
 
     }
 
-    else if (e.key === 's') {
+    else if (e.key === 's' || e.key ==='S') {
         keyboard.down = false
 
     }
 
-    else if (e.key === 'd') {
+    else if (e.key === 'd' || e.key ==='D') {
         keyboard.right = false
     }
 

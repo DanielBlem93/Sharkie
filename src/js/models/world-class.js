@@ -33,13 +33,17 @@ class World {
 
     }
 
-    checkThrowObjects(){
-        if (this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead) {
-            let bottle = new ThrowableObject(this.character.x+100,this.character.y+100)
+    checkThrowObjects() {
+        if (this.querys(1)) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
             this.bottles.push(bottle)
-            
-            
+
+        } else if (this.querys(2)) {
+
+            let bottle = new ThrowableObject(this.character.x - 10, this.character.y + 90)
+            this.bottles.push(bottle)
         }
+
     }
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -105,5 +109,16 @@ class World {
         this.ctx.restore()
     }
 
+    querys(s) {
+        if (s === 1) {
+            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection
+        }
+        else if (s === 2) {
+            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection
 
+        }
+
+    }
 }
+
+
