@@ -8,7 +8,7 @@ class Character extends MovableObjekt {
     died = false
     j = 0
     s = 0
-    jumped=false
+    jumped = false
 
 
     IMAGES_WALKING = [
@@ -73,15 +73,15 @@ class Character extends MovableObjekt {
             this.walkingRight()
             this.walkingLeft()
             this.fixCameraOnCharacter()
-           
+
         }, 1000 / 30);
 
         setInterval(() => {
-            
+
             this.jumping()
             this.playWalkAnimation()
-            this.hurtAnimation() 
-          
+            this.hurtAnimation()
+
         }, 60);
 
         this.dieing()
@@ -95,8 +95,8 @@ class Character extends MovableObjekt {
     dieing() {
         setInterval(() => {
             if (this.dead) {
-                if (this.j < 7) {
-                    this.playDeathAnimation(this.IMAGES_DEAD)
+                if (this.j < this.IMAGES_DEAD.length) {
+                    this.playDeathAnimation()
 
                 } else {
                     this.died = true
@@ -119,7 +119,7 @@ class Character extends MovableObjekt {
             this.playAnimation(this.IMAGES_WALKING)
         }
     }
-        
+
     walkingRight() {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.dead) {
             this.otherDirection = false
@@ -154,16 +154,19 @@ class Character extends MovableObjekt {
         }
     }
 
-  
+    playDeathAnimation() {
+        this.j = this.animateImageOnce(this.IMAGES_DEAD, this.j);
+    }
 
 
-  
 
 
 
-  
 
- 
+
+
+
+
 
 
 

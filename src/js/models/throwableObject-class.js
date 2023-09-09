@@ -15,6 +15,7 @@ class ThrowableObject extends MovableObjekt {
         'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
     t = 0
+    r = 0
     intervalId
     bottleOnGround = false
 
@@ -39,7 +40,7 @@ class ThrowableObject extends MovableObjekt {
     }
 
     throw(direction) {
-        this.speedY = 20
+        this.speedY = 35
         this.applyGravity(this.isBottleAboveGround)
 
         this.intervalId = setInterval(() => {
@@ -66,6 +67,13 @@ class ThrowableObject extends MovableObjekt {
         this.x -= 5
     }
 
+    checkBottle() {
+        if (this.y >= 310) {
+            this.bottleOnGround = true
+            clearInterval(this.intervalId)
+        }
+    }
+
     bottleCracking() {
         setInterval(() => {
             if (this.bottleOnGround) {
@@ -73,14 +81,10 @@ class ThrowableObject extends MovableObjekt {
                     this.splashAnimation()
                     this.destroyBottle()
                 }
+            }else if(!this.bottleOnGround){
+                this.playAnimation(this.BOTTLE_IMAGES)
             }
-        }, 1000 / 7);
-    }
-
-    splashAnimation() {
-        let path = this.SPLASH_IMAGES[this.t]
-        this.img = this.imageCache[path]
-        this.t++
+        }, 1000 / 8);
     }
 
     destroyBottle() {
@@ -88,12 +92,17 @@ class ThrowableObject extends MovableObjekt {
             world.bottles.splice(0, 1)
     }
 
-    checkBottle() {
-        if (this.y >= 300) {
-            this.bottleOnGround = true
-            clearInterval(this.intervalId)
-        }
+    splashAnimation() {
+        this.t = this.animateImageOnce(this.SPLASH_IMAGES, this.t);
     }
+    
+    rotateAnimation() {
+        this.r = this.animateImageOnce(this.BOTTLE_IMAGES, this.r);
+    }
+
+   
+
+
 
 
 

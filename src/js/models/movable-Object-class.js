@@ -64,18 +64,15 @@ class MovableObjekt extends DrawableObject {
         this.currentImage++
     }
 
-
-
-    playDeathAnimation(deathImgArray) {
-
-        let path = deathImgArray[this.j]
-        this.img = this.imageCache[path]
-        this.j++
-
+    animateImageOnce(imagesArray, currentIndex) {
+        let path = imagesArray[currentIndex];
+        this.img = this.imageCache[path];
+        currentIndex++;
+        return currentIndex;
     }
 
     playJumpAnimation(jumpImgArray) {
-        let animation; // Variable außerhalb der if-else-Anweisung deklarieren
+        let animation;
         animation = setInterval(() => {
             if (this.s >= 9 ) {
                 clearInterval(animation); // Animation nach 9 Durchläufen stoppen
