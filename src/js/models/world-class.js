@@ -9,6 +9,8 @@ class World {
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
+   
+
 
     bottles = []
     level = level1
@@ -24,6 +26,7 @@ class World {
 
     setWorld() {
         this.character.world = this
+        lastKeyPressTime = Date.now()
     }
     run() {
         setInterval(() => {
@@ -44,8 +47,6 @@ class World {
             this.bottles.push(bottle)
         }
     }
-
-
 
     checkCollisions(obj) {
         if (obj === "enemy") {

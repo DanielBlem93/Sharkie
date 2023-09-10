@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();;
+let lastKeyPressTime
 
 
 function init() {
@@ -116,4 +117,7 @@ window.addEventListener('keyup', (e) => {
         keyboard.throw = false
 
     }
+    lastKeyPressTime = Date.now()
+
+
 })

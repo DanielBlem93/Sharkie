@@ -2,7 +2,8 @@ class MovableObjekt extends DrawableObject {
 
     speed = 0.15
     speedY = 0
-    acceleration = 2.5
+    jumpPower= 27
+    acceleration = 2
     otherDirection = false
     energy = 100
     lastHit = 0
@@ -46,16 +47,16 @@ class MovableObjekt extends DrawableObject {
             this.dead = true
         } else {
             this.lastHit = new Date().getTime()
+            lastKeyPressTime = this.lastHit
         }
     }
 
     isHurt() {
+      
         let timepassed = new Date().getTime() - this.lastHit // differece in ms
         timepassed = timepassed / 1000 // difference in s
         return timepassed < 1
     }
-
-
 
     playAnimation(images) {
         let i = this.currentImage % images.length; //let i = 8%6 0> 1, Rest 2
@@ -108,7 +109,7 @@ class MovableObjekt extends DrawableObject {
 
             this.jumped = true
             setTimeout(() => {
-                this.speedY = 30
+                this.speedY = this.jumpPower
             }, 10);
         }
     }
