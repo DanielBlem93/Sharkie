@@ -26,6 +26,14 @@ class BottlesBar extends StatusBar {
         this.changeBarValues(this.BOTTLESBAR_IMAGES, this.bottles)
     }
 
+    checkBottleBar() {
+        if (this.bottles <= 0) {
+            return false
+        } else {
+            return true
+        }
+    }
+
 
 
 }

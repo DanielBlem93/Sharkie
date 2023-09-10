@@ -147,7 +147,7 @@ class Character extends MovableObjekt {
             this.playJumpAnimation(this.IMAGES_JUMPING)
         }
     }
-    
+
     hurtAnimation() {
         if (this.godmode && !this.dead) {
             this.playAnimation(this.IMAGES_HURT)
@@ -166,6 +166,12 @@ class Character extends MovableObjekt {
             }, this.CoolDownTime);
             return true
         }
+    }
+
+
+    collectItem() {
+        console.log('coin gesammelt')
+        this.world.coinBar.setCoins(4)
     }
 
 

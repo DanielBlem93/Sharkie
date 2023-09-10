@@ -27,7 +27,8 @@ class World {
     }
     run() {
         setInterval(() => {
-            this.checkCollisions()
+            this.checkCollisions('enemy')
+            this.checkCollisions('coin')
             this.checkThrowObjects()
         }, 100);
     }
@@ -44,21 +45,23 @@ class World {
         }
     }
 
-    checkBottleBar() {
-        if (this.bottlesBar.bottles <= 0) {
-            return false
-        } else {
-            return true
-        }
-    }
 
-    checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit()
-                // console.log('collision with character', enemy, 'Energy:', this.character.energy)
-            }
-        })
+
+    checkCollisions(obj) {
+        if (obj === "enemy") {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hit()
+                }
+            })
+        } else if (obj === "coin") {
+            this.level.coins.forEach((coin, index) => {
+                if (this.character.isColliding(coin)) {
+                    this.character.collectItem();
+                    this.level.coins.splice(index, 1);
+                }
+            })
+        }
     }
 
     draw() {
@@ -119,10 +122,10 @@ class World {
 
     querys(s) {
         if (s === 1) {
-            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection && this.checkBottleBar() && this.character.setCooldown()
+            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
         }
         else if (s === 2) {
-            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.checkBottleBar() && this.character.setCooldown()
+            return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
         }
 
     }

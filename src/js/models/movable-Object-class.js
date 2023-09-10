@@ -1,6 +1,6 @@
 class MovableObjekt extends DrawableObject {
 
-    speed = 0.2
+    speed = 0.15
     speedY = 0
     acceleration = 2.5
     otherDirection = false
@@ -12,10 +12,10 @@ class MovableObjekt extends DrawableObject {
 
     // 
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height
+        return this.x < mo.x + mo.width &&
+            this.y < mo.y + mo.height &&
+            this.x + this.width > mo.x &&
+            this.y + this.height > mo.y;
     }
     hit() {
 
@@ -109,7 +109,7 @@ class MovableObjekt extends DrawableObject {
             this.jumped = true
             setTimeout(() => {
                 this.speedY = 30
-            }, 300);
+            }, 10);
         }
     }
     moveRight() {

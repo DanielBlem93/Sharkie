@@ -1,12 +1,12 @@
 class Coinbar extends StatusBar {
 
     COINBAR_IMAGES = [
-        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
-        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
-        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
-        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
-        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
-        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
+        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png',
+        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
+        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/60.png',
+        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/40.png',
+        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png',
+        'src/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/0.png',
 
     ]
 
@@ -22,7 +22,10 @@ class Coinbar extends StatusBar {
     }
 
     setCoins(coins) {
-        this.coins = coins
+        if (this.coins < 100) {
+            this.coins += coins
+        }
+
         this.changeBarValues(this.COINBAR_IMAGES, this.coins)
     }
 
