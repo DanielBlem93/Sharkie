@@ -10,8 +10,6 @@ class World {
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
 
-   
-    
     bottles = []
     level = level1
 
@@ -32,7 +30,6 @@ class World {
             this.checkCollisions()
             this.checkThrowObjects()
         }, 100);
-
     }
 
     checkThrowObjects() {
@@ -45,7 +42,6 @@ class World {
             let bottle = new ThrowableObject(this.character.x - 10, this.character.y + 90)
             this.bottles.push(bottle)
         }
-
     }
 
     checkBottleBar() {
@@ -54,10 +50,8 @@ class World {
         } else {
             return true
         }
-
     }
 
-  
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -72,6 +66,7 @@ class World {
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.backgroundObjects)
         this.addObjectsToMap(this.level.clouds)
+        this.addObjectsToMap(this.level.coins)
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
@@ -128,7 +123,6 @@ class World {
         }
         else if (s === 2) {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.checkBottleBar() && this.character.setCooldown()
-
         }
 
     }

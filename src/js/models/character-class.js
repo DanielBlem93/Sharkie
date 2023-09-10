@@ -6,11 +6,11 @@ class Character extends MovableObjekt {
     speed = 10
     dead = false
     died = false
-    j = 0
-    s = 0
     jumped = false
     sperre = false
     CoolDownTime = 1300 //  /1000=sec
+    j = 0
+    s = 0
 
 
     IMAGES_WALKING = [
@@ -67,20 +67,17 @@ class Character extends MovableObjekt {
 
     }
 
-
-
     animate() {
         setInterval(() => {
             this.walking_sound.pause()
             this.walkingRight()
             this.walkingLeft()
+            this.jumping()
             this.fixCameraOnCharacter()
 
         }, 1000 / 30);
 
         setInterval(() => {
-
-            this.jumping()
             this.playWalkAnimation()
             this.hurtAnimation()
 
@@ -107,6 +104,7 @@ class Character extends MovableObjekt {
             }
         }, 1000 / 7);
     }
+
     disableCharacter() {
         if (this.died) {
             this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
@@ -144,12 +142,12 @@ class Character extends MovableObjekt {
     }
 
     jumping() {
-        if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped) {
+        if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped && !this.godmode) {
             this.jump()
             this.playJumpAnimation(this.IMAGES_JUMPING)
         }
     }
-
+    
     hurtAnimation() {
         if (this.godmode && !this.dead) {
             this.playAnimation(this.IMAGES_HURT)

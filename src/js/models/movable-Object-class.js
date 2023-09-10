@@ -38,7 +38,7 @@ class MovableObjekt extends DrawableObject {
 
     takingDamge() {
 
-        this.energy -= 49
+        this.energy -= 10
         world.statusBar.setHealth(this.energy)
 
         if (this.energy <= 0) {
@@ -74,7 +74,7 @@ class MovableObjekt extends DrawableObject {
     playJumpAnimation(jumpImgArray) {
         let animation;
         animation = setInterval(() => {
-            if (this.s >= 9 ) {
+            if (this.s >= jumpImgArray.length ) {
                 clearInterval(animation); // Animation nach 9 Durchläufen stoppen
                 this.s = 0;
                 this.jumped = false
@@ -83,8 +83,6 @@ class MovableObjekt extends DrawableObject {
                 this.img = this.imageCache[path];
                 this.s++;
             }
-
-
         }, 1000 / 7);
     }
 
