@@ -2,7 +2,7 @@ class MovableObjekt extends DrawableObject {
 
     speed = 0.15
     speedY = 0
-    jumpPower= 27
+    jumpPower = 27
     acceleration = 2
     otherDirection = false
     energy = 100
@@ -48,13 +48,15 @@ class MovableObjekt extends DrawableObject {
         } else {
             this.lastHit = new Date().getTime()
             lastKeyPressTime = this.lastHit
+            world.character.playHurtSound()
         }
     }
 
     isHurt() {
-      
+
         let timepassed = new Date().getTime() - this.lastHit // differece in ms
         timepassed = timepassed / 1000 // difference in s
+
         return timepassed < 1
     }
 
@@ -75,14 +77,20 @@ class MovableObjekt extends DrawableObject {
     playJumpAnimation(jumpImgArray) {
         let animation;
         animation = setInterval(() => {
-            if (this.s >= jumpImgArray.length ) {
+            if (this.s >= jumpImgArray.length) {
+
                 clearInterval(animation); // Animation nach 9 Durchläufen stoppen
                 this.s = 0;
                 this.jumped = false
+
+
             } else {
                 let path = jumpImgArray[this.s];
                 this.img = this.imageCache[path];
-                this.s++;
+                if (this.s === jumpImgArray.length - 2)
+                world.character.jump_landing_sound.play()
+
+                    this.s++;
             }
         }, 1000 / 7);
     }
@@ -100,13 +108,13 @@ class MovableObjekt extends DrawableObject {
         return this.y < 135
     }
     isBottleAboveGround() {
-       
+
         return this.y < 350
     }
 
     jump() {
         if (!this.jumped) {
-
+            world.character.jumping_sound.play()
             this.jumped = true
             setTimeout(() => {
                 this.speedY = this.jumpPower

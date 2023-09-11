@@ -9,7 +9,10 @@ class World {
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
-   
+    title_song = new Audio('src/audio/loca-salsa-song.mp3')
+    theme_song = new Audio('src/audio/light-salsa-song.mp3')
+    boss_song = new Audio('src/audio/light-salsa-song.mp3')
+
 
 
     bottles = []
@@ -26,7 +29,7 @@ class World {
 
     setWorld() {
         this.character.world = this
-        lastKeyPressTime = Date.now()
+        lastKeyPressTime = Date.now()//important for idle animation
     }
     run() {
         setInterval(() => {

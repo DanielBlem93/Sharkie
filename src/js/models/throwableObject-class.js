@@ -13,10 +13,13 @@ class ThrowableObject extends MovableObjekt {
         'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
+
     t = 0
     r = 0
     intervalId
     bottleOnGround = false
+    throw_sound = new Audio('src/audio/throw.mp3')
+    bottleCracking_sound = new Audio('src/audio/bottle-cracking.mp3')
 
     constructor(x, y) {
         super().loadImage('src/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
@@ -36,10 +39,11 @@ class ThrowableObject extends MovableObjekt {
         } else if (world.character.otherDirection) {
             this.throw('left')
         }
+        this.throw_sound.play()
     }
 
     throw(direction) {
-        this.speedY = 35
+        this.speedY = 25
         this.applyGravity(this.isBottleAboveGround)
 
         this.intervalId = setInterval(() => {
@@ -51,7 +55,7 @@ class ThrowableObject extends MovableObjekt {
             else if (direction === 'left') {
                 this.throwLeft()
             }
-
+           
             this.checkBottleOnGround()
 
         }, 1000 / 60);
@@ -74,7 +78,7 @@ class ThrowableObject extends MovableObjekt {
         }
     }
     checkBottleBar() {
-        if (world.bottlesBar.bottles <=0) {
+        if (world.bottlesBar.bottles <= 0) {
             return false
         } else {
             return true
@@ -88,6 +92,7 @@ class ThrowableObject extends MovableObjekt {
                 if (this.t < this.SPLASH_IMAGES.length) {
                     this.splashAnimation()
                     this.destroyBottle()
+                    this.bottleCracking_sound.play()
                 }
             } else if (!this.bottleOnGround) {
                 this.playAnimation(this.BOTTLE_IMAGES)

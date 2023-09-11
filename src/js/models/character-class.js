@@ -78,7 +78,16 @@ class Character extends MovableObjekt {
     ]
 
     world;
-    walking_sound = new Audio('src/audio/character/running.mp3')
+    walking_sound = new Audio('src/audio/running.mp3')
+    jumping_sound = new Audio('src/audio/jump-hoy.mp3')
+    jump_landing_sound = new Audio('src/audio/jump-landing.mp3')
+    HURT_SOUNDS = [
+
+        new Audio('src/audio/hurt1.mp3'),
+        new Audio('src/audio/hurt2.mp3')
+
+    ]
+    currentSound = 0
 
 
     constructor() {
@@ -170,6 +179,7 @@ class Character extends MovableObjekt {
 
     playWalkingSound() {
         if (!this.isCharacterAboveGround())
+
             this.walking_sound.play()
     }
 
@@ -183,7 +193,14 @@ class Character extends MovableObjekt {
     hurtAnimation() {
         if (this.godmode && !this.dead) {
             this.playAnimation(this.IMAGES_HURT)
+
         }
+    }
+
+    playHurtSound() {
+        let i = this.currentSound % this.HURT_SOUNDS.length;
+        this.HURT_SOUNDS[i].play()
+        this.currentSound++
     }
 
     playDeathAnimation() {
