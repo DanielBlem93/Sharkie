@@ -28,6 +28,9 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
         new Endboss()
     ],
     clouds =
@@ -57,7 +60,7 @@ const level1 = new Level(
     backgroundSounds =
     [
         AUDIOS.wind,
-        AUDIOS.crickets
+        // AUDIOS.crickets
     ],
 
     mainTheme = [

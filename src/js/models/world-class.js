@@ -9,9 +9,6 @@ class World {
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
-    title_song = new Audio('src/audio/loca-salsa-song.mp3')
-    theme_song = new Audio('src/audio/light-salsa-song.mp3')
-    boss_song = new Audio('src/audio/light-salsa-song.mp3')
 
 
 
@@ -33,39 +30,40 @@ class World {
     }
     run() {
         setInterval(() => {
-            this.checkCollisions('enemy')
-            this.checkCollisions('coin')
+            this.checkCollisions()
             this.checkThrowObjects()
         }, 100);
     }
 
     checkThrowObjects() {
         if (this.querys(1)) {
+            //throw right
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
             this.bottles.push(bottle)
 
         } else if (this.querys(2)) {
-
+            //throw left
             let bottle = new ThrowableObject(this.character.x - 10, this.character.y + 90)
             this.bottles.push(bottle)
         }
     }
 
-    checkCollisions(obj) {
-        if (obj === "enemy") {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit()
-                }
-            })
-        } else if (obj === "coin") {
-            this.level.coins.forEach((coin, index) => {
-                if (this.character.isColliding(coin)) {
-                    this.character.collectItem();
-                    this.level.coins.splice(index, 1);
-                }
-            })
-        }
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+            } else if (this.character.isInSight(enemy, 600) && !enemy.dead) {
+                enemy.playEnemySound();
+            }
+        });
+    
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.character.collectItem();
+                this.level.coins.splice(index, 1);
+                AUDIOS.collect_coin.play()
+            }
+        });
     }
 
     draw() {
@@ -82,10 +80,7 @@ class World {
         this.addObjectsToMap(this.level.enemies)
         this.addToMap(this.character)
         this.addObjectsToMap(this.bottles)
-
-
         this.ctx.translate(-this.camera_x, 0)
-
         //Draw wird immer wieder aufgerufen
         self = this;
         requestAnimationFrame(function () {
@@ -127,12 +122,12 @@ class World {
     querys(s) {
         if (s === 1) {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
-        //dont allow any other move when you throwing
+            //dont allow any other move when you throwing
         }
 
         else if (s === 2) {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
-        //dont allow any other move when you throwing for the other direction
+            //dont allow any other move when you throwing for the other direction
         }
 
 

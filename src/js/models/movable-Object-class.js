@@ -8,7 +8,8 @@ class MovableObjekt extends DrawableObject {
     energy = 100
     lastHit = 0
     godmode = false
-
+    sound
+    currentSound = 0
 
 
     // 
@@ -17,6 +18,17 @@ class MovableObjekt extends DrawableObject {
             this.y < mo.y + mo.height &&
             this.x + this.width > mo.x &&
             this.y + this.height > mo.y;
+    }
+    isInSight(mo, sightRange) {
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+
+        const moCenterX = mo.x + mo.width / 2;
+        const moCenterY = mo.y + mo.height / 2;
+
+        const distance = Math.sqrt((centerX - moCenterX) ** 2 + (centerY - moCenterY) ** 2);
+
+        return distance <= sightRange;
     }
     hit() {
 
@@ -88,9 +100,9 @@ class MovableObjekt extends DrawableObject {
                 let path = jumpImgArray[this.s];
                 this.img = this.imageCache[path];
                 if (this.s === jumpImgArray.length - 2)
-                AUDIOS.jump_landing_sound.play()
+                    AUDIOS.jump_landing_sound.play()
 
-                    this.s++;
+                this.s++;
             }
         }, 1000 / 7);
     }
@@ -127,4 +139,10 @@ class MovableObjekt extends DrawableObject {
     moveLeft() {
         this.x -= this.speed
     }
+
+    playEnemySound() {
+
+        this.sound.play()
+    }
+
 }

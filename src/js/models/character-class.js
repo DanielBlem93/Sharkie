@@ -13,7 +13,7 @@ class Character extends MovableObjekt {
     s = 0
     world;
   
-    currentSound = 0
+
 
 
     constructor() {
@@ -167,6 +167,7 @@ class Character extends MovableObjekt {
 
     collectItem() {
         console.log('coin gesammelt')
+        AUDIOS.collect_coin.play()
         this.world.coinBar.setCoins(4)
     }
 

@@ -105,7 +105,6 @@ CHARACTER_IMAGES = {
         'src/img/2_character_pepe/1_idle/long_idle/I-19.png',
         'src/img/2_character_pepe/1_idle/long_idle/I-20.png',
     ]
-
 }
 
 CHICKEN_IMAGES = {
@@ -190,10 +189,17 @@ THROWABLES_IMAGES = {
 }
 
 AUDIOS = {
+
+    //Music
+    title_song: new Audio('src/audio/loca-salsa-song.mp3'),
+    theme_song: new Audio('src/audio/light-salsa-song.mp3'),
+    boss_song: new Audio('src/audio/light-salsa-song.mp3'),
+
     //BackgroundSounds
     wind: new Audio('src/audio/background_sound_wind.mp3'),
     crickets: new Audio('src/audio/crickets-sound.mp3'),
     theme: new Audio('src/audio/light-salsa-song.mp3'),
+
     //Sounds from Character
     throw_sound: new Audio('src/audio/throw.mp3'),
     bottleCracking_sound: new Audio('src/audio/bottle-cracking.mp3'),
@@ -204,5 +210,15 @@ AUDIOS = {
         new Audio('src/audio/hurt1.mp3'),
         new Audio('src/audio/hurt2.mp3')
     ],
-    snoring: new Audio('src/audio/snoring.mp3')
+    snoring: new Audio('src/audio/snoring.mp3'),
+    collect_coin: new Audio('src/audio/coin-sound.mp3'),
+
+    //sounds for normal Chickens
+    CHICKEN_SOUND: [
+        new Audio('src/audio/quiet-chicken.mp3'),
+        new Audio('src/audio/Chicken-sound.mp3')
+    ]
+
+
+
 }

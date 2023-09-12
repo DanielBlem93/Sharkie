@@ -16,8 +16,8 @@ class Level {
         this.mainTheme = mainTheme
         this.playBackgroundSound(bgSound)
         this.playBackgroundSound(mainTheme)
-        this.setVolume(0, bgSound)
-        this.setVolume(0.0, mainTheme)
+        this.setVolume(1, bgSound)
+        this.setVolume(0.3, mainTheme)
     }
 
     playBackgroundSound(sounds) {
