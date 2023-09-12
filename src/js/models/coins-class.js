@@ -3,7 +3,7 @@ class Coin extends CollectableObject {
     width = 150
 
     constructor(x,y) {
-        super().loadImage('src/img/8_coin/coin_1.png')
+        super().loadImage(COLLACTABLES_IMAGES.coins[0])
         this.x =x
         this.y =y
     }

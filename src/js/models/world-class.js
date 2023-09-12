@@ -127,10 +127,14 @@ class World {
     querys(s) {
         if (s === 1) {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
+        //dont allow any other move when you throwing
         }
+
         else if (s === 2) {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
+        //dont allow any other move when you throwing for the other direction
         }
+
 
     }
 }

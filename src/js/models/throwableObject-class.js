@@ -1,30 +1,14 @@
 class ThrowableObject extends MovableObjekt {
-    BOTTLE_IMAGES = [
-        'src/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
-        'src/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
-        'src/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
-        'src/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
-    ]
-    SPLASH_IMAGES = [
-        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
-        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
-        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
-        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
-        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-        'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
-    ]
-
+  
     t = 0
     r = 0
     intervalId
     bottleOnGround = false
-    throw_sound = new Audio('src/audio/throw.mp3')
-    bottleCracking_sound = new Audio('src/audio/bottle-cracking.mp3')
 
     constructor(x, y) {
-        super().loadImage('src/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
-        this.loadImages(this.BOTTLE_IMAGES)
-        this.loadImages(this.SPLASH_IMAGES)
+        super().loadImage(THROWABLES_IMAGES.BOTTLE_IMAGES[1])
+        this.loadImages(THROWABLES_IMAGES.BOTTLE_IMAGES)
+        this.loadImages(THROWABLES_IMAGES.SPLASH_IMAGES)
         this.x = x
         this.y = y
         this.width = 70
@@ -39,7 +23,7 @@ class ThrowableObject extends MovableObjekt {
         } else if (world.character.otherDirection) {
             this.throw('left')
         }
-        this.throw_sound.play()
+        AUDIOS.throw_sound.play()
     }
 
     throw(direction) {
@@ -89,28 +73,28 @@ class ThrowableObject extends MovableObjekt {
     bottleCracking() {
         setInterval(() => {
             if (this.bottleOnGround) {
-                if (this.t < this.SPLASH_IMAGES.length) {
+                if (this.t < THROWABLES_IMAGES.SPLASH_IMAGES.length) {
                     this.splashAnimation()
                     this.destroyBottle()
-                    this.bottleCracking_sound.play()
+                    AUDIOS.bottleCracking_sound.play()
                 }
             } else if (!this.bottleOnGround) {
-                this.playAnimation(this.BOTTLE_IMAGES)
+                this.playAnimation(THROWABLES_IMAGES.BOTTLE_IMAGES)
             }
         }, 1000 / 8);
     }
 
     destroyBottle() {
-        if (this.t >= this.SPLASH_IMAGES.length)
+        if (this.t >= THROWABLES_IMAGES.SPLASH_IMAGES.length)
             world.bottles.splice(0, 1)
     }
 
     splashAnimation() {
-        this.t = this.animateImageOnce(this.SPLASH_IMAGES, this.t);
+        this.t = this.animateImageOnce(THROWABLES_IMAGES.SPLASH_IMAGES, this.t);
     }
 
     rotateAnimation() {
-        this.r = this.animateImageOnce(this.BOTTLE_IMAGES, this.r);
+        this.r = this.animateImageOnce(THROWABLES_IMAGES.BOTTLE_IMAGES, this.r);
     }
 
 

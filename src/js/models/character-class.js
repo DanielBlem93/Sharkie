@@ -8,97 +8,23 @@ class Character extends MovableObjekt {
     died = false
     jumped = false
     sperre = false
-    CoolDownTime = 1300 //  /1000=sec
+    CoolDownTime = 1500 //  /1000=sec
     j = 0
     s = 0
-
-
-    IMAGES_WALKING = [
-        'src/img/2_character_pepe/2_walk/W-21.png',
-        'src/img/2_character_pepe/2_walk/W-22.png',
-        'src/img/2_character_pepe/2_walk/W-23.png',
-        'src/img/2_character_pepe/2_walk/W-24.png',
-        'src/img/2_character_pepe/2_walk/W-25.png',
-        'src/img/2_character_pepe/2_walk/W-26.png',
-    ];
-
-    IMAGES_JUMPING = [
-
-        'src/img/2_character_pepe/3_jump/J-31.png',
-        'src/img/2_character_pepe/3_jump/J-32.png',
-        'src/img/2_character_pepe/3_jump/J-33.png',
-        'src/img/2_character_pepe/3_jump/J-34.png',
-        'src/img/2_character_pepe/3_jump/J-35.png',
-        'src/img/2_character_pepe/3_jump/J-36.png',
-        'src/img/2_character_pepe/3_jump/J-37.png',
-        'src/img/2_character_pepe/3_jump/J-38.png',
-        'src/img/2_character_pepe/3_jump/J-39.png',
-    ]
-
-    IMAGES_DEAD = [
-        'src/img/2_character_pepe/5_dead/D-51.png',
-        'src/img/2_character_pepe/5_dead/D-52.png',
-        'src/img/2_character_pepe/5_dead/D-53.png',
-        'src/img/2_character_pepe/5_dead/D-54.png',
-        'src/img/2_character_pepe/5_dead/D-55.png',
-        'src/img/2_character_pepe/5_dead/D-56.png',
-        'src/img/2_character_pepe/5_dead/D-57.png',
-    ]
-
-    IMAGES_HURT = [
-        'src/img/2_character_pepe/4_hurt/H-41.png',
-        'src/img/2_character_pepe/4_hurt/H-42.png',
-        'src/img/2_character_pepe/4_hurt/H-43.png',
-    ]
-
-    IMAGES_IDLE = [
-        'src/img/2_character_pepe/1_idle/idle/I-1.png',
-        'src/img/2_character_pepe/1_idle/idle/I-2.png',
-        'src/img/2_character_pepe/1_idle/idle/I-3.png',
-        'src/img/2_character_pepe/1_idle/idle/I-4.png',
-        'src/img/2_character_pepe/1_idle/idle/I-5.png',
-        'src/img/2_character_pepe/1_idle/idle/I-6.png',
-        'src/img/2_character_pepe/1_idle/idle/I-7.png',
-        'src/img/2_character_pepe/1_idle/idle/I-8.png',
-        'src/img/2_character_pepe/1_idle/idle/I-9.png',
-        'src/img/2_character_pepe/1_idle/idle/I-10.png',
-    ]
-
-    IMAGES_LONG_IDLE = [
-        'src/img/2_character_pepe/1_idle/long_idle/I-11.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-12.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-13.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-14.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-15.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-16.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-17.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-18.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-19.png',
-        'src/img/2_character_pepe/1_idle/long_idle/I-20.png',
-    ]
-
     world;
-    walking_sound = new Audio('src/audio/running.mp3')
-    jumping_sound = new Audio('src/audio/jump-hoy.mp3')
-    jump_landing_sound = new Audio('src/audio/jump-landing.mp3')
-    HURT_SOUNDS = [
-
-        new Audio('src/audio/hurt1.mp3'),
-        new Audio('src/audio/hurt2.mp3')
-
-    ]
+  
     currentSound = 0
 
 
     constructor() {
         super()
-        this.loadImage('src/img/2_character_pepe/1_idle/idle/I-1.png')
-        this.loadImages(this.IMAGES_WALKING)
-        this.loadImages(this.IMAGES_JUMPING)
-        this.loadImages(this.IMAGES_DEAD)
-        this.loadImages(this.IMAGES_HURT)
-        this.loadImages(this.IMAGES_IDLE)
-        this.loadImages(this.IMAGES_LONG_IDLE)
+        this.loadImage(CHARACTER_IMAGES.IMAGES_IDLE[1])
+        this.loadImages(CHARACTER_IMAGES.IMAGES_WALKING)
+        this.loadImages(CHARACTER_IMAGES.IMAGES_JUMPING)
+        this.loadImages(CHARACTER_IMAGES.IMAGES_DEAD)
+        this.loadImages(CHARACTER_IMAGES.IMAGES_HURT)
+        this.loadImages(CHARACTER_IMAGES.IMAGES_IDLE)
+        this.loadImages(CHARACTER_IMAGES.IMAGES_LONG_IDLE)
         this.applyGravity(this.isCharacterAboveGround)
         this.animate()
 
@@ -106,7 +32,7 @@ class Character extends MovableObjekt {
 
     animate() {
         setInterval(() => {
-            this.walking_sound.pause()
+            AUDIOS.walking_sound.pause()
             this.walkingRight()
             this.walkingLeft()
             this.jumping()
@@ -134,7 +60,7 @@ class Character extends MovableObjekt {
     dieing() {
         setInterval(() => {
             if (this.dead) {
-                if (this.j < this.IMAGES_DEAD.length) {
+                if (this.j < CHARACTER_IMAGES.IMAGES_DEAD.length) {
                     this.playDeathAnimation()
 
                 } else {
@@ -173,38 +99,38 @@ class Character extends MovableObjekt {
 
         if (this.querrys(2)) {
 
-            this.playAnimation(this.IMAGES_WALKING)
+            this.playAnimation(CHARACTER_IMAGES.IMAGES_WALKING)
         }
     }
 
     playWalkingSound() {
         if (!this.isCharacterAboveGround())
 
-            this.walking_sound.play()
+            AUDIOS.walking_sound.play()
     }
 
     jumping() {
         if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped && !this.godmode) {
             this.jump()
-            this.playJumpAnimation(this.IMAGES_JUMPING)
+            this.playJumpAnimation(CHARACTER_IMAGES.IMAGES_JUMPING)
         }
     }
 
     hurtAnimation() {
         if (this.godmode && !this.dead) {
-            this.playAnimation(this.IMAGES_HURT)
+            this.playAnimation(CHARACTER_IMAGES.IMAGES_HURT)
 
         }
     }
 
     playHurtSound() {
-        let i = this.currentSound % this.HURT_SOUNDS.length;
-        this.HURT_SOUNDS[i].play()
+        let i = this.currentSound % AUDIOS.HURT_SOUNDS.length;
+        AUDIOS.HURT_SOUNDS[i].play()
         this.currentSound++
     }
 
     playDeathAnimation() {
-        this.j = this.animateImageOnce(this.IMAGES_DEAD, this.j);
+        this.j = this.animateImageOnce(CHARACTER_IMAGES.IMAGES_DEAD, this.j);
     }
 
     idle() {
@@ -214,7 +140,7 @@ class Character extends MovableObjekt {
 
     shortIdleAnimation() {
         if (this.querrys(1)) {
-            this.playAnimation(this.IMAGES_IDLE);
+            this.playAnimation(CHARACTER_IMAGES.IMAGES_IDLE);
         }
     }
 
@@ -223,7 +149,7 @@ class Character extends MovableObjekt {
         const idleTime = currentTime - lastKeyPressTime;
 
         if (idleTime >= 5000 && this.querrys(1)) {
-            this.playAnimation(this.IMAGES_LONG_IDLE);
+            this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
         }
     }
 

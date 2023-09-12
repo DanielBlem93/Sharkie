@@ -1,20 +1,11 @@
 class StatusBar extends DrawableObject {
-    STATUSBAR_IMAGES = [
-        'src/img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
-        'src/img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        'src/img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-        'src/img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-        'src/img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-        'src/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
 
-
-    ]
 
     health = 100
 
     constructor() {
         super()
-        this.loadImages(this.STATUSBAR_IMAGES)
+        this.loadImages(STATUSBAR_IMAGES.HEALTHBAR_IMAGES)
         this.x = 40
         this.y = 0
         this.width = 200
@@ -26,7 +17,7 @@ class StatusBar extends DrawableObject {
 
     setHealth(hp) {
         this.health = hp
-        this.changeBarValues(this.STATUSBAR_IMAGES, this.health)
+        this.changeBarValues(STATUSBAR_IMAGES.HEALTHBAR_IMAGES, this.health)
     }
 
     changeBarValues(arr, variable) {

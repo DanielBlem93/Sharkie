@@ -88,7 +88,7 @@ class MovableObjekt extends DrawableObject {
                 let path = jumpImgArray[this.s];
                 this.img = this.imageCache[path];
                 if (this.s === jumpImgArray.length - 2)
-                world.character.jump_landing_sound.play()
+                AUDIOS.jump_landing_sound.play()
 
                     this.s++;
             }
@@ -114,7 +114,7 @@ class MovableObjekt extends DrawableObject {
 
     jump() {
         if (!this.jumped) {
-            world.character.jumping_sound.play()
+            AUDIOS.jumping_sound.play()
             this.jumped = true
             setTimeout(() => {
                 this.speedY = this.jumpPower
