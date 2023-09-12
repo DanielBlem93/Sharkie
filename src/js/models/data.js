@@ -179,7 +179,7 @@ THROWABLES_IMAGES = {
         'src/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'src/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ],
-    SPLASH_IMAGES :[
+    SPLASH_IMAGES: [
         'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
         'src/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
@@ -194,7 +194,7 @@ AUDIOS = {
     wind: new Audio('src/audio/background_sound_wind.mp3'),
     crickets: new Audio('src/audio/crickets-sound.mp3'),
     theme: new Audio('src/audio/light-salsa-song.mp3'),
-    //Sounnds from Character
+    //Sounds from Character
     throw_sound: new Audio('src/audio/throw.mp3'),
     bottleCracking_sound: new Audio('src/audio/bottle-cracking.mp3'),
     walking_sound: new Audio('src/audio/running.mp3'),
@@ -203,5 +203,6 @@ AUDIOS = {
     HURT_SOUNDS: [
         new Audio('src/audio/hurt1.mp3'),
         new Audio('src/audio/hurt2.mp3')
-    ]
+    ],
+    snoring: new Audio('src/audio/snoring.mp3')
 }

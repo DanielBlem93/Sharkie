@@ -150,6 +150,8 @@ class Character extends MovableObjekt {
 
         if (idleTime >= 5000 && this.querrys(1)) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
+            AUDIOS.snoring.volume= 0.0
+            AUDIOS.snoring.play()
         }
     }
 
