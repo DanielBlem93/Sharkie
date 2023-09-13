@@ -198,7 +198,6 @@ AUDIOS = {
     //BackgroundSounds
     wind: new Audio('src/audio/background_sound_wind.mp3'),
     crickets: new Audio('src/audio/crickets-sound.mp3'),
-    theme: new Audio('src/audio/light-salsa-song.mp3'),
 
     //Sounds from Character
     throw_sound: new Audio('src/audio/throw.mp3'),

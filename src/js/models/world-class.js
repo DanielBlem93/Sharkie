@@ -11,9 +11,9 @@ class World {
     bottlesBar = new BottlesBar()
 
 
-
-    bottles = []
     level = level1
+    bottles = []
+    coins = []
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d')
@@ -22,10 +22,15 @@ class World {
         this.draw()
         this.setWorld()
         this.run()
+
+     
+
+        
     }
 
     setWorld() {
         this.character.world = this
+        this.setCoins()
         lastKeyPressTime = Date.now()//important for idle animation
     }
     run() {
@@ -56,12 +61,10 @@ class World {
                 enemy.playEnemySound();
             }
         });
-    
-        this.level.coins.forEach((coin, index) => {
+
+        this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.character.collectItem();
-                this.level.coins.splice(index, 1);
-                AUDIOS.collect_coin.play()
+                this.character.collectItem(index);
             }
         });
     }
@@ -71,7 +74,7 @@ class World {
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.backgroundObjects)
         this.addObjectsToMap(this.level.clouds)
-        this.addObjectsToMap(this.level.coins)
+        this.addObjectsToMap(this.coins)
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
@@ -131,6 +134,13 @@ class World {
         }
 
 
+    }
+
+    setCoins() {
+        for (let i = 0; i < this.level.coins.length; i++) {
+            const coin = this.level.coins[i];
+            this.coins.push(coin)
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 let levelLength = 8
 
+
 function setBackground() {
     backgroundObjects.push()
     for (let i = 0; i < levelLength; i++) {
@@ -64,7 +65,8 @@ const level1 = new Level(
     ],
 
     mainTheme = [
-        AUDIOS.theme
+        AUDIOS.theme_song
     ],
     setBackground(),
 )
+

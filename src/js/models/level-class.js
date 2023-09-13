@@ -16,17 +16,16 @@ class Level {
         this.mainTheme = mainTheme
         this.playBackgroundSound(bgSound)
         this.playBackgroundSound(mainTheme)
-        this.setVolume(1, bgSound)
-        this.setVolume(0.3, mainTheme)
+     
     }
 
     playBackgroundSound(sounds) {
 
         sounds.forEach(bgSound => {
-            setTimeout(() => {
+       
                 bgSound.loop = true
                 bgSound.play()
-            }, 5000);
+   
         });
     }
 

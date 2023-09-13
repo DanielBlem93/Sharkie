@@ -12,7 +12,7 @@ class Character extends MovableObjekt {
     j = 0
     s = 0
     world;
-  
+
 
 
 
@@ -150,7 +150,7 @@ class Character extends MovableObjekt {
 
         if (idleTime >= 5000 && this.querrys(1)) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
-            AUDIOS.snoring.volume= 0.0
+            AUDIOS.snoring.volume = 0.0
             AUDIOS.snoring.play()
         }
     }
@@ -165,10 +165,10 @@ class Character extends MovableObjekt {
         }
     }
 
-    collectItem() {
-        console.log('coin gesammelt')
-        AUDIOS.collect_coin.play()
+    collectItem(index) {
         this.world.coinBar.setCoins(4)
+        this.world.coins[index].playCoinSound()
+        this.world.coins.splice(index, 1);
     }
 
     querrys(q) {
@@ -191,7 +191,7 @@ class Character extends MovableObjekt {
 
 
 
-
+    ad
 
 
 
