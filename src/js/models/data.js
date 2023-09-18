@@ -202,7 +202,6 @@ AUDIOS = {
 
     //Sounds from Character
     throw_sound: new Audio('src/audio/throw.mp3'),
-    bottleCracking_sound: new Audio('src/audio/bottle-cracking.mp3'),
     walking_sound: new Audio('src/audio/running.mp3'),
     jumping_sound: new Audio('src/audio/jump-hoy.mp3'),
     jump_landing_sound: new Audio('src/audio/jump-landing.mp3'),
@@ -211,7 +210,11 @@ AUDIOS = {
         new Audio('src/audio/hurt2.mp3')
     ],
     snoring: new Audio('src/audio/snoring.mp3'),
+
+    //object sounds
     collect_coin: new Audio('src/audio/coin-sound.mp3'),
+    blop: new Audio('src/audio/blop.mp3'),
+    bottleCracking_sound: new Audio('src/audio/bottle-cracking.mp3'),
 
     //sounds for normal Chickens
     CHICKEN_SOUND: [

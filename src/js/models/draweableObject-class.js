@@ -7,8 +7,6 @@ class DrawableObject  {
     currentImage = 0;
     imageCache = {};
 
-
-
     loadImage(path) {
 
         this.img = new Image()
@@ -20,7 +18,7 @@ class DrawableObject  {
     }
     
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Coin) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Coin || this instanceof Bottle) {
             ctx.beginPath()
             ctx.lineWidth = '5'
             ctx.strokeStyle = 'blue'
@@ -29,7 +27,6 @@ class DrawableObject  {
         }
     }
 
-    
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image()
@@ -37,8 +34,6 @@ class DrawableObject  {
             this.imageCache[path] = img;
         })
     }
-
-
 }
 
 

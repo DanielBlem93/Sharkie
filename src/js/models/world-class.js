@@ -14,6 +14,7 @@ class World {
     level = level1
     bottles = []
     coins = []
+    bottles_coll = []
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d')
@@ -27,6 +28,7 @@ class World {
     setWorld() {
         this.character.world = this
         this.setCoins()
+
         lastKeyPressTime = Date.now()//important for idle animation
     }
     run() {
@@ -71,6 +73,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects)
         this.addObjectsToMap(this.level.clouds)
         this.addObjectsToMap(this.coins)
+        this.addObjectsToMap(this.level.bottles_coll)
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
@@ -93,15 +96,22 @@ class World {
         });
     }
     addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo)
-        }
+        try {
 
-        mo.draw(this.ctx)
-        mo.drawFrame(this.ctx)
 
-        if (mo.otherDirection) {
-            this.flipImageBack(mo)
+            if (mo.otherDirection) {
+                this.flipImage(mo)
+            }
+            mo.draw(this.ctx)
+            mo.drawFrame(this.ctx)
+
+            if (mo.otherDirection) {
+                this.flipImageBack(mo)
+            }
+        } catch (error) {
+            console.log(error)
+            console.log(mo)
+            console.log(this.otherDirection)
         }
     }
 
@@ -138,6 +148,8 @@ class World {
             this.coins.push(coin)
         }
     }
+
+
 }
 
 

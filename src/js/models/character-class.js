@@ -164,7 +164,7 @@ class Character extends MovableObjekt {
 
     collectItem(index) {
         this.world.coinBar.setCoins(4)
-        this.world.coins[index].playCoinSound()
+        this.world.coins[index].playPickUpSound()
         this.world.coins.splice(index, 1);
     }
 
