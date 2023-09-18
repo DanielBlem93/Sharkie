@@ -7,9 +7,9 @@ let lastKeyPressTime
 function init() {
     canvas = document.getElementById('canvas')
     world = new World(canvas, keyboard)
-    
-    masterAudio.setVolume(0.1)
-  
+
+    masterAudio.setVolume(1)
+
 
     console.log('my character is', world.character)
 }

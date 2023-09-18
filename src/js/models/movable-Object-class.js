@@ -51,8 +51,9 @@ class MovableObjekt extends DrawableObject {
 
     takingDamge() {
 
-        this.energy -= 10
+        this.energy -= 50
         world.statusBar.setHealth(this.energy)
+        world.character.fallBack()
 
         if (this.energy <= 0) {
             this.energy = 0
@@ -95,8 +96,7 @@ class MovableObjekt extends DrawableObject {
                 this.s = 0;
                 this.jumped = false
 
-
-            } else {
+            } else if (this.s < jumpImgArray.length && !this.dead) {
                 let path = jumpImgArray[this.s];
                 this.img = this.imageCache[path];
                 if (this.s === jumpImgArray.length - 2)
@@ -139,6 +139,22 @@ class MovableObjekt extends DrawableObject {
     moveLeft() {
         this.x -= this.speed
     }
+    pushChar(left, right) {
+        let push = setInterval(() => {
+            if (left === 'left') {
+                this.moveLeft()
+                keyboard.right = false
+            }
+            else
+                this.moveRight()
+            keyboard.left = false
+        }, 1000 / 30);
+        setTimeout(() => {
+            clearInterval(push)
+        }, 500);
+
+    }
+
 
     playEnemySound() {
 

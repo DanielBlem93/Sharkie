@@ -22,10 +22,6 @@ class World {
         this.draw()
         this.setWorld()
         this.run()
-
-     
-
-        
     }
 
     setWorld() {

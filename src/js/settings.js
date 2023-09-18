@@ -2,11 +2,11 @@ const audio_settings = {
 
     title_song: {
         audio: AUDIOS.title_song,
-        volume: 0.3
+        volume: 0.0
     },
     theme_song: {
         audio: AUDIOS.theme_song,
-        volume: 0.3
+        volume: 0.0
     },
     boss_song: {
         audio: AUDIOS.boss_song,
@@ -42,7 +42,7 @@ const audio_settings = {
     },
     snoring: {
         audio: AUDIOS.snoring,
-        volume: 0.45664
+        volume: 0.3
     },
     collect_coin: {
         audio: AUDIOS.collect_coin,
@@ -50,11 +50,11 @@ const audio_settings = {
     },
     quiet_chicken: {
         audio: AUDIOS.CHICKEN_SOUND[0],
-        volume: 1
+        volume: 0.3
     },
     loud_chicken: {
         audio: AUDIOS.CHICKEN_SOUND[1],
-        volume: 0.7
+        volume: 0.3
     },
     hurt1: {
         audio: AUDIOS.HURT_SOUNDS[0],

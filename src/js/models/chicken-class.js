@@ -4,10 +4,6 @@ class Chicken extends MovableObjekt {
     y = 330
     sound = AUDIOS.quiet_chicken
     
-
-
-
-
     constructor() {
         super()
         this.loadImage(CHICKEN_IMAGES.IMAGES_WALKING[1])
@@ -19,8 +15,6 @@ class Chicken extends MovableObjekt {
         this.animate()
         this.randomSound()
     }
-
-
 
     animate() {
 

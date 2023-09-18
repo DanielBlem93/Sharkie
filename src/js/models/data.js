@@ -194,6 +194,7 @@ AUDIOS = {
     title_song: new Audio('src/audio/loca-salsa-song.mp3'),
     theme_song: new Audio('src/audio/light-salsa-song.mp3'),
     boss_song: new Audio('src/audio/light-salsa-song.mp3'),
+    game_over: new Audio('src/audio/game-over.mp3'),
 
     //BackgroundSounds
     wind: new Audio('src/audio/background_sound_wind.mp3'),

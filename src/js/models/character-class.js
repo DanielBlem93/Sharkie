@@ -14,8 +14,6 @@ class Character extends MovableObjekt {
     world;
 
 
-
-
     constructor() {
         super()
         this.loadImage(CHARACTER_IMAGES.IMAGES_IDLE[1])
@@ -51,33 +49,33 @@ class Character extends MovableObjekt {
         this.dieing()
     }
 
-
     fixCameraOnCharacter() {
         this.world.camera_x = -this.x + 100
     }
-
 
     dieing() {
         setInterval(() => {
             if (this.dead) {
                 if (this.j < CHARACTER_IMAGES.IMAGES_DEAD.length) {
                     this.playDeathAnimation()
+                    AUDIOS.game_over.play()
+                    this.fallDown()
 
                 } else {
                     this.died = true
                     this.disableCharacter()
+                
                 }
             }
         }, 1000 / 7);
+
     }
 
     disableCharacter() {
         if (this.died) {
-            this.loadImage('src/img/2_character_pepe/5_dead/D-57.png')
+            this.loadImage('src/img/2_character_pepe/5_dead/D-56.png')
         }
     }
-
-
 
     walkingRight() {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.dead) {
@@ -150,7 +148,6 @@ class Character extends MovableObjekt {
 
         if (idleTime >= 5000 && this.querrys(1)) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
-            AUDIOS.snoring.volume = 0.0
             AUDIOS.snoring.play()
         }
     }
@@ -171,6 +168,25 @@ class Character extends MovableObjekt {
         this.world.coins.splice(index, 1);
     }
 
+    fallBack() {
+        if (!this.isCharacterAboveGround() && !this.dead) {
+            setTimeout(() => {
+                this.speedY = 20
+                if (this.otherDirection === true)
+                    this.pushChar('right')
+                else
+                    this.pushChar('left')
+            }, 10);
+        }
+    }
+
+    fallDown() {
+        setInterval(() => {
+            this.y += 3
+        }, 1000 / 30);
+
+    }
+
     querrys(q) {
         if (q === 1) {
             //checks is any other animation/move running
@@ -182,16 +198,6 @@ class Character extends MovableObjekt {
         }
 
     }
-
-
-
-
-
-
-
-
-
-    ad
 
 
 
