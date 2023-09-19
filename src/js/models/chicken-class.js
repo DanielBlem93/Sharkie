@@ -33,10 +33,7 @@ class Chicken extends MovableObjekt {
         this.sound.volume = 0.3
     }
 
-    getRandomNumber(array) {
-        let index = array.length - 1
-        return Math.round(Math.random() * index);
-    }
+ 
 
 }
 

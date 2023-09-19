@@ -64,7 +64,7 @@ class Character extends MovableObjekt {
                 } else {
                     this.died = true
                     this.disableCharacter()
-                
+
                 }
             }
         }, 1000 / 7);
@@ -162,11 +162,7 @@ class Character extends MovableObjekt {
         }
     }
 
-    collectItem(index) {
-        this.world.coinBar.setCoins(4)
-        this.world.coins[index].playPickUpSound()
-        this.world.coins.splice(index, 1);
-    }
+   
 
     fallBack() {
         if (!this.isCharacterAboveGround() && !this.dead) {
@@ -184,7 +180,6 @@ class Character extends MovableObjekt {
         setInterval(() => {
             this.y += 3
         }, 1000 / 30);
-
     }
 
     querrys(q) {
@@ -196,7 +191,6 @@ class Character extends MovableObjekt {
             //disables move animation while in the air or when dead
             return this.world.keyboard.right && !this.dead && !this.isCharacterAboveGround() || this.world.keyboard.left && !this.dead && !this.isCharacterAboveGround()
         }
-
     }
 
 

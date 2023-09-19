@@ -2,7 +2,7 @@ class BottlesBar extends StatusBar {
 
 
 
-    bottles = 100
+    bottles = 20
 
     constructor() {
 
@@ -12,8 +12,16 @@ class BottlesBar extends StatusBar {
         this.setBottles(0)
     }
 
-    setBottles(bottles) {
-        this.bottles -= bottles
+    setBottles(amount, work) {
+        switch (work) {
+            case 'add':
+                this.bottles += amount
+                break;
+
+            case 'remove':
+                this.bottles -= amount
+                break;
+        }
         this.changeBarValues(STATUSBAR_IMAGES.BOTTLESBAR_IMAGES, this.bottles)
     }
 

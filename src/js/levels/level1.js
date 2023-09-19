@@ -49,13 +49,18 @@ const level1 = new Level(
     ],
     [
         new Coin(300, 300),
-        new Coin(350, 250),
-        new Coin(400, 200)
+        new Coin(550, 250),
+        new Coin(650, 250),
+        new Coin(750, 250),
+        new Coin(850, 250),
+        new Coin(900, 200)
     ],
     [
-        new Bottle(300, 300),
-        new Bottle(400, 300),
-        new Bottle(500, 300),
+        new Bottle(300, 340),
+        new Bottle(600, 330),
+        new Bottle(800, 350),
+        new Bottle(1000, 340),
+        new Bottle(1200, 330),
     ],
     [
         AUDIOS.wind,

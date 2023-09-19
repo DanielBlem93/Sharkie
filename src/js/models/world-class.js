@@ -13,8 +13,7 @@ class World {
 
     level = level1
     bottles = []
-    coins = []
-    bottles_coll = []
+    CollectableObjects = []
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d')
@@ -27,7 +26,8 @@ class World {
 
     setWorld() {
         this.character.world = this
-        this.setCoins()
+        this.setCollectableObjects(this.level.coins)
+        this.setCollectableObjects(this.level.bottles_coll)
 
         lastKeyPressTime = Date.now()//important for idle animation
     }
@@ -60,9 +60,9 @@ class World {
             }
         });
 
-        this.coins.forEach((coin, index) => {
-            if (this.character.isColliding(coin)) {
-                this.character.collectItem(index);
+        this.CollectableObjects.forEach((object, index) => {
+            if (this.character.isColliding(object)) {
+                this.CollectableObjects[index].collectItem(index);
             }
         });
     }
@@ -72,8 +72,7 @@ class World {
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.backgroundObjects)
         this.addObjectsToMap(this.level.clouds)
-        this.addObjectsToMap(this.coins)
-        this.addObjectsToMap(this.level.bottles_coll)
+        this.addObjectsToMap(this.CollectableObjects)
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
@@ -97,8 +96,6 @@ class World {
     }
     addToMap(mo) {
         try {
-
-
             if (mo.otherDirection) {
                 this.flipImage(mo)
             }
@@ -111,7 +108,7 @@ class World {
         } catch (error) {
             console.log(error)
             console.log(mo)
-            console.log(this.otherDirection)
+
         }
     }
 
@@ -138,17 +135,15 @@ class World {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
             //dont allow any other move when you throwing for the other direction
         }
-
-
     }
 
-    setCoins() {
-        for (let i = 0; i < this.level.coins.length; i++) {
-            const coin = this.level.coins[i];
-            this.coins.push(coin)
+    setCollectableObjects(array){
+        for (let I = 0; I < array.length; I++) {
+            const objects = array[I];
+            this.CollectableObjects.push(objects)
+            
         }
     }
-
 
 }
 

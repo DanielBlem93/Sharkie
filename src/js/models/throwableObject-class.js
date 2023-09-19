@@ -45,7 +45,7 @@ class ThrowableObject extends MovableObjekt {
         }, 1000 / 60);
 
         this.bottleCracking()
-        world.bottlesBar.setBottles(10)
+        world.bottlesBar.setBottles(10,'remove')
     }
 
     throwRight() {

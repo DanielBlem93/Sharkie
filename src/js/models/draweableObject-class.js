@@ -34,6 +34,25 @@ class DrawableObject  {
             this.imageCache[path] = img;
         })
     }
+
+    flipImage(mo) {
+
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0)
+        this.ctx.scale(-1, 1)
+        mo.x = mo.x * -1
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1
+        this.ctx.restore()
+    }
+
+    getRandomNumber(array) {
+        let index = array.length - 1
+        return Math.round(Math.random() * index);
+    }
 }
+
 
 
