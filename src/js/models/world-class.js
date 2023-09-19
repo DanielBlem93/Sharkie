@@ -97,13 +97,13 @@ class World {
     addToMap(mo) {
         try {
             if (mo.otherDirection) {
-                this.flipImage(mo)
+                mo.flipImage(mo)
             }
             mo.draw(this.ctx)
             mo.drawFrame(this.ctx)
 
             if (mo.otherDirection) {
-                this.flipImageBack(mo)
+                mo.flipImageBack(mo)
             }
         } catch (error) {
             console.log(error)
@@ -112,18 +112,15 @@ class World {
         }
     }
 
-    flipImage(mo) {
-
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0)
-        this.ctx.scale(-1, 1)
-        mo.x = mo.x * -1
+    setCollectableObjects(array){
+        for (let I = 0; I < array.length; I++) {
+            const objects = array[I];
+            this.CollectableObjects.push(objects)
+            
+        }
     }
 
-    flipImageBack(mo) {
-        mo.x = mo.x * -1
-        this.ctx.restore()
-    }
+ 
 
     querys(s) {
         if (s === 1) {
@@ -137,13 +134,7 @@ class World {
         }
     }
 
-    setCollectableObjects(array){
-        for (let I = 0; I < array.length; I++) {
-            const objects = array[I];
-            this.CollectableObjects.push(objects)
-            
-        }
-    }
+   
 
 }
 

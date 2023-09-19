@@ -155,6 +155,11 @@ class MovableObjekt extends DrawableObject {
 
     }
 
+    fallDown() {
+        setInterval(() => {
+            this.y += 3
+        }, 1000 / 30);
+    }
 
     playEnemySound() {
 

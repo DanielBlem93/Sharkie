@@ -37,15 +37,15 @@ class DrawableObject  {
 
     flipImage(mo) {
 
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0)
-        this.ctx.scale(-1, 1)
+        world.ctx.save();
+        world.ctx.translate(mo.width, 0)
+        world.ctx.scale(-1, 1)
         mo.x = mo.x * -1
     }
 
     flipImageBack(mo) {
         mo.x = mo.x * -1
-        this.ctx.restore()
+        world.ctx.restore()
     }
 
     getRandomNumber(array) {
