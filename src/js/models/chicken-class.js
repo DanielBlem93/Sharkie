@@ -35,18 +35,27 @@ class Chicken extends MovableObjekt {
         let randomIndex = this.getRandomNumber(AUDIOS.CHICKEN_SOUND)
         this.sound = AUDIOS.CHICKEN_SOUND[randomIndex]
         this.sound.volume = 0.3
+        
+    }
+
+    stopChickenSound() {
+        if (this.sound) {
+            this.sound.pause(); // Den Sound anhalten
+            this.sound.currentTime = 0; // Zurück auf den Anfang setzen
+        }
     }
 
     isDead() {
 
         if (this.hp === 0) {
             this.dead = true
+            this.stopChickenSound()
         }
 
         else if (this.dead) {
             this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
-            this.speed = 0
             clearInterval(this.walk_interval)
+            this.speed = 0
             this.demage = 0
             setTimeout(() => {
                 this.removeFromWorld(); // Hier das Chicken entfernen

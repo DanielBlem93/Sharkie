@@ -52,31 +52,34 @@ class World {
     }
 
     checkCollisions() {
+        this.enemyCollisionHandler()
+        this.collectablesCollisionHandler()
+    }
+
+    enemyCollisionHandler() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit(enemy.demage);
-            } else if (this.character.isInSight(enemy, 600) && !enemy.dead) {
+            if (this.characterIsCollidingEnemy(enemy)) {
+                this.character.hit(enemy.demage)
+            } else if (this.enemyIsInSight(enemy))
                 enemy.playEnemySound();
-            }
 
             this.bottles.forEach((bottle) => {
                 if (this.checkBottleEnemyCollision(bottle, enemy)) {
-                    console.log('chicken get dmg')
-                    bottle.bottleOnGround = true
-                    bottle.bottleCracking()
-                    enemy.hp -= 20
-                    if (enemy.isDead()) {
-                        this.removeEnemy(enemy);
-                    }
+                    this.enemyGetDemage(bottle, enemy)
                 }
             });
         });
+    }
+    characterIsCollidingEnemy(enemy) {
+        if (this.character.isColliding(enemy)) {
+            return true
+        } else return false
+    }
 
-        this.CollectableObjects.forEach((object, index) => {
-            if (this.character.isColliding(object)) {
-                this.CollectableObjects[index].collectItem(index);
-            }
-        });
+    enemyIsInSight(enemy) {
+        if (this.character.isInSight(enemy, 600) && !enemy.dead) {
+            return true
+        } else return false
     }
 
     checkBottleEnemyCollision(bottle, enemy) {
@@ -86,14 +89,30 @@ class World {
         return false; // Keine Kollision
     }
 
+    collectablesCollisionHandler() {
+        this.CollectableObjects.forEach((object, index) => {
+            if (this.character.isColliding(object)) {
+                this.CollectableObjects[index].collectItem(index);
+            }
+        });
+    }
+
+    enemyGetDemage(bottle, enemy) {
+        console.log('chicken get dmg')
+        bottle.bottleOnGround = true
+        bottle.bottleCracking()
+        enemy.hp -= 20
+        if (enemy.isDead()) {
+            this.removeEnemy(enemy);
+        }
+    }
+
     removeEnemy(enemy) {
         const index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
             this.level.enemies.splice(index, 1);
         }
     }
-
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, canvas.height)
@@ -115,13 +134,14 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         })
-
     }
+
     addObjectsToMap(obc) {
         obc.forEach(o => {
             this.addToMap(o);
         });
     }
+
     addToMap(mo) {
         try {
             if (mo.otherDirection) {
@@ -146,8 +166,6 @@ class World {
 
         }
     }
-
-
 
     querys(s) {
         if (s === 1) {
