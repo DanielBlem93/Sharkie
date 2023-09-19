@@ -3,7 +3,7 @@ class Endboss extends MovableObjekt {
     height = 500
     width = 300
     y = -35
-
+    sound = AUDIOS.quiet_chicken
     IMAGES_WALKING = [
         'src/img/4_enemie_boss_chicken/2_alert/G5.png',
         'src/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -20,14 +20,22 @@ class Endboss extends MovableObjekt {
         super().loadImage(this.IMAGES_WALKING[0])
         this.loadImages(this.IMAGES_WALKING)
 
-        this.x = 719*6.5;
+        this.x = 719 * 6.5;
         this.animate()
+        this.randomSound()
 
     }
 
-    animate(){
+    animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING)
         }, 1000 / 8);
     }
+
+    randomSound() {
+        let randomIndex = this.getRandomNumber(AUDIOS.CHICKEN_SOUND)
+        this.sound = AUDIOS.CHICKEN_SOUND[randomIndex]
+        this.sound.volume = 0.3
+    }
+
 }

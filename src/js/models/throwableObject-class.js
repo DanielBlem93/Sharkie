@@ -1,12 +1,13 @@
 class ThrowableObject extends MovableObjekt {
-  
+
     t = 0
     r = 0
     intervalId
     bottleOnGround = false
 
     constructor(x, y) {
-        super().loadImage(THROWABLES_IMAGES.BOTTLE_IMAGES[1])
+        super()
+        this.loadImage(THROWABLES_IMAGES.BOTTLE_IMAGES[1])
         this.loadImages(THROWABLES_IMAGES.BOTTLE_IMAGES)
         this.loadImages(THROWABLES_IMAGES.SPLASH_IMAGES)
         this.x = x
@@ -39,13 +40,13 @@ class ThrowableObject extends MovableObjekt {
             else if (direction === 'left') {
                 this.throwLeft()
             }
-           
+
             this.checkBottleOnGround()
 
         }, 1000 / 60);
 
         this.bottleCracking()
-        world.bottlesBar.setBottles(10,'remove')
+        world.bottlesBar.setBottles(10, 'remove')
     }
 
     throwRight() {
@@ -56,7 +57,7 @@ class ThrowableObject extends MovableObjekt {
     }
 
     checkBottleOnGround() {
-        if (this.y >= 310) {
+        if (this.y >= 350) {
             this.bottleOnGround = true
             clearInterval(this.intervalId)
         }
@@ -84,18 +85,18 @@ class ThrowableObject extends MovableObjekt {
         }, 1000 / 8);
     }
 
-    destroyBottle() {
-        if (this.t >= THROWABLES_IMAGES.SPLASH_IMAGES.length)
-            world.bottles.splice(0, 1)
-    }
+destroyBottle() {
+    if (this.t >= THROWABLES_IMAGES.SPLASH_IMAGES.length)
+        world.bottles.splice(0, 1)
+}
 
-    splashAnimation() {
-        this.t = this.animateImageOnce(THROWABLES_IMAGES.SPLASH_IMAGES, this.t);
-    }
+splashAnimation() {
+    this.t = this.animateImageOnce(THROWABLES_IMAGES.SPLASH_IMAGES, this.t);
+}
 
-    rotateAnimation() {
-        this.r = this.animateImageOnce(THROWABLES_IMAGES.BOTTLE_IMAGES, this.r);
-    }
+rotateAnimation() {
+    this.r = this.animateImageOnce(THROWABLES_IMAGES.BOTTLE_IMAGES, this.r);
+}
 
 
 

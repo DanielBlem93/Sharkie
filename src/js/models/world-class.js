@@ -54,10 +54,22 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
+                this.character.hit(enemy.demage);
             } else if (this.character.isInSight(enemy, 600) && !enemy.dead) {
                 enemy.playEnemySound();
             }
+
+            this.bottles.forEach((bottle) => {
+                if (this.checkBottleEnemyCollision(bottle, enemy)) {
+                    console.log('chicken get dmg')
+                    bottle.bottleOnGround = true
+                    bottle.bottleCracking()
+                    enemy.hp -= 20
+                    if (enemy.isDead()) {
+                        this.removeEnemy(enemy);
+                    }
+                }
+            });
         });
 
         this.CollectableObjects.forEach((object, index) => {
@@ -66,6 +78,22 @@ class World {
             }
         });
     }
+
+    checkBottleEnemyCollision(bottle, enemy) {
+        if (bottle.isColliding(enemy)) {
+            return true; // Kollision wurde festgestellt
+        }
+        return false; // Keine Kollision
+    }
+
+    removeEnemy(enemy) {
+        const index = this.level.enemies.indexOf(enemy);
+        if (index > -1) {
+            this.level.enemies.splice(index, 1);
+        }
+    }
+
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, canvas.height)
@@ -108,19 +136,18 @@ class World {
         } catch (error) {
             console.log(error)
             console.log(mo)
-
         }
     }
 
-    setCollectableObjects(array){
+    setCollectableObjects(array) {
         for (let I = 0; I < array.length; I++) {
             const objects = array[I];
             this.CollectableObjects.push(objects)
-            
+
         }
     }
 
- 
+
 
     querys(s) {
         if (s === 1) {
@@ -134,7 +161,7 @@ class World {
         }
     }
 
-   
+
 
 }
 

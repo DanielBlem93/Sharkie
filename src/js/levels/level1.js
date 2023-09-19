@@ -1,4 +1,4 @@
-let levelLength = 8;
+let levelLength = 10;
 
 function setBackground() {
     backgroundObjects.push();
@@ -21,6 +21,7 @@ function setBackground() {
 }
 
 const level1 = new Level(
+
     [
         new Chicken(),
         new Chicken(),
@@ -31,6 +32,8 @@ const level1 = new Level(
         new Endboss()
     ],
     [
+        new Cloud(),
+        new Cloud(),
         new Cloud(),
         new Cloud(),
         new Cloud(),

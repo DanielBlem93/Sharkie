@@ -4,14 +4,13 @@ class Character extends MovableObjekt {
     height = 300;
     width = 150;
     speed = 10
-    dead = false
     died = false
     jumped = false
     sperre = false
     CoolDownTime = 1500 //  /1000=sec
+    world;
     j = 0
     s = 0
-    world;
 
 
     constructor() {
@@ -162,7 +161,21 @@ class Character extends MovableObjekt {
         }
     }
 
-   
+    takingDamge(demage) {
+
+        this.energy -= demage
+        this.world.statusBar.setHealth(this.energy)
+        this.fallBack()
+
+        if (this.energy <= 0) {
+            this.energy = 0
+            this.dead = true
+        } else {
+            this.lastHit = new Date().getTime()
+            lastKeyPressTime = this.lastHit
+            this.playHurtSound()
+        }
+    }
 
     fallBack() {
         if (!this.isCharacterAboveGround() && !this.dead) {
@@ -176,10 +189,12 @@ class Character extends MovableObjekt {
         }
     }
 
-    fallDown() {
-        setInterval(() => {
-            this.y += 3
-        }, 1000 / 30);
+    isHurt() {
+
+        let timepassed = new Date().getTime() - this.lastHit // differece in ms
+        timepassed = timepassed / 1000 // difference in s
+
+        return timepassed < 1
     }
 
     querrys(q) {

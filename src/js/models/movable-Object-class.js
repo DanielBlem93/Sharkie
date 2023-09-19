@@ -10,7 +10,8 @@ class MovableObjekt extends DrawableObject {
     godmode = false
     sound
     currentSound = 0
-
+    getHit
+    dead = false
 
     // 
     isColliding(mo) {
@@ -19,6 +20,7 @@ class MovableObjekt extends DrawableObject {
             this.x + this.width > mo.x &&
             this.y + this.height > mo.y;
     }
+
     isInSight(mo, sightRange) {
         const centerX = this.x + this.width / 2;
         const centerY = this.y + this.height / 2;
@@ -30,12 +32,13 @@ class MovableObjekt extends DrawableObject {
 
         return distance <= sightRange;
     }
-    hit() {
+
+    hit(demage) {
 
         if (this.godmode) {
-            console.log('No damge takden, Godmode on')
+            console.log('Godmode on')
         } else {
-            this.takingDamge();
+            this.takingDamge(demage);
             this.godmodeON();
         }
     }
@@ -47,30 +50,6 @@ class MovableObjekt extends DrawableObject {
             this.loadImage('src/img/2_character_pepe/2_walk/W-21.png')
         }, 1000);
 
-    }
-
-    takingDamge() {
-
-        this.energy -= 50
-        world.statusBar.setHealth(this.energy)
-        world.character.fallBack()
-
-        if (this.energy <= 0) {
-            this.energy = 0
-            this.dead = true
-        } else {
-            this.lastHit = new Date().getTime()
-            lastKeyPressTime = this.lastHit
-            world.character.playHurtSound()
-        }
-    }
-
-    isHurt() {
-
-        let timepassed = new Date().getTime() - this.lastHit // differece in ms
-        timepassed = timepassed / 1000 // difference in s
-
-        return timepassed < 1
     }
 
     playAnimation(images) {

@@ -2,8 +2,11 @@ class Chicken extends MovableObjekt {
     height = 100
     width = 80
     y = 330
+    hp = 20
+    demage = 20
     sound = AUDIOS.quiet_chicken
-    
+    walk_interval
+
     constructor() {
         super()
         this.loadImage(CHICKEN_IMAGES.IMAGES_WALKING[1])
@@ -20,9 +23,10 @@ class Chicken extends MovableObjekt {
 
         setInterval(() => {
             this.moveLeft()
+            this.isDead()
         }, 1000 / 60);
 
-        setInterval(() => {
+        this.walk_interval = setInterval(() => {
             this.playAnimation(CHICKEN_IMAGES.IMAGES_WALKING)
         }, 1000 / 10);
     }
@@ -33,7 +37,27 @@ class Chicken extends MovableObjekt {
         this.sound.volume = 0.3
     }
 
- 
+    isDead() {
+
+        if (this.hp === 0) {
+            this.dead = true
+        }
+
+        else if (this.dead) {
+            this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
+            this.speed = 0
+            clearInterval(this.walk_interval)
+            this.demage = 0
+            setTimeout(() => {
+                this.removeFromWorld(); // Hier das Chicken entfernen
+            }, 500);
+        }
+    }
+
+    removeFromWorld() {
+        world.removeEnemy(this); // Methode in der World-Klasse aufrufen
+    }
+
 
 }
 
