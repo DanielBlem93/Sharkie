@@ -1,18 +1,23 @@
 class Chicken extends MovableObjekt {
     height = 100
     width = 80
+    hitboxHeight = 50;
+    hitboxWidth = 50;
+    hitboxX = 12.5
+    hitboxY = 12.5
     y = 330
     hp = 20
     demage = 20
     sound = AUDIOS.quiet_chicken
     walk_interval
+    
 
     constructor() {
         super()
         this.loadImage(CHICKEN_IMAGES.IMAGES_WALKING[1])
         this.loadImages(CHICKEN_IMAGES.IMAGES_WALKING)
 
-        this.x = 719 + Math.random() * 719 * levelLength;
+        this.x = 400 + Math.random() * 719 * levelLength;
         this.speed = 0.15 + Math.random() * 0.3;
         this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.animate()
@@ -44,8 +49,6 @@ class Chicken extends MovableObjekt {
             this.deadSound.pause(); 
             this.sound.currentTime = 0; // Zurück auf den Anfang setzen
             this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
-        
-
         }
     }
 
@@ -65,7 +68,7 @@ class Chicken extends MovableObjekt {
 
             setTimeout(() => {
                 this.removeFromWorld(); // Hier das Chicken entfernen
-            }, 100);
+            }, 200);
         }
     }
 

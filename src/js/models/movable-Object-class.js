@@ -16,21 +16,21 @@ class MovableObjekt extends DrawableObject {
 
     // 
     isColliding(mo) {
+        const hitboxX = this.x + this.hitboxX;
+        const hitboxY = this.y + this.hitboxY;
+    
         if (mo instanceof MovableObjekt) {
-
-            return this.x < mo.x + mo.width &&
-                this.y < mo.y + mo.height &&
-                this.x + this.width > mo.x &&
-                this.y + this.height > mo.y &&
+            return hitboxX < mo.x + mo.hitboxX + mo.hitboxWidth &&
+                hitboxY < mo.y + mo.hitboxY + mo.hitboxHeight &&
+                hitboxX + this.hitboxWidth > mo.x + mo.hitboxX &&
+                hitboxY + this.hitboxHeight > mo.y + mo.hitboxY &&
                 !world.character.jumped &&
-                !world.character.isFallingBack 
-        }
-        else {
-            return this.x < mo.x + mo.width &&
-                this.y < mo.y + mo.height &&
-                this.x + this.width > mo.x &&
-                this.y + this.height > mo.y
-                
+                !world.character.isFallingBack;
+        } else {
+            return hitboxX < mo.x + mo.hitboxX + mo.hitboxWidth &&
+                hitboxY < mo.y + mo.hitboxY + mo.hitboxHeight &&
+                hitboxX + this.hitboxWidth > mo.x + mo.hitboxX &&
+                hitboxY + this.hitboxHeight > mo.y + mo.hitboxY;
         }
     }
 

@@ -1,8 +1,11 @@
 class Endboss extends MovableObjekt {
-
     height = 500
     width = 300
-    y = -35
+    hitboxHeight = 250;
+    hitboxWidth = 200;
+    hitboxX = 65
+    hitboxY = 100
+    y = -40
     sound = AUDIOS.quiet_chicken
     IMAGES_WALKING = [
         'src/img/4_enemie_boss_chicken/2_alert/G5.png',

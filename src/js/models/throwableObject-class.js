@@ -1,5 +1,8 @@
 class ThrowableObject extends MovableObjekt {
-
+    hitboxHeight = 35;
+    hitboxWidth = 35;
+    hitboxX = 17
+    hitboxY = 20
     t = 0
     r = 0
     intervalId

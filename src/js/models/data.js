@@ -118,6 +118,18 @@ CHICKEN_IMAGES = {
     ]
 }
 
+BABY_CHICKEN_IMAGES = {
+    IMAGES_WALKING: [
+        'src/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        'src/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        'src/img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
+    ],
+
+    IMAGES_DEAD: [
+        'src/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+    ]
+}
+
 CHICKEN_BOSS_IMAGES = {
     IMAGES_ALERT: [
         'src/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -224,7 +236,10 @@ AUDIOS = {
         new Audio('src/audio/quiet-chicken.mp3'),
         new Audio('src/audio/Chicken-sound.mp3')
     ],
-    CHICKEN_DEAD_SOUND: new Audio('src/audio/chicken-dead.mp3')
+    CHICKEN_DEAD_SOUND: new Audio('src/audio/chicken-dead.mp3'),
+
+    //sounds for baby Chicken
+    babyChicken: new Audio('src/audio/babychicken.mp3'),
 
 
 

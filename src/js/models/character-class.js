@@ -3,6 +3,10 @@ class Character extends MovableObjekt {
     y = 135;//135
     height = 300;
     width = 150;
+    hitboxHeight = 150;
+    hitboxWidth = 75;
+    hitboxX = 30
+    hitboxY = 135
     speed = 10
     died = false
     jumped = false

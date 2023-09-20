@@ -3,6 +3,10 @@ class DrawableObject {
     y = 50;
     height = 300;
     width = 150;
+    hitboxHeight = 50;
+    hitboxWidth = 50;
+    hitboxX = 50
+    hitboxY = 50
     img;
     currentImage = 0;
     imageCache = {};
@@ -19,12 +23,20 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject) {
-            ctx.beginPath()
-            ctx.lineWidth = '5'
-            ctx.strokeStyle = 'blue'
-            ctx.rect(this.x, this.y, this.width, this.height)
-            ctx.stroke()
+        if (this instanceof MovableObjekt || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject) {
+            // ctx.beginPath()
+            // ctx.lineWidth = '5'
+            // ctx.strokeStyle = 'blue'
+            // ctx.rect(this.x, this.y, this.width, this.height)
+            // ctx.stroke()
+            const hitboxX = this.x + this.hitboxX
+            const hitboxY = this.y + this.hitboxY
+
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'red';
+            ctx.rect(hitboxX, hitboxY, this.hitboxWidth, this.hitboxHeight);
+            ctx.stroke();
         }
     }
 
