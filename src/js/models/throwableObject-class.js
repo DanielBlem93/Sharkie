@@ -85,18 +85,18 @@ class ThrowableObject extends MovableObjekt {
         }, 1000 / 8);
     }
 
-destroyBottle() {
-    if (this.t >= THROWABLES_IMAGES.SPLASH_IMAGES.length)
-        world.bottles.splice(0, 1)
-}
+    destroyBottle() {
+        if (this.t >= THROWABLES_IMAGES.SPLASH_IMAGES.length)
+            world.bottles.splice(0, 1)
+    }
 
-splashAnimation() {
-    this.t = this.animateImageOnce(THROWABLES_IMAGES.SPLASH_IMAGES, this.t);
-}
+    splashAnimation() {
+        this.t = this.animateImageOnce(THROWABLES_IMAGES.SPLASH_IMAGES, this.t);
+    }
 
-rotateAnimation() {
-    this.r = this.animateImageOnce(THROWABLES_IMAGES.BOTTLE_IMAGES, this.r);
-}
+    rotateAnimation() {
+        this.r = this.animateImageOnce(THROWABLES_IMAGES.BOTTLE_IMAGES, this.r);
+    }
 
 
 

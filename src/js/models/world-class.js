@@ -35,8 +35,29 @@ class World {
         setInterval(() => {
             this.checkCollisions()
             this.checkThrowObjects()
-        }, 100);
+            this.checkJumpKill();
+        }, 50);
     }
+
+    checkJumpKill() {
+        const character = this.character;
+        const enemies = this.level.enemies;
+
+        if (character.jumped && character.speedY < 0 &&!character.godmode) {
+            for (let i = 0; i < enemies.length; i++) {
+                const enemy = enemies[i];
+                if (
+                    character.x < enemy.x + enemy.width &&
+                    character.x + character.width > enemy.x &&
+                    character.y + character.height > enemy.y &&
+                    character.y + character.height < enemy.y + enemy.height
+                ) {
+                    this.reduceEnemyHp(enemy, 20);
+                }
+            }
+        }
+    }
+
 
     checkThrowObjects() {
         if (this.querys(1)) {
@@ -65,7 +86,7 @@ class World {
 
             this.bottles.forEach((bottle) => {
                 if (this.checkBottleEnemyCollision(bottle, enemy)) {
-                    this.enemyGetDemage(bottle, enemy)
+                    this.enemyGetBottleHit(bottle, enemy)
                 }
             });
         });
@@ -97,11 +118,15 @@ class World {
         });
     }
 
-    enemyGetDemage(bottle, enemy) {
+    enemyGetBottleHit(bottle, enemy) {
         console.log('chicken get dmg')
         bottle.bottleOnGround = true
         bottle.bottleCracking()
-        enemy.hp -= 20
+        this.reduceEnemyHp(enemy, 20)
+    }
+
+    reduceEnemyHp(enemy, dmg) {
+        enemy.hp -= dmg
         if (enemy.isDead()) {
             this.removeEnemy(enemy);
         }

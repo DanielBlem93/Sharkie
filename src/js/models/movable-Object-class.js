@@ -4,21 +4,34 @@ class MovableObjekt extends DrawableObject {
     speedY = 0
     jumpPower = 27
     acceleration = 2
-    otherDirection = false
     energy = 100
     lastHit = 0
     godmode = false
+    otherDirection = false
+    dead = false
     sound
+    deadSound
     currentSound = 0
     getHit
-    dead = false
 
     // 
     isColliding(mo) {
-        return this.x < mo.x + mo.width &&
-            this.y < mo.y + mo.height &&
-            this.x + this.width > mo.x &&
-            this.y + this.height > mo.y;
+        if (mo instanceof MovableObjekt) {
+
+            return this.x < mo.x + mo.width &&
+                this.y < mo.y + mo.height &&
+                this.x + this.width > mo.x &&
+                this.y + this.height > mo.y &&
+                !world.character.jumped &&
+                !world.character.isFallingBack 
+        }
+        else {
+            return this.x < mo.x + mo.width &&
+                this.y < mo.y + mo.height &&
+                this.x + this.width > mo.x &&
+                this.y + this.height > mo.y
+                
+        }
     }
 
     isInSight(mo, sightRange) {

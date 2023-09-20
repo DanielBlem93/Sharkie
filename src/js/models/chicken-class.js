@@ -14,7 +14,7 @@ class Chicken extends MovableObjekt {
 
         this.x = 719 + Math.random() * 719 * levelLength;
         this.speed = 0.15 + Math.random() * 0.3;
-
+        this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.animate()
         this.randomSound()
     }
@@ -41,7 +41,11 @@ class Chicken extends MovableObjekt {
     stopChickenSound() {
         if (this.sound) {
             this.sound.pause(); // Den Sound anhalten
+            this.deadSound.pause(); 
             this.sound.currentTime = 0; // Zurück auf den Anfang setzen
+            this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
+        
+
         }
     }
 
@@ -50,6 +54,7 @@ class Chicken extends MovableObjekt {
         if (this.hp === 0) {
             this.dead = true
             this.stopChickenSound()
+            this.deadSound.play()
         }
 
         else if (this.dead) {
@@ -57,9 +62,10 @@ class Chicken extends MovableObjekt {
             clearInterval(this.walk_interval)
             this.speed = 0
             this.demage = 0
+
             setTimeout(() => {
                 this.removeFromWorld(); // Hier das Chicken entfernen
-            }, 500);
+            }, 100);
         }
     }
 

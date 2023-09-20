@@ -7,6 +7,7 @@ class Character extends MovableObjekt {
     died = false
     jumped = false
     sperre = false
+    isFallingBack = false
     CoolDownTime = 1500 //  /1000=sec
     world;
     j = 0
@@ -63,7 +64,6 @@ class Character extends MovableObjekt {
                 } else {
                     this.died = true
                     this.disableCharacter()
-
                 }
             }
         }, 1000 / 7);
@@ -178,15 +178,22 @@ class Character extends MovableObjekt {
     }
 
     fallBack() {
+
         if (!this.isCharacterAboveGround() && !this.dead) {
             setTimeout(() => {
+                this.isFallingBack = true
                 this.speedY = 20
                 if (this.otherDirection === true)
                     this.pushChar('right')
-                else
+                else {
                     this.pushChar('left')
+                }
+                setTimeout(() => {
+                    this.isFallingBack = false
+                }, 1000);
             }, 10);
         }
+       
     }
 
     isHurt() {

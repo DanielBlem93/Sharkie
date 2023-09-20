@@ -223,7 +223,10 @@ AUDIOS = {
     CHICKEN_SOUND: [
         new Audio('src/audio/quiet-chicken.mp3'),
         new Audio('src/audio/Chicken-sound.mp3')
-    ]
+    ],
+    CHICKEN_DEAD_SOUND: new Audio('src/audio/chicken-dead.mp3')
+
+
 
 
 
