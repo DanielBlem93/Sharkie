@@ -18,7 +18,7 @@ class MovableObjekt extends DrawableObject {
     isColliding(mo) {
         const hitboxX = this.x + this.hitboxX;
         const hitboxY = this.y + this.hitboxY;
-    
+
         if (mo instanceof MovableObjekt) {
             return hitboxX < mo.x + mo.hitboxX + mo.hitboxWidth &&
                 hitboxY < mo.y + mo.hitboxY + mo.hitboxHeight &&
@@ -44,6 +44,13 @@ class MovableObjekt extends DrawableObject {
         const distance = Math.sqrt((centerX - moCenterX) ** 2 + (centerY - moCenterY) ** 2);
 
         return distance <= sightRange;
+    }
+
+    setRandomSpeed(speed) {
+        this.speed = speed + Math.random() * 0.3;
+    }
+    setRandomPosition(minPosition) {
+        this.x = minPosition + Math.random() * 719 * levelLength;
     }
 
     hit(demage) {
@@ -157,5 +164,6 @@ class MovableObjekt extends DrawableObject {
 
         this.sound.play()
     }
+    
 
 }

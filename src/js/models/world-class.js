@@ -168,7 +168,7 @@ class World {
     }
 
     addToMap(mo) {
-        try {
+
             if (mo.otherDirection) {
                 mo.flipImage(mo)
             }
@@ -178,10 +178,7 @@ class World {
             if (mo.otherDirection) {
                 mo.flipImageBack(mo)
             }
-        } catch (error) {
-            console.log(error)
-            console.log(mo)
-        }
+       
     }
 
     setCollectableObjects(array) {

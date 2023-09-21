@@ -1,7 +1,7 @@
 let levelLength = 10;
 
 function setBackground() {
-    backgroundObjects.push();
+   
     for (let i = 0; i < levelLength; i++) {
 
         backgroundObjects.push(
@@ -28,6 +28,9 @@ const level1 = new Level(
         new BabyChicken(),
         new Chicken(),
         new Chicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
         new BabyChicken(),
         new Chicken(),
         new Chicken(),

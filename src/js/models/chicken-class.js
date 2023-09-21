@@ -9,19 +9,19 @@ class Chicken extends MovableObjekt {
     hp = 20
     demage = 20
     sound = AUDIOS.quiet_chicken
-    walk_interval
-    
+  
+
 
     constructor() {
         super()
         this.loadImage(CHICKEN_IMAGES.IMAGES_WALKING[1])
+        this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
         this.loadImages(CHICKEN_IMAGES.IMAGES_WALKING)
-
-        this.x = 400 + Math.random() * 719 * levelLength;
-        this.speed = 0.15 + Math.random() * 0.3;
+        this.setRandomSpeed(0.2)
+        this.setRandomPosition(500)
+        this.randomSound()
         this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.animate()
-        this.randomSound()
     }
 
     animate() {
@@ -36,17 +36,19 @@ class Chicken extends MovableObjekt {
         }, 1000 / 10);
     }
 
+
+
     randomSound() {
         let randomIndex = this.getRandomNumber(AUDIOS.CHICKEN_SOUND)
         this.sound = AUDIOS.CHICKEN_SOUND[randomIndex]
         this.sound.volume = 0.3
-        
+
     }
 
     stopChickenSound() {
         if (this.sound) {
             this.sound.pause(); // Den Sound anhalten
-            this.deadSound.pause(); 
+            this.deadSound.pause();
             this.sound.currentTime = 0; // Zurück auf den Anfang setzen
             this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
         }
@@ -57,7 +59,10 @@ class Chicken extends MovableObjekt {
         if (this.hp === 0) {
             this.dead = true
             this.stopChickenSound()
-            this.deadSound.play()
+            setTimeout(() => {
+                this.deadSound.play()
+            }, 50);
+
         }
 
         else if (this.dead) {

@@ -240,6 +240,7 @@ AUDIOS = {
 
     //sounds for baby Chicken
     babyChicken: new Audio('src/audio/babychicken.mp3'),
+    BabyChickenDead: new Audio('src/audio/babychicken-dieing.mp3')
 
 
 
