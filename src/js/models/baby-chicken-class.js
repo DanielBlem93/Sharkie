@@ -38,21 +38,17 @@ class BabyChicken extends MovableObjekt {
     }
 
     isDead() {
-
         if (this.hp === 0) {
             this.dead = true
+            this.speed = 0
+            this.demage = 0
             this.stopChickenSound()
             setTimeout(() => {
                 this.deadSound.play()
             }, 50);
-        }
-
-        if (this.dead) {
             this.loadImage(BABY_CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
-            this.speed = 0
-            this.demage = 0
-
+           
             setTimeout(() => {
                 this.removeFromWorld(); 
             }, 200);

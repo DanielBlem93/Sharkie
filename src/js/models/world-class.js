@@ -30,12 +30,37 @@ class World {
         this.setCollectableObjects(this.level.bottles_coll)
         lastKeyPressTime = Date.now()//important for idle animation
     }
+
     run() {
         setInterval(() => {
             this.checkCollisions()
             this.checkThrowObjects()
             this.checkJumpKill();
         }, 50);
+    }
+
+    setCollectableObjects(array) {
+        for (let I = 0; I < array.length; I++) {
+            const objects = array[I];
+            this.CollectableObjects.push(objects)
+        }
+    }
+
+    checkCollisions() {
+        this.enemyCollisionHandler()
+        this.collectablesCollisionHandler()
+    }
+    checkThrowObjects() {
+        if (this.querys(1)) {
+            //throw right
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            this.bottles.push(bottle)
+
+        } else if (this.querys(2)) {
+            //throw left
+            let bottle = new ThrowableObject(this.character.x - 10, this.character.y + 90)
+            this.bottles.push(bottle)
+        }
     }
 
     checkJumpKill() {
@@ -53,13 +78,27 @@ class World {
         }
     }
 
-    areRectanglesColliding(rect1, rect2) {
-        return (
-            rect1.x < rect2.x + rect2.width &&
-            rect1.x + rect1.width > rect2.x &&
-            rect1.y < rect2.y + rect2.height &&
-            rect1.y + rect1.height > rect2.y
-        );
+    enemyCollisionHandler() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.characterIsCollidingEnemy(enemy)) {
+                this.character.hit(enemy.demage)
+            } else if (this.enemyIsInSight(enemy))
+                enemy.playEnemySound();
+
+            this.bottles.forEach((bottle) => {
+                if (this.checkBottleEnemyCollision(bottle, enemy)) {
+                    this.enemyGetBottleHit(bottle, enemy)
+                }
+            });
+        });
+    }
+
+    collectablesCollisionHandler() {
+        this.CollectableObjects.forEach((object, index) => {
+            if (this.character.isColliding(object)) {
+                this.CollectableObjects[index].collectItem(index);
+            }
+        });
     }
 
     isCharacterCollidingWithEnemy(character, enemy) {
@@ -80,38 +119,13 @@ class World {
         return this.areRectanglesColliding(characterHitbox, enemyHitbox);
     }
 
-    checkThrowObjects() {
-        if (this.querys(1)) {
-            //throw right
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-            this.bottles.push(bottle)
-
-        } else if (this.querys(2)) {
-            //throw left
-            let bottle = new ThrowableObject(this.character.x - 10, this.character.y + 90)
-            this.bottles.push(bottle)
+    reduceEnemyHp(enemy, dmg) {
+        enemy.hp -= dmg
+        if (enemy.isDead()) {
+            this.removeEnemy(enemy);
         }
     }
 
-    checkCollisions() {
-        this.enemyCollisionHandler()
-        this.collectablesCollisionHandler()
-    }
-
-    enemyCollisionHandler() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.characterIsCollidingEnemy(enemy)) {
-                this.character.hit(enemy.demage)
-            } else if (this.enemyIsInSight(enemy))
-                enemy.playEnemySound();
-
-            this.bottles.forEach((bottle) => {
-                if (this.checkBottleEnemyCollision(bottle, enemy)) {
-                    this.enemyGetBottleHit(bottle, enemy)
-                }
-            });
-        });
-    }
     characterIsCollidingEnemy(enemy) {
         if (this.character.isColliding(enemy)) {
             return true
@@ -131,26 +145,19 @@ class World {
         return false; // Keine Kollision
     }
 
-    collectablesCollisionHandler() {
-        this.CollectableObjects.forEach((object, index) => {
-            if (this.character.isColliding(object)) {
-                this.CollectableObjects[index].collectItem(index);
-            }
-        });
-    }
-
     enemyGetBottleHit(bottle, enemy) {
-        console.log('chicken get dmg')
         bottle.bottleOnGround = true
         bottle.bottleCracking()
         this.reduceEnemyHp(enemy, 20)
     }
 
-    reduceEnemyHp(enemy, dmg) {
-        enemy.hp -= dmg
-        if (enemy.isDead()) {
-            this.removeEnemy(enemy);
-        }
+    areRectanglesColliding(rect1, rect2) {
+        return (
+            rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.y + rect1.height > rect2.y
+        );
     }
 
     removeEnemy(enemy) {
@@ -200,14 +207,6 @@ class World {
             mo.flipImageBack(mo)
         }
 
-    }
-
-    setCollectableObjects(array) {
-        for (let I = 0; I < array.length; I++) {
-            const objects = array[I];
-            this.CollectableObjects.push(objects)
-
-        }
     }
 
     querys(s) {

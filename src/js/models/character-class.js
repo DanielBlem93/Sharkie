@@ -39,7 +39,7 @@ class Character extends MovableObjekt {
             this.walkingLeft()
             this.jumping()
             this.fixCameraOnCharacter()
-            console.log(this.x)
+   
         }, 1000 / 30);
 
         setInterval(() => {

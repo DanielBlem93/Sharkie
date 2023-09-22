@@ -18,7 +18,6 @@ class Chicken extends MovableObjekt {
         this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
         this.loadImages(CHICKEN_IMAGES.IMAGES_WALKING)
         this.setRandomSpeed(0.5)
-
         this.randomSound()
         this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.animate()
@@ -36,9 +35,6 @@ class Chicken extends MovableObjekt {
             this.playAnimation(CHICKEN_IMAGES.IMAGES_WALKING)
         }, 1000 / 10);
     }
-
- 
-
 
 
     randomSound() {
@@ -66,9 +62,8 @@ class Chicken extends MovableObjekt {
                 this.deadSound.play()
             }, 50);
 
-        }
 
-        else if (this.dead) {
+
             this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
             this.speed = 0
