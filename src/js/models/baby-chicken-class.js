@@ -8,20 +8,23 @@ class BabyChicken extends MovableObjekt {
     hitboxY = 0
     y = 370
     hp = 20
-    demage = 20
+    demage = 10
     sound = AUDIOS.babyChicken
     walk_interval
 
 
-    constructor() {
+    constructor(x) {
         super()
         this.loadImage(BABY_CHICKEN_IMAGES.IMAGES_WALKING[1])
         this.loadImage(BABY_CHICKEN_IMAGES.IMAGES_DEAD[0])
         this.loadImages(BABY_CHICKEN_IMAGES.IMAGES_WALKING)
-        this.setRandomSpeed(0.2)
-        this.setRandomPosition(500)
+        this.setRandomSpeed(1)
         this.deadSound = AUDIOS.BabyChickenDead
         this.animate()
+        if (x)
+            this.x = x
+        else
+            this.setRandomPosition(500)
     }
 
 

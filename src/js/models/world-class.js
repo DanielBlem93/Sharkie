@@ -28,7 +28,6 @@ class World {
         this.character.world = this
         this.setCollectableObjects(this.level.coins)
         this.setCollectableObjects(this.level.bottles_coll)
-
         lastKeyPressTime = Date.now()//important for idle animation
     }
     run() {
@@ -43,21 +42,43 @@ class World {
         const character = this.character;
         const enemies = this.level.enemies;
 
-        if (character.jumped && character.speedY < 0 &&!character.godmode) {
+        if (character.jumped && character.speedY < 0 && !character.godmode) {
             for (let i = 0; i < enemies.length; i++) {
                 const enemy = enemies[i];
-                if (
-                    character.x < enemy.x + enemy.width &&
-                    character.x + character.width > enemy.x &&
-                    character.y + character.height > enemy.y &&
-                    character.y + character.height < enemy.y + enemy.height
-                ) {
+
+                if (this.isCharacterCollidingWithEnemy(character, enemy)) {
                     this.reduceEnemyHp(enemy, 20);
                 }
             }
         }
     }
 
+    areRectanglesColliding(rect1, rect2) {
+        return (
+            rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.y + rect1.height > rect2.y
+        );
+    }
+
+    isCharacterCollidingWithEnemy(character, enemy) {
+        const characterHitbox = {
+            x: character.x + character.hitboxX,
+            y: character.y + character.hitboxY,
+            width: character.hitboxWidth,
+            height: character.hitboxHeight
+        };
+
+        const enemyHitbox = {
+            x: enemy.x + enemy.hitboxX,
+            y: enemy.y + enemy.hitboxY,
+            width: enemy.hitboxWidth,
+            height: enemy.hitboxHeight
+        };
+
+        return this.areRectanglesColliding(characterHitbox, enemyHitbox);
+    }
 
     checkThrowObjects() {
         if (this.querys(1)) {
@@ -169,16 +190,16 @@ class World {
 
     addToMap(mo) {
 
-            if (mo.otherDirection) {
-                mo.flipImage(mo)
-            }
-            mo.draw(this.ctx)
-            mo.drawFrame(this.ctx)
+        if (mo.otherDirection) {
+            mo.flipImage(mo)
+        }
+        mo.draw(this.ctx)
+        mo.drawFrame(this.ctx)
 
-            if (mo.otherDirection) {
-                mo.flipImageBack(mo)
-            }
-       
+        if (mo.otherDirection) {
+            mo.flipImageBack(mo)
+        }
+
     }
 
     setCollectableObjects(array) {

@@ -6,9 +6,9 @@ class Level {
     backgroundObjects;
     backgroundSounds
     mainTheme
-    level_end_x = 719 * 7
+    level_end_x = 719 * (levelLength - 1)
 
-    constructor(enemmies, clouds, bgo, coins,bottles_coll, bgSound, mainTheme, ) {
+    constructor(enemmies, clouds, bgo, coins, bottles_coll, bgSound, mainTheme,) {
         this.enemies = enemmies
         this.clouds = clouds
         this.backgroundObjects = bgo
@@ -16,7 +16,7 @@ class Level {
         this.bottles_coll = bottles_coll
         this.backgroundSounds = bgSound
         this.mainTheme = mainTheme
-        this.playBackgroundSound(bgSound) 
+        this.playBackgroundSound(bgSound)
         this.playBackgroundSound(mainTheme)
 
     }

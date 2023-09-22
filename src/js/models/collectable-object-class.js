@@ -15,7 +15,7 @@ class CollectableObject extends DrawableObject {
 
     collectItem(index) {
         if (world.CollectableObjects[index] instanceof Coin){
-            world.coinBar.setCoins(10)
+            world.coinBar.setCoins(5)
         }else if(world.CollectableObjects[index] instanceof Bottle){
             world.bottlesBar.setBottles(10,'add')
         }

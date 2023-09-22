@@ -45,12 +45,18 @@ class MovableObjekt extends DrawableObject {
 
         return distance <= sightRange;
     }
+    setPosition(x) {
+        if (x)
+            this.x = x
+        else
+            this.setRandomPosition(500)
+    }
 
     setRandomSpeed(speed) {
         this.speed = speed + Math.random() * 0.3;
     }
     setRandomPosition(minPosition) {
-        this.x = minPosition + Math.random() * 719 * levelLength;
+        this.x = minPosition + Math.random() * 719 * (levelLength +1) ;
     }
 
     hit(demage) {
@@ -164,6 +170,6 @@ class MovableObjekt extends DrawableObject {
 
         this.sound.play()
     }
-    
+
 
 }

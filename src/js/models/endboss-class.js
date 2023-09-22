@@ -23,7 +23,7 @@ class Endboss extends MovableObjekt {
         super().loadImage(this.IMAGES_WALKING[0])
         this.loadImages(this.IMAGES_WALKING)
 
-        this.x = 719 * 6.5;
+        this.x = 719 * (levelLength -2);
         this.animate()
         this.randomSound()
 

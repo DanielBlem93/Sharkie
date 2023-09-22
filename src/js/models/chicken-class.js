@@ -9,19 +9,20 @@ class Chicken extends MovableObjekt {
     hp = 20
     demage = 20
     sound = AUDIOS.quiet_chicken
-  
 
 
-    constructor() {
+
+    constructor(x) {
         super()
         this.loadImage(CHICKEN_IMAGES.IMAGES_WALKING[1])
         this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
         this.loadImages(CHICKEN_IMAGES.IMAGES_WALKING)
-        this.setRandomSpeed(0.2)
-        this.setRandomPosition(500)
+        this.setRandomSpeed(0.5)
+
         this.randomSound()
         this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.animate()
+        this.setPosition(x)
     }
 
     animate() {
@@ -35,6 +36,8 @@ class Chicken extends MovableObjekt {
             this.playAnimation(CHICKEN_IMAGES.IMAGES_WALKING)
         }, 1000 / 10);
     }
+
+ 
 
 
 
