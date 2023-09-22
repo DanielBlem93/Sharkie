@@ -8,7 +8,7 @@ class BabyChicken extends MovableObjekt {
     hitboxY = 0
     y = 370
     hp = 20
-    demage = 10
+    demage = 20
     sound = AUDIOS.babyChicken
     walk_interval
 
@@ -21,10 +21,7 @@ class BabyChicken extends MovableObjekt {
         this.setRandomSpeed(1)
         this.deadSound = AUDIOS.BabyChickenDead
         this.animate()
-        if (x)
-            this.x = x
-        else
-            this.setRandomPosition(500)
+        this.setPosition(x)
     }
 
 
@@ -57,21 +54,21 @@ class BabyChicken extends MovableObjekt {
             this.demage = 0
 
             setTimeout(() => {
-                this.removeFromWorld(); // Hier das Chicken entfernen
+                this.removeFromWorld(); 
             }, 200);
         }
     }
 
     removeFromWorld() {
-        world.removeEnemy(this); // Methode in der World-Klasse aufrufen
+        world.removeEnemy(this);
     }
 
     stopChickenSound() {
         if (this.sound) {
-            this.sound.pause(); // Den Sound anhalten
+            this.sound.pause(); 
             this.deadSound.pause();
-            this.sound.currentTime = 0; // Zurück auf den Anfang setzen
-            this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
+            this.sound.currentTime = 0; 
+            this.deadSound.currentTime = 0; 
         }
     }
 

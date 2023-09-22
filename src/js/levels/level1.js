@@ -39,6 +39,8 @@ const level1 = new Level(
         new BabyChicken(8500),
         new Chicken(9000),
         new BabyChicken(9500),
+        new Chicken(10000),
+        new BabyChicken(10100),
         new Chicken(),
         new Chicken(),
         new Chicken(),
