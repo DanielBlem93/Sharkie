@@ -71,7 +71,7 @@ class Character extends MovableObjekt {
                     this.disableCharacter()
                 }
             }
-        }, 1000 / 7);
+        }, 1000 / CHARACTER_IMAGES.IMAGES_DEAD.length);
 
     }
 

@@ -44,30 +44,22 @@ class Chicken extends MovableObjekt {
 
     }
 
-    stopChickenSound() {
-        if (this.sound) {
-            this.sound.pause(); // Den Sound anhalten
-            this.deadSound.pause();
-            this.sound.currentTime = 0; // Zurück auf den Anfang setzen
-            this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
-        }
-    }
+
 
     isDead() {
 
         if (this.hp === 0) {
             this.dead = true
+            this.speed = 0
+            this.demage = 0
             this.stopChickenSound()
             setTimeout(() => {
                 this.deadSound.play()
             }, 50);
 
-
-
             this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
-            this.speed = 0
-            this.demage = 0
+          
 
             setTimeout(() => {
                 this.removeFromWorld(); // Hier das Chicken entfernen
@@ -75,9 +67,7 @@ class Chicken extends MovableObjekt {
         }
     }
 
-    removeFromWorld() {
-        world.removeEnemy(this); // Methode in der World-Klasse aufrufen
-    }
+ 
 
 
 }

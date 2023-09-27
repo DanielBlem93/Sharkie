@@ -6,39 +6,95 @@ class Endboss extends MovableObjekt {
     hitboxX = 65
     hitboxY = 100
     y = -40
-    sound = AUDIOS.quiet_chicken
-    IMAGES_WALKING = [
-        'src/img/4_enemie_boss_chicken/2_alert/G5.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G6.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G7.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G8.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G9.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G10.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G11.png',
-        'src/img/4_enemie_boss_chicken/2_alert/G12.png',
-    ]
+    hp = 20
+    demage = 30
+    a = 0
+    d = 0
+    h = 0
 
+    sound = AUDIOS.BOSS_CHICKEN_SOUND
+    deadSound = AUDIOS.BOSS_CHICKEN_DEAD_SOUND
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0])
-        this.loadImages(this.IMAGES_WALKING)
-
-        this.x = 719 * (levelLength -2);
+        super().loadImage(CHICKEN_BOSS_IMAGES.IMAGES_WALKING[0])
+        this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_WALKING)
+        this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_ATTACK)
+        this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_HURT)
+        this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_DEAD)
         this.animate()
-        this.randomSound()
+        this.x = 719 * (levelLength - 2);
 
     }
 
+
+    isDead() {
+
+        if (this.hp === 0) {
+            this.dead = true
+            this.speed = 0
+            this.demage = 0
+            this.stopChickenSound()
+            setTimeout(() => {
+                this.deadSound.play()
+            }, 50);
+
+
+            clearInterval(this.walk_interval)
+
+
+            setTimeout(() => {
+                this.removeFromWorld(); // Hier das Chicken entfernen
+            }, 2000);
+        }
+    }
+    run() {
+
+    }
     animate() {
+
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING)
-        }, 1000 / 8);
+            this.moveLeft()
+            this.isDead()
+        }, 1000 / 60);
+
+        this.walk_interval =
+            setInterval(() => {
+                this.playAnimation(CHICKEN_BOSS_IMAGES.IMAGES_WALKING)
+            }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_WALKING.length);
+        this.dieing()
+
     }
 
-    randomSound() {
-        let randomIndex = this.getRandomNumber(AUDIOS.CHICKEN_SOUND)
-        this.sound = AUDIOS.CHICKEN_SOUND[randomIndex]
-        this.sound.volume = 0.3
+
+
+    dieing() {
+        setInterval(() => {
+            if (this.dead) {
+                if (this.d < CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length) {
+                    this.playDeathAnimation()
+                } else {
+                    this.died = true
+                    this.disableBoss()
+                }
+            }
+        }, 1000 / CHARACTER_IMAGES.IMAGES_DEAD.length);
     }
 
+    playDeathAnimation() {
+        this.d = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_DEAD, this.d);
+    }
+
+
+    disableBoss() {
+        this.speed = 0
+        this.demage = 0
+        setTimeout(() => {
+            this.stopChickenSound()
+        }, 1000);
+        this.deadSound.play()
+        clearInterval(this.walk_interval)
+        setTimeout(() => {
+            this.removeFromWorld(); // Hier das Chicken entfernen
+        }, 3000);
+    }
 }

@@ -19,7 +19,7 @@ class MovableObjekt extends DrawableObject {
         const hitboxX = this.x + this.hitboxX;
         const hitboxY = this.y + this.hitboxY;
 
-        if (mo instanceof MovableObjekt) {
+        if ((mo instanceof MovableObjekt) && !(mo instanceof Endboss)) {
             return hitboxX < mo.x + mo.hitboxX + mo.hitboxWidth &&
                 hitboxY < mo.y + mo.hitboxY + mo.hitboxHeight &&
                 hitboxX + this.hitboxWidth > mo.x + mo.hitboxX &&
@@ -30,7 +30,7 @@ class MovableObjekt extends DrawableObject {
             return hitboxX < mo.x + mo.hitboxX + mo.hitboxWidth &&
                 hitboxY < mo.y + mo.hitboxY + mo.hitboxHeight &&
                 hitboxX + this.hitboxWidth > mo.x + mo.hitboxX &&
-                hitboxY + this.hitboxHeight > mo.y + mo.hitboxY;
+                hitboxY + this.hitboxHeight > mo.y + mo.hitboxY
         }
     }
 
@@ -56,7 +56,7 @@ class MovableObjekt extends DrawableObject {
         this.speed = speed + Math.random() * 0.3;
     }
     setRandomPosition(minPosition) {
-        this.x = minPosition + Math.random() * 719 * (levelLength +1) ;
+        this.x = minPosition + Math.random() * 719 * (levelLength + 1);
     }
 
     hit(demage) {
@@ -169,6 +169,18 @@ class MovableObjekt extends DrawableObject {
     playEnemySound() {
 
         this.sound.play()
+    }
+
+    stopChickenSound() {
+        if (this.sound) {
+            this.sound.pause(); // Den Sound anhalten
+            this.deadSound.pause();
+            this.sound.currentTime = 0; // Zurück auf den Anfang setzen
+            this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
+        }
+    }
+    removeFromWorld() {
+        world.removeEnemy(this); // Methode in der World-Klasse aufrufen
     }
 
 

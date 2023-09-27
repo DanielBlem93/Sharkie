@@ -82,6 +82,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.characterIsCollidingEnemy(enemy)) {
                 this.character.hit(enemy.demage)
+                console.log(enemy)
             } else if (this.enemyIsInSight(enemy))
                 enemy.playEnemySound();
 
