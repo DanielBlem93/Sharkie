@@ -12,7 +12,7 @@ class Endboss extends MovableObjekt {
     d = 0
     h = 0
     sperre = false
-
+    hurtAnimationIntervall
     sound = AUDIOS.BOSS_CHICKEN_SOUND
     deadSound = AUDIOS.BOSS_CHICKEN_DEAD_SOUND
 
@@ -27,9 +27,7 @@ class Endboss extends MovableObjekt {
 
     }
 
-
     isDead() {
-
         if (this.hp === 0) {
             this.dead = true
             this.disableBoss()
@@ -37,7 +35,6 @@ class Endboss extends MovableObjekt {
     }
 
     animate() {
-
         setInterval(() => {
             this.moveLeft()
             this.isDead()
@@ -45,7 +42,6 @@ class Endboss extends MovableObjekt {
 
         this.walkInterval()
         this.dieing()
-
     }
 
     walkInterval() {
@@ -65,30 +61,31 @@ class Endboss extends MovableObjekt {
         this.sperre = true
         setTimeout(() => {
             this.sperre = false
-        }, 1000);
+        }, world.character.CoolDownTime);
     }
 
     hurtAnimation() {
-        let hurtAnimationIntervall = setInterval(() => {
+        this.setHurtAnimationIntervall()
+        setTimeout(() => {
+            clearInterval(this.hurtAnimationIntervall)
+        }, world.character.CoolDownTime);
+        this.h = 0
+    }
 
+    setHurtAnimationIntervall() {
+        this.hurtAnimationIntervall = setInterval(() => {
             if (this.h < CHICKEN_BOSS_IMAGES.IMAGES_HURT.length && !this.dead) {
-                console.log(this.h)
                 clearInterval(this.walk_interval)
                 this.playHurtAnimation()
                 this.walkInterval()
             }
         }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_HURT.length);
-        this.h = 0
-        setTimeout(() => {
-            clearInterval(hurtAnimationIntervall)
-        }, world.character.CoolDownTime);
+
     }
 
     playHurtAnimation() {
         this.h = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_HURT, this.h);
-        
     }
-
 
     dieing() {
         setInterval(() => {
@@ -109,12 +106,8 @@ class Endboss extends MovableObjekt {
         this.demage = 0
         this.sound.pause()
         this.deadSound.play()
-        setTimeout(() => {
-            this.stopChickenSound()
-        }, 2500);
-        setTimeout(() => {
-            this.removeFromWorld(); // Hier das Chicken entfernen
-        }, 3000);
+        setTimeout(() => { this.stopChickenSound() }, 2500);
+        setTimeout(() => { this.removeFromWorld(); }, 3000);
         clearInterval(this.walk_interval)
     }
 

@@ -80,7 +80,7 @@ class World {
 
     enemyCollisionHandler() {
         this.level.enemies.forEach((enemy) => {
-            if (this.characterIsCollidingEnemy(enemy)) {
+            if (this.characterIsCollidingEnemy(enemy) && !enemy.dead) {
                 this.character.hit(enemy.demage)
                 console.log(enemy)
             } else if (this.enemyIsInSight(enemy))
