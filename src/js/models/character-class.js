@@ -150,7 +150,7 @@ class Character extends MovableObjekt {
         const currentTime = Date.now();
         const idleTime = currentTime - lastKeyPressTime;
 
-        if (idleTime >= 10000 && this.querrys(1)) {
+        if (idleTime >= 15000 && this.querrys(1)) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
             AUDIOS.snoring.play()
         }else{ AUDIOS.snoring.pause()}

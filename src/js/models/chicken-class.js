@@ -59,8 +59,7 @@ class Chicken extends MovableObjekt {
 
             this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
-          
-
+        
             setTimeout(() => {
                 this.removeFromWorld(); // Hier das Chicken entfernen
             }, 200);

@@ -77,6 +77,14 @@ const audio_settings = {
         audio: AUDIOS.HURT_SOUNDS[1],
         volume: 1
     },
+    BossHurt: {
+        audio: AUDIOS.BOSS_CHICKEN_HURT_SOUND,
+        volume: 0.8
+    },
+    BossSound: {
+        audio: AUDIOS.BOSS_CHICKEN_SOUND,
+        volume: 0.7
+    },
 
 }
 

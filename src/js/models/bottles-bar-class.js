@@ -2,7 +2,7 @@ class BottlesBar extends StatusBar {
 
 
 
-    bottles = 20
+    bottles = 100
 
     constructor() {
 

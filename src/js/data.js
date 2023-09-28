@@ -164,6 +164,12 @@ CHICKEN_BOSS_IMAGES = {
         'src/img/4_enemie_boss_chicken/4_hurt/G21.png',
         'src/img/4_enemie_boss_chicken/4_hurt/G22.png',
         'src/img/4_enemie_boss_chicken/4_hurt/G23.png',
+        'src/img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'src/img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'src/img/4_enemie_boss_chicken/4_hurt/G23.png',
+        'src/img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'src/img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'src/img/4_enemie_boss_chicken/4_hurt/G23.png',
     ],
 
     IMAGES_DEAD: [
@@ -248,6 +254,7 @@ AUDIOS = {
     BOSS_CHICKEN_DEAD_SOUND: new Audio('src/audio/chicken-dieing.mp3'),
     BOSS_CHICKEN_ATTACK_SOUND: new Audio('src/audio/boss-chicken-attack .mp3'),
     BOSS_CHICKEN_ALERT: new Audio('src/audio/chicken-funny.mp3'),
+    BOSS_CHICKEN_WINGS:new Audio('src/audio/Bird Flapping Wings .mp3'),
 
 
 

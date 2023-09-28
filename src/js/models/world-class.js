@@ -121,9 +121,15 @@ class World {
     }
 
     reduceEnemyHp(enemy, dmg) {
-        enemy.hp -= dmg
-        if (enemy.isDead()) {
-            this.removeEnemy(enemy);
+        if (!enemy.sperre) {
+            enemy.hp -= dmg
+            if (enemy.isDead()) {
+                this.removeEnemy(enemy);
+            } else {
+                if (enemy instanceof Endboss) {
+                    enemy.hurt()
+                }
+            }
         }
     }
 

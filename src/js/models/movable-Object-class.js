@@ -73,7 +73,7 @@ class MovableObjekt extends DrawableObject {
         this.godmode = true
         setTimeout(() => {
             this.godmode = false
-            this.loadImage('src/img/2_character_pepe/2_walk/W-21.png')
+      
         }, 1000);
 
     }
