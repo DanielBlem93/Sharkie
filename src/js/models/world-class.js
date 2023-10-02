@@ -83,20 +83,24 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.characterIsCollidingEnemy(enemy) && !enemy.dead) {
                 this.character.hit(enemy.demage)
-            } else if (this.enemyIsInSight(enemy) && !(enemy instanceof Endboss))
+            } else if (this.enemyIsInSight(enemy) && !(enemy instanceof Endboss)) {
                 enemy.playEnemySound();
-            else if (this.isCharacterBehindEndboss(this.character, enemy) && (enemy instanceof Endboss)) {
+            } else if (this.isCharacterBehindEndboss(this.character, enemy) && (enemy instanceof Endboss)) {
                 console.log('behind')
                 enemy.otherDirection = true
             } else {
                 enemy.otherDirection = false
             }
+            this.bottleCollisonHandler(enemy)
 
-            this.bottles.forEach((bottle) => {
-                if (this.checkBottleEnemyCollision(bottle, enemy)) {
-                    this.enemyGetBottleHit(bottle, enemy)
-                }
-            });
+        });
+    }
+
+    bottleCollisonHandler(enemy) {
+        this.bottles.forEach((bottle) => {
+            if (this.checkBottleEnemyCollision(bottle, enemy)) {
+                this.enemyGetBottleHit(bottle, enemy)
+            }
         });
     }
 

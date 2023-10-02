@@ -29,6 +29,7 @@ class Endboss extends MovableObjekt {
     sound = AUDIOS.BOSS_CHICKEN_SOUND
     deadSound = AUDIOS.BOSS_CHICKEN_DEAD_SOUND
     attackSound = AUDIOS.BOSS_CHICKEN_ATTACK_SOUND
+    bossMusic = AUDIOS.boss_song
 
     constructor() {
         super().loadImage(CHICKEN_BOSS_IMAGES.IMAGES_WALKING[0])
@@ -44,7 +45,7 @@ class Endboss extends MovableObjekt {
 
     animate() {
         setInterval(() => {
-            this.moveLeft()
+            this.walk()
             this.isDead()
             this.alert()
         }, 1000 / 60);
@@ -55,6 +56,13 @@ class Endboss extends MovableObjekt {
 
     isBossAboveGround() {
         return this.y < -40
+    }
+
+    walk() {
+        if (this.otherDirection)
+            this.moveRight()
+        else
+            this.moveLeft()
     }
 
     walkInterval() {
@@ -71,10 +79,17 @@ class Endboss extends MovableObjekt {
             this.speed = 0
 
         else if (this.bossAktive && !this.introAnimation) {
+            this.playBossMusic()
             clearInterval(this.walk_interval)
             this.setAlertIntervall()
             this.introAnimation = true
+            tastaturSperren()
         }
+    }
+
+    playBossMusic() {
+        AUDIOS.theme_song.pause()
+        this.bossMusic.play()
     }
 
     setAlertIntervall() {
@@ -85,7 +100,7 @@ class Endboss extends MovableObjekt {
                 }
             }, 1500 / CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length);
     }
-    
+
     alertAnimation() {
         this.al = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_ALERT, this.al);
         if (this.al === 6) {

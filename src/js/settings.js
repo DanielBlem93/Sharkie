@@ -2,11 +2,11 @@ const audio_settings = {
 
     title_song: {
         audio: AUDIOS.title_song,
-        volume: 0.0
+        volume: 0.8
     },
     theme_song: {
         audio: AUDIOS.theme_song,
-        volume: 0.3
+        volume: 0.4
     },
     boss_song: {
         audio: AUDIOS.boss_song,

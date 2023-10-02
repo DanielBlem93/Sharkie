@@ -221,8 +221,9 @@ AUDIOS = {
 
     //Music
     title_song: new Audio('src/audio/loca-salsa-song.mp3'),
-    theme_song: new Audio('src/audio/light-salsa-song.mp3'),
-    boss_song: new Audio('src/audio/light-salsa-song.mp3'),
+    theme_song: new Audio('src/audio/Background music.mp3'),
+    outro_song: new Audio('src/audio/light-salsa-song.mp3'),
+    boss_song: new Audio('src/audio/bossMusic.mp3'),
     game_over: new Audio('src/audio/game-over.mp3'),
 
     //BackgroundSounds
@@ -261,7 +262,7 @@ AUDIOS = {
     BOSS_CHICKEN_DEAD_SOUND: new Audio('src/audio/chicken-dieing.mp3'),
     BOSS_CHICKEN_ATTACK_SOUND: new Audio('src/audio/boss-chicken-attack .mp3'),
     BOSS_CHICKEN_ALERT: new Audio('src/audio/chicken-funny.mp3'),
-    BOSS_CHICKEN_WINGS:new Audio('src/audio/Bird Flapping Wings .mp3'),
+    BOSS_CHICKEN_WINGS: new Audio('src/audio/Bird Flapping Wings .mp3'),
 
 
 
