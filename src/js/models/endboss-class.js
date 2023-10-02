@@ -8,30 +8,32 @@ class Endboss extends MovableObjekt {
     y = -40
     hp = 100
     demage = 30
+    jumpAtttackHight = 12
+    jumpAttackDistanz = 12
+    attackLoop = 8000
+
     a = 0
     d = 0
     h = 0
+
     sperre = false
     hurtAnimationIntervall
+    attackIntervall
+    jumpAttackIntervall
+
     sound = AUDIOS.BOSS_CHICKEN_SOUND
     deadSound = AUDIOS.BOSS_CHICKEN_DEAD_SOUND
+    attackSound = AUDIOS.BOSS_CHICKEN_ATTACK_SOUND
 
     constructor() {
         super().loadImage(CHICKEN_BOSS_IMAGES.IMAGES_WALKING[0])
+        this.applyGravity(this.isBossAboveGround)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_WALKING)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_ATTACK)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_HURT)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_DEAD)
         this.animate()
         this.x = 719 * (levelLength - 2);
-
-    }
-
-    isDead() {
-        if (this.hp === 0) {
-            this.dead = true
-            this.disableBoss()
-        }
     }
 
     animate() {
@@ -42,14 +44,53 @@ class Endboss extends MovableObjekt {
 
         this.walkInterval()
         this.dieing()
+        this.attack()
+    }
+
+    isBossAboveGround() {
+        return this.y < -40
     }
 
     walkInterval() {
+        this.speed = this.defaultSpeed
         this.walk_interval =
             setInterval(() => {
                 this.playAnimation(CHICKEN_BOSS_IMAGES.IMAGES_WALKING)
             }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_WALKING.length);
     }
+
+    isDead() {
+        if (this.hp === 0) {
+            this.dead = true
+            this.disableBoss()
+        }
+    }
+
+    disableBoss() {
+        this.speed = 0
+        this.demage = 0
+        this.sound.pause()
+        this.deadSound.play()
+        clearInterval(this.walk_interval)
+        setTimeout(() => { this.stopChickenSound() }, 2500);
+        setTimeout(() => { this.removeFromWorld(); }, 3000);
+    }
+
+    dieing() {
+        setInterval(() => {
+            if (this.dead) {
+                if (this.d < CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length) {
+                    this.playDeathAnimation()
+                    this.clearJumpAttackIntervall()
+                }
+            }
+        }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length);
+    }
+
+    playDeathAnimation() {
+        this.d = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_DEAD, this.d);
+    }
+
     hurt() {
         this.bossGodMode()
         this.hurtAnimation()
@@ -80,36 +121,64 @@ class Endboss extends MovableObjekt {
                 this.walkInterval()
             }
         }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_HURT.length);
-
     }
 
     playHurtAnimation() {
         this.h = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_HURT, this.h);
     }
 
-    dieing() {
+    attack() {
         setInterval(() => {
-            if (this.dead) {
-                if (this.d < CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length) {
-                    this.playDeathAnimation()
-                }
+            clearInterval(this.walk_interval)
+            this.attackAnimation()
+        }, this.attackLoop); //attacks every 8000sec
+    }
+
+    attackAnimation() {
+        this.attackIntervall = setInterval(() => {
+            if (this.a < CHICKEN_BOSS_IMAGES.IMAGES_ATTACK.length && !this.dead) {
+                this.playAttackAnimation()
             }
-        }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length);
+        }, 3000 / CHICKEN_BOSS_IMAGES.IMAGES_ATTACK.length);
+        this.resetAttackAnimation()
+
     }
 
-    playDeathAnimation() {
-        this.d = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_DEAD, this.d);
+    playAttackAnimation() {
+        this.a = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_ATTACK, this.a);
+        if (this.a === 5 || this.a === 9 || this.a === 13 && !this.dead) {
+            this.jumpAttack()
+            this.clearJumpAttackIntervall()
+        }
     }
 
-    disableBoss() {
-        this.speed = 0
-        this.demage = 0
-        this.sound.pause()
-        this.deadSound.play()
-        setTimeout(() => { this.stopChickenSound() }, 2500);
-        setTimeout(() => { this.removeFromWorld(); }, 3000);
-        clearInterval(this.walk_interval)
+    jumpAttack() {
+        this.jumpAttackIntervall =
+            setInterval(() => {
+                this.x -= this.jumpAttackDistanz //12
+                this.attackSound.play()
+            }, 1000 / 30);
+        this.speedY = this.jumpAtttackHight //12
     }
+    clearJumpAttackIntervall() {
+        setTimeout(() => {
+            this.attackSound.pause()
+            this.attackSound.currentTime = 0
+            clearInterval(this.jumpAttackIntervall)
+        }, 700);
+    }
+
+    resetAttackAnimation() {
+        if (!this.dead) {
+            setTimeout(() => {
+                clearInterval(this.attackIntervall)
+                this.walkInterval()
+            }, 3050);
+        }
+        this.a = 0
+    }
+
+
 
 
 }

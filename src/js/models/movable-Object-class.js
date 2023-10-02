@@ -1,6 +1,6 @@
 class MovableObjekt extends DrawableObject {
-
-    speed = 0.15
+    defaultSpeed = 0.15
+    speed = this.defaultSpeed
     speedY = 0
     jumpPower = 27
     acceleration = 2
@@ -8,6 +8,7 @@ class MovableObjekt extends DrawableObject {
     lastHit = 0
     godmode = false
     otherDirection = false
+    isFallingBack = false
     dead = false
     sound
     deadSound
@@ -59,23 +60,12 @@ class MovableObjekt extends DrawableObject {
         this.x = minPosition + Math.random() * 719 * (levelLength + 1);
     }
 
-    hit(demage) {
-
-        if (this.godmode) {
-            console.log('Godmode on')
-        } else {
-            this.takingDamge(demage);
-            this.godmodeON();
-        }
-    }
+  
     godmodeON() {
-
         this.godmode = true
         setTimeout(() => {
             this.godmode = false
-      
         }, 1000);
-
     }
 
     playAnimation(images) {
@@ -92,26 +82,6 @@ class MovableObjekt extends DrawableObject {
         return currentIndex;
     }
 
-    playJumpAnimation(jumpImgArray) {
-        let animation;
-        animation = setInterval(() => {
-            if (this.s >= jumpImgArray.length) {
-
-                clearInterval(animation); // Animation nach 9 Durchläufen stoppen
-                this.s = 0;
-                this.jumped = false
-
-            } else if (this.s < jumpImgArray.length && !this.dead) {
-                let path = jumpImgArray[this.s];
-                this.img = this.imageCache[path];
-                if (this.s === jumpImgArray.length - 2)
-                    AUDIOS.jump_landing_sound.play()
-
-                this.s++;
-            }
-        }, 1000 / 7);
-    }
-
     applyGravity(gravityOn) {
         setInterval(() => {
             if (gravityOn.call(this) || this.speedY > 0) {
@@ -125,7 +95,6 @@ class MovableObjekt extends DrawableObject {
         return this.y < 135
     }
     isBottleAboveGround() {
-
         return this.y < 350
     }
 
@@ -144,30 +113,30 @@ class MovableObjekt extends DrawableObject {
     moveLeft() {
         this.x -= this.speed
     }
-    pushChar(left, right) {
+
+    pushMo(left) {
         let push = setInterval(() => {
             if (left === 'left') {
                 this.moveLeft()
-                keyboard.right = false
             }
-            else
+            else {
                 this.moveRight()
-            keyboard.left = false
+            }
+            this.disableBoard()
         }, 1000 / 30);
         setTimeout(() => {
             clearInterval(push)
         }, 500);
-
     }
 
-    fallDown() {
-        setInterval(() => {
-            this.y += 3
-        }, 1000 / 30);
+    disableBoard() {
+        if (this instanceof Character) {
+            keyboard.right = false
+            keyboard.left = false
+        }
     }
 
     playEnemySound() {
-
         this.sound.play()
     }
 
@@ -179,6 +148,8 @@ class MovableObjekt extends DrawableObject {
             this.deadSound.currentTime = 0; // Zurück auf den Anfang setzen
         }
     }
+
+
     removeFromWorld() {
         world.removeEnemy(this); // Methode in der World-Klasse aufrufen
     }

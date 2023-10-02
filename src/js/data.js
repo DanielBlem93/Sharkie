@@ -53,7 +53,6 @@ CHARACTER_IMAGES = {
     ],
 
     IMAGES_JUMPING: [
-        'src/img/2_character_pepe/3_jump/J-31.png',
         'src/img/2_character_pepe/3_jump/J-32.png',
         'src/img/2_character_pepe/3_jump/J-33.png',
         'src/img/2_character_pepe/3_jump/J-34.png',
@@ -154,6 +153,14 @@ CHICKEN_BOSS_IMAGES = {
         'src/img/4_enemie_boss_chicken/3_attack/G14.png',
         'src/img/4_enemie_boss_chicken/3_attack/G15.png',
         'src/img/4_enemie_boss_chicken/3_attack/G16.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G17.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G18.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G19.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G20.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G17.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G18.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G19.png',
+        'src/img/4_enemie_boss_chicken/3_attack/G20.png',
         'src/img/4_enemie_boss_chicken/3_attack/G17.png',
         'src/img/4_enemie_boss_chicken/3_attack/G18.png',
         'src/img/4_enemie_boss_chicken/3_attack/G19.png',

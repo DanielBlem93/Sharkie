@@ -83,7 +83,11 @@ const audio_settings = {
     },
     BossSound: {
         audio: AUDIOS.BOSS_CHICKEN_SOUND,
-        volume: 0.7
+        volume: 0.6
+    },
+    BossAttack: {
+        audio: AUDIOS.BOSS_CHICKEN_ATTACK_SOUND,
+        volume: 0.3
     },
 
 }

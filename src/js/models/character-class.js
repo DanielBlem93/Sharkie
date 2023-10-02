@@ -11,8 +11,7 @@ class Character extends MovableObjekt {
     died = false
     jumped = false
     sperre = false
-    isFallingBack = false
-    CoolDownTime = 1500 //  /1000=sec
+    CoolDownTime = 2000 //  /1000=sec
     world;
     j = 0
     s = 0
@@ -39,7 +38,7 @@ class Character extends MovableObjekt {
             this.walkingLeft()
             this.jumping()
             this.fixCameraOnCharacter()
-   
+
         }, 1000 / 30);
 
         setInterval(() => {
@@ -111,6 +110,25 @@ class Character extends MovableObjekt {
             AUDIOS.walking_sound.play()
     }
 
+    playJumpAnimation(jumpImgArray) {
+        let animation;
+        animation = setInterval(() => {
+            if (this.s >= jumpImgArray.length) {
+                clearInterval(animation); // Animation nach 9 Durchläufen stoppen
+                this.s = 0;
+                this.jumped = false
+
+            } else if (this.s < jumpImgArray.length && !this.dead) {
+                let path = jumpImgArray[this.s];
+                this.img = this.imageCache[path];
+                if (this.s === jumpImgArray.length - 2)
+                    AUDIOS.jump_landing_sound.play()
+                this.s++;
+            }
+        }, 1000 / 7);
+    }
+
+
     jumping() {
         if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped && !this.godmode) {
             this.jump()
@@ -153,7 +171,7 @@ class Character extends MovableObjekt {
         if (idleTime >= 15000 && this.querrys(1)) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
             AUDIOS.snoring.play()
-        }else{ AUDIOS.snoring.pause()}
+        } else { AUDIOS.snoring.pause() }
     }
 
     setCooldown() {
@@ -163,6 +181,15 @@ class Character extends MovableObjekt {
                 this.sperre = false;
             }, this.CoolDownTime);
             return true
+        }
+    }
+
+    hit(demage) {
+        if (this.godmode) {
+            console.log('Godmode on')
+        } else {
+            this.takingDamge(demage);
+            this.godmodeON();
         }
     }
 
@@ -189,16 +216,23 @@ class Character extends MovableObjekt {
                 this.isFallingBack = true
                 this.speedY = 20
                 if (this.otherDirection === true)
-                    this.pushChar('right')
+                    this.pushMo('right')
                 else {
-                    this.pushChar('left')
+                    this.pushMo('left')
                 }
                 setTimeout(() => {
                     this.isFallingBack = false
                 }, 1000);
             }, 10);
         }
-       
+    }
+
+
+
+    fallDown() {
+        setInterval(() => {
+            this.y += 3
+        }, 1000 / 30);
     }
 
     isHurt() {

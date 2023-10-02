@@ -36,15 +36,12 @@ class Chicken extends MovableObjekt {
         }, 1000 / 10);
     }
 
-
     randomSound() {
         let randomIndex = this.getRandomNumber(AUDIOS.CHICKEN_SOUND)
         this.sound = AUDIOS.CHICKEN_SOUND[randomIndex]
         this.sound.volume = 0.3
 
     }
-
-
 
     isDead() {
 

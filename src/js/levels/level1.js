@@ -23,8 +23,8 @@ function setBackground() {
 const level1 = new Level(
 
     [
-        new Chicken(900),
-        new BabyChicken(800),
+        // new Chicken(900),
+        // new BabyChicken(800),
         // new Chicken(2100),
         // new BabyChicken(2350),
         // new Chicken(2500),
