@@ -1,25 +1,30 @@
 class Endboss extends MovableObjekt {
+    world
     height = 500
     width = 300
+    y = -40
     hitboxHeight = 250;
     hitboxWidth = 200;
     hitboxX = 65
     hitboxY = 100
-    y = -40
     hp = 100
     demage = 30
     jumpAtttackHight = 12
     jumpAttackDistanz = 12
-    attackLoop = 8000
+    attackLoop = 5000
+    bossAktive = false
+    introAnimation = false
 
     a = 0
     d = 0
     h = 0
+    al = 0
 
-    sperre = false
     hurtAnimationIntervall
     attackIntervall
     jumpAttackIntervall
+    alertIntervall
+
 
     sound = AUDIOS.BOSS_CHICKEN_SOUND
     deadSound = AUDIOS.BOSS_CHICKEN_DEAD_SOUND
@@ -28,6 +33,7 @@ class Endboss extends MovableObjekt {
     constructor() {
         super().loadImage(CHICKEN_BOSS_IMAGES.IMAGES_WALKING[0])
         this.applyGravity(this.isBossAboveGround)
+        this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_ALERT)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_WALKING)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_ATTACK)
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_HURT)
@@ -40,11 +46,11 @@ class Endboss extends MovableObjekt {
         setInterval(() => {
             this.moveLeft()
             this.isDead()
+            this.alert()
         }, 1000 / 60);
 
         this.walkInterval()
         this.dieing()
-        this.attack()
     }
 
     isBossAboveGround() {
@@ -52,11 +58,43 @@ class Endboss extends MovableObjekt {
     }
 
     walkInterval() {
-        this.speed = this.defaultSpeed
+        this.speed = 0.25
         this.walk_interval =
             setInterval(() => {
                 this.playAnimation(CHICKEN_BOSS_IMAGES.IMAGES_WALKING)
+                this.moveLeft()
             }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_WALKING.length);
+    }
+
+    alert() {
+        if (!this.bossAktive)
+            this.speed = 0
+
+        else if (this.bossAktive && !this.introAnimation) {
+            clearInterval(this.walk_interval)
+            this.setAlertIntervall()
+            this.introAnimation = true
+        }
+    }
+
+    setAlertIntervall() {
+        this.alertIntervall =
+            setInterval(() => {
+                if (this.al < CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length) {
+                    this.alertAnimation()
+                }
+            }, 1500 / CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length);
+    }
+    
+    alertAnimation() {
+        this.al = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_ALERT, this.al);
+        if (this.al === 6) {
+            this.attackSound.play()
+            this.sound.loop = true
+            this.sound.play()
+            this.walkInterval()
+            this.attackStart()
+        }
     }
 
     isDead() {
@@ -116,9 +154,7 @@ class Endboss extends MovableObjekt {
     setHurtAnimationIntervall() {
         this.hurtAnimationIntervall = setInterval(() => {
             if (this.h < CHICKEN_BOSS_IMAGES.IMAGES_HURT.length && !this.dead) {
-                clearInterval(this.walk_interval)
                 this.playHurtAnimation()
-                this.walkInterval()
             }
         }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_HURT.length);
     }
@@ -127,11 +163,11 @@ class Endboss extends MovableObjekt {
         this.h = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_HURT, this.h);
     }
 
-    attack() {
+    attackStart() {
         setInterval(() => {
             clearInterval(this.walk_interval)
             this.attackAnimation()
-        }, this.attackLoop); //attacks every 8000sec
+        }, this.attackLoop); //attacks every 7sec
     }
 
     attackAnimation() {
@@ -141,7 +177,6 @@ class Endboss extends MovableObjekt {
             }
         }, 3000 / CHICKEN_BOSS_IMAGES.IMAGES_ATTACK.length);
         this.resetAttackAnimation()
-
     }
 
     playAttackAnimation() {
@@ -155,11 +190,26 @@ class Endboss extends MovableObjekt {
     jumpAttack() {
         this.jumpAttackIntervall =
             setInterval(() => {
-                this.x -= this.jumpAttackDistanz //12
+                this.attack()
                 this.attackSound.play()
             }, 1000 / 30);
         this.speedY = this.jumpAtttackHight //12
     }
+    attack() {
+        if (this.otherDirection)
+            this.attackRight()
+        else
+            this.attackLeft()
+    }
+
+    attackLeft() {
+        this.x -= this.jumpAttackDistanz //12
+    }
+
+    attackRight() {
+        this.x += this.jumpAttackDistanz //12
+    }
+
     clearJumpAttackIntervall() {
         setTimeout(() => {
             this.attackSound.pause()
@@ -177,6 +227,8 @@ class Endboss extends MovableObjekt {
         }
         this.a = 0
     }
+
+
 
 
 

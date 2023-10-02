@@ -29,6 +29,7 @@ class World {
         this.setCollectableObjects(this.level.coins)
         this.setCollectableObjects(this.level.bottles_coll)
         lastKeyPressTime = Date.now()//important for idle animation
+
     }
 
     run() {
@@ -82,8 +83,14 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.characterIsCollidingEnemy(enemy) && !enemy.dead) {
                 this.character.hit(enemy.demage)
-            } else if (this.enemyIsInSight(enemy))
+            } else if (this.enemyIsInSight(enemy) && !(enemy instanceof Endboss))
                 enemy.playEnemySound();
+            else if (this.isCharacterBehindEndboss(this.character, enemy) && (enemy instanceof Endboss)) {
+                console.log('behind')
+                enemy.otherDirection = true
+            } else {
+                enemy.otherDirection = false
+            }
 
             this.bottles.forEach((bottle) => {
                 if (this.checkBottleEnemyCollision(bottle, enemy)) {
@@ -119,6 +126,21 @@ class World {
         return this.areRectanglesColliding(characterHitbox, enemyHitbox);
     }
 
+    isCharacterBehindEndboss(character, endboss) {
+        const characterHitboxX = character.x + character.hitboxX;
+        const characterHitboxY = character.y + character.hitboxY;
+        const endbossHitboxX = endboss.x + endboss.hitboxX;
+        const endbossHitboxY = endboss.y + endboss.hitboxY;
+
+        return (
+            characterHitboxX > endbossHitboxX + endboss.hitboxWidth &&
+            characterHitboxY + character.hitboxHeight > endbossHitboxY &&
+            characterHitboxY < endbossHitboxY + endboss.hitboxHeight
+        );
+    }
+
+
+
     reduceEnemyHp(enemy, dmg) {
         if (!enemy.sperre) {
             enemy.hp -= dmg
@@ -139,9 +161,16 @@ class World {
     }
 
     enemyIsInSight(enemy) {
-        if (this.character.isInSight(enemy, 600) && !enemy.dead) {
+        if (this.character.isInSight(enemy, 550) && enemy instanceof Endboss) {
+
+            this.level.enemies[this.level.enemies.length - 1].bossAktive = true
             return true
-        } else return false
+
+        }
+        else if (this.character.isInSight(enemy, 550) && !enemy.dead && !(enemy instanceof Endboss)) {
+            return true
+        }
+        else return false
     }
 
     checkBottleEnemyCollision(bottle, enemy) {

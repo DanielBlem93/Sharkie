@@ -10,6 +10,7 @@ class MovableObjekt extends DrawableObject {
     otherDirection = false
     isFallingBack = false
     dead = false
+    sperre = false
     sound
     deadSound
     currentSound = 0

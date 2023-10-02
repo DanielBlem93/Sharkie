@@ -26,7 +26,7 @@ class StatusBar extends DrawableObject {
     }
 
     resolveIMageIndex(variable) {
-        if (variable == 100) {
+        if (variable >= 100) {
             return 0
         }
         else if (variable >= 80) {

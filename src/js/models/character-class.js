@@ -10,7 +10,7 @@ class Character extends MovableObjekt {
     speed = 10
     died = false
     jumped = false
-    sperre = false
+   
     CoolDownTime = 2000 //  /1000=sec
     world;
     j = 0
