@@ -34,7 +34,7 @@ const audio_settings = {
     },
     jumping_sound: {
         audio: AUDIOS.jumping_sound,
-        volume: 0.8
+        volume: 0.7
     },
     jump_landing: {
         audio: AUDIOS.jump_landing_sound,
@@ -46,7 +46,7 @@ const audio_settings = {
     },
     collect_coin: {
         audio: AUDIOS.collect_coin,
-        volume: 0.5
+        volume: 0.4
     },
     quiet_chicken: {
         audio: AUDIOS.CHICKEN_SOUND[0],
@@ -58,7 +58,7 @@ const audio_settings = {
     },
     chickenDeadSound: {
         audio: AUDIOS.CHICKEN_DEAD_SOUND,
-        volume: 0.7
+        volume: 0.5
     },
    
     babyChicken: {
@@ -67,7 +67,7 @@ const audio_settings = {
     },
     BabyChickenDead: {
         audio: AUDIOS.BabyChickenDead,
-        volume: 0.7
+        volume: 0.5
     },
     hurt1: {
         audio: AUDIOS.HURT_SOUNDS[0],

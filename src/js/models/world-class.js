@@ -9,6 +9,8 @@ class World {
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
+    bossBar = new Bossbar()
+    bossBarIcon= new Boss_bar_icon()
 
 
     level = level1
@@ -216,6 +218,8 @@ class World {
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
         this.addToMap(this.bottlesBar)
+        this.addToMap(this.bossBar)
+        this.addToMap(this.bossBarIcon)
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.enemies)
         this.addToMap(this.character)

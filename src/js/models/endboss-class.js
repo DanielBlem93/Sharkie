@@ -1,5 +1,4 @@
 class Endboss extends MovableObjekt {
-    world
     height = 500
     width = 300
     y = -40
@@ -25,7 +24,6 @@ class Endboss extends MovableObjekt {
     jumpAttackIntervall
     alertIntervall
 
-
     sound = AUDIOS.BOSS_CHICKEN_SOUND
     deadSound = AUDIOS.BOSS_CHICKEN_DEAD_SOUND
     attackSound = AUDIOS.BOSS_CHICKEN_ATTACK_SOUND
@@ -48,10 +46,17 @@ class Endboss extends MovableObjekt {
             this.walk()
             this.isDead()
             this.alert()
+            setTimeout(() => {
+                this.checkBossHp()
+            }, 100);
+
         }, 1000 / 60);
 
         this.walkInterval()
         this.dieing()
+    }
+    checkBossHp() {
+        world.bossBar.setHealth(this.hp)
     }
 
     isBossAboveGround() {
@@ -84,9 +89,14 @@ class Endboss extends MovableObjekt {
             this.setAlertIntervall()
             this.introAnimation = true
             tastaturSperren()
+            this.showBossHp()
+
         }
     }
-
+    showBossHp() {
+        world.bossBar.y = world.bossBar.defaultY
+        world.bossBarIcon.y = world.bossBarIcon.defaultY
+    }
     playBossMusic() {
         AUDIOS.theme_song.pause()
         this.bossMusic.play()

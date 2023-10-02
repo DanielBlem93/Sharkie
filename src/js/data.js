@@ -39,6 +39,9 @@ STATUSBAR_IMAGES = {
         'src/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
         'src/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
         'src/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
+    ],
+    BOSSBAR_IMAGES: [
+        'src/img/7_statusbars/3_icons/icon_health_endboss.png'
     ]
 }
 

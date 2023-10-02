@@ -24,6 +24,7 @@ class DrawableObject {
 
     drawFrame(ctx) {
         if (this instanceof MovableObjekt || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject) {
+            //show image size
             // ctx.beginPath()
             // ctx.lineWidth = '5'
             // ctx.strokeStyle = 'blue'
