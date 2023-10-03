@@ -6,7 +6,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0
-    menu = new menu()
+    menu = new Menu()
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
@@ -231,6 +231,7 @@ class World {
 
         this.ctx.translate(this.camera_x, 0)
         this.addToMap(this.menu)
+        this.addObjectsToMap(this.menu.buttons)
         this.ctx.translate(-this.camera_x, 0)
         //Draw wird immer wieder aufgerufen
         self = this;
