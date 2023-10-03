@@ -22,13 +22,15 @@ class Level {
     }
 
     playBackgroundSound(sounds) {
+        setTimeout(() => {
+            sounds.forEach(bgSound => {
 
-        sounds.forEach(bgSound => {
+                bgSound.loop = true
+                bgSound.play()
 
-            bgSound.loop = true
-            bgSound.play()
+            });
+        }, 2000);
 
-        });
     }
 
     setVolume(value, sound) {

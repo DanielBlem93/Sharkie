@@ -10,7 +10,7 @@ const audio_settings = {
     },
     boss_song: {
         audio: AUDIOS.boss_song,
-        volume: 1
+        volume: 0.8
     },
     wind: {
         audio: AUDIOS.wind,
@@ -60,7 +60,6 @@ const audio_settings = {
         audio: AUDIOS.CHICKEN_DEAD_SOUND,
         volume: 0.5
     },
-   
     babyChicken: {
         audio: AUDIOS.babyChicken,
         volume: 0.2
@@ -89,7 +88,6 @@ const audio_settings = {
         audio: AUDIOS.BOSS_CHICKEN_ATTACK_SOUND,
         volume: 0.3
     },
-
 }
 
 const masterAudio = {

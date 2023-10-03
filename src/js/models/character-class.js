@@ -4,8 +4,8 @@ class Character extends MovableObjekt {
     height = 300;
     width = 150;
     hitboxHeight = 150;
-    hitboxWidth = 75;
-    hitboxX = 30
+    hitboxWidth = 50;
+    hitboxX = 47
     hitboxY = 135
     speed = 10
     died = false

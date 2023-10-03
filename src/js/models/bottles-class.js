@@ -11,7 +11,6 @@ class Bottle extends CollectableObject {
 
         super()
         this.loadImage(COLLACTABLES_IMAGES.bottles[this.index])
-        console.log(this)
         this.x = x
         this.y = y
     }

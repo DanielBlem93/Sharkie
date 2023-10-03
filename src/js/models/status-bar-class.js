@@ -1,6 +1,5 @@
 class StatusBar extends DrawableObject {
 
-
     health = 100
 
     constructor() {
@@ -11,7 +10,6 @@ class StatusBar extends DrawableObject {
         this.width = 200
         this.height = 60
         this.setHealth(this.health)
-
     }
 
 
@@ -41,12 +39,9 @@ class StatusBar extends DrawableObject {
         else if (variable >= 20) {
             return 4
         }
-
         else {
             return 5
-
         }
-
     }
 
 
