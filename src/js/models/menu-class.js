@@ -1,5 +1,5 @@
 class menu extends DrawableObject {
-    x=0
+    x=20 
     y=0
     width = 720
     height = 480
@@ -8,9 +8,5 @@ class menu extends DrawableObject {
         super()
         this.loadImage(MENU_IMAGES.main_menu)
     }
-
-
-
-
 
 }
