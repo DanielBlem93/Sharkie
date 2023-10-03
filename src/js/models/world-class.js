@@ -18,9 +18,7 @@ class World {
     bottles = []
     CollectableObjects = []
 
-    constructor(canvas, keyboard) {
-        this.level.initLevel()
-        
+    constructor(canvas, keyboard) {        
         this.ctx = canvas.getContext('2d')
         this.canvas = canvas
         this.keyboard = keyboard
