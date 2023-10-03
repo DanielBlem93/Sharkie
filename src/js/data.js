@@ -4,6 +4,8 @@
 // 
 // 
 // 
+
+
 BACKGROUND_IMAGES = {
     air: 'src/img/5_background/layers/air.png',
     cloud: ' src/img/5_background/layers/4_clouds/1.png',

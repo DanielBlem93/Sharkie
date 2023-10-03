@@ -6,11 +6,12 @@ class World {
     ctx;
     keyboard;
     camera_x = 0
+    menu = new menu()
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
     bossBar = new Bossbar()
-    bossBarIcon= new Boss_bar_icon()
+    bossBarIcon = new Boss_bar_icon()
 
 
     level = level1
@@ -18,6 +19,8 @@ class World {
     CollectableObjects = []
 
     constructor(canvas, keyboard) {
+        this.level.initLevel()
+        
         this.ctx = canvas.getContext('2d')
         this.canvas = canvas
         this.keyboard = keyboard
@@ -31,6 +34,7 @@ class World {
         this.setCollectableObjects(this.level.coins)
         this.setCollectableObjects(this.level.bottles_coll)
         lastKeyPressTime = Date.now()//important for idle animation
+
 
     }
 
@@ -220,10 +224,15 @@ class World {
         this.addToMap(this.bottlesBar)
         this.addToMap(this.bossBar)
         this.addToMap(this.bossBarIcon)
+
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.enemies)
         this.addToMap(this.character)
         this.addObjectsToMap(this.bottles)
+        this.ctx.translate(-this.camera_x, 0)
+
+        this.ctx.translate(this.camera_x, 0)
+        this.addToMap(this.menu)
         this.ctx.translate(-this.camera_x, 0)
         //Draw wird immer wieder aufgerufen
         self = this;
