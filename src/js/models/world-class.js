@@ -6,9 +6,12 @@ class World {
     ctx;
     keyboard;
     camera_x = 0
+    menu = new menu()
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
+    bossBar = new Bossbar()
+    bossBarIcon = new Boss_bar_icon()
 
 
     level = level1
@@ -16,6 +19,8 @@ class World {
     CollectableObjects = []
 
     constructor(canvas, keyboard) {
+        this.level.initLevel()
+        Y
         this.ctx = canvas.getContext('2d')
         this.canvas = canvas
         this.keyboard = keyboard
@@ -28,9 +33,11 @@ class World {
         this.character.world = this
         this.setCollectableObjects(this.level.coins)
         this.setCollectableObjects(this.level.bottles_coll)
-
         lastKeyPressTime = Date.now()//important for idle animation
+
+
     }
+
     run() {
         setInterval(() => {
             this.checkCollisions()
@@ -39,26 +46,17 @@ class World {
         }, 50);
     }
 
-    checkJumpKill() {
-        const character = this.character;
-        const enemies = this.level.enemies;
-
-        if (character.jumped && character.speedY < 0 &&!character.godmode) {
-            for (let i = 0; i < enemies.length; i++) {
-                const enemy = enemies[i];
-                if (
-                    character.x < enemy.x + enemy.width &&
-                    character.x + character.width > enemy.x &&
-                    character.y + character.height > enemy.y &&
-                    character.y + character.height < enemy.y + enemy.height
-                ) {
-                    this.reduceEnemyHp(enemy, 20);
-                }
-            }
+    setCollectableObjects(array) {
+        for (let I = 0; I < array.length; I++) {
+            const objects = array[I];
+            this.CollectableObjects.push(objects)
         }
     }
 
-
+    checkCollisions() {
+        this.enemyCollisionHandler()
+        this.collectablesCollisionHandler()
+    }
     checkThrowObjects() {
         if (this.querys(1)) {
             //throw right
@@ -72,42 +70,44 @@ class World {
         }
     }
 
-    checkCollisions() {
-        this.enemyCollisionHandler()
-        this.collectablesCollisionHandler()
+    checkJumpKill() {
+        const character = this.character;
+        const enemies = this.level.enemies;
+
+        if (character.jumped && character.speedY < 0 && !character.godmode) {
+            for (let i = 0; i < enemies.length; i++) {
+                const enemy = enemies[i];
+
+                if (this.isCharacterCollidingWithEnemy(character, enemy)) {
+                    this.reduceEnemyHp(enemy, 20);
+                }
+            }
+        }
     }
 
     enemyCollisionHandler() {
         this.level.enemies.forEach((enemy) => {
-            if (this.characterIsCollidingEnemy(enemy)) {
+            if (this.characterIsCollidingEnemy(enemy) && !enemy.dead) {
                 this.character.hit(enemy.demage)
-            } else if (this.enemyIsInSight(enemy))
+            } else if (this.enemyIsInSight(enemy) && !(enemy instanceof Endboss)) {
                 enemy.playEnemySound();
+            } else if (this.isCharacterBehindEndboss(this.character, enemy) && (enemy instanceof Endboss)) {
+                console.log('behind')
+                enemy.otherDirection = true
+            } else {
+                enemy.otherDirection = false
+            }
+            this.bottleCollisonHandler(enemy)
 
-            this.bottles.forEach((bottle) => {
-                if (this.checkBottleEnemyCollision(bottle, enemy)) {
-                    this.enemyGetBottleHit(bottle, enemy)
-                }
-            });
         });
     }
-    characterIsCollidingEnemy(enemy) {
-        if (this.character.isColliding(enemy)) {
-            return true
-        } else return false
-    }
 
-    enemyIsInSight(enemy) {
-        if (this.character.isInSight(enemy, 600) && !enemy.dead) {
-            return true
-        } else return false
-    }
-
-    checkBottleEnemyCollision(bottle, enemy) {
-        if (bottle.isColliding(enemy)) {
-            return true; // Kollision wurde festgestellt
-        }
-        return false; // Keine Kollision
+    bottleCollisonHandler(enemy) {
+        this.bottles.forEach((bottle) => {
+            if (this.checkBottleEnemyCollision(bottle, enemy)) {
+                this.enemyGetBottleHit(bottle, enemy)
+            }
+        });
     }
 
     collectablesCollisionHandler() {
@@ -118,18 +118,91 @@ class World {
         });
     }
 
+    isCharacterCollidingWithEnemy(character, enemy) {
+        const characterHitbox = {
+            x: character.x + character.hitboxX,
+            y: character.y + character.hitboxY,
+            width: character.hitboxWidth,
+            height: character.hitboxHeight
+        };
+
+        const enemyHitbox = {
+            x: enemy.x + enemy.hitboxX,
+            y: enemy.y + enemy.hitboxY,
+            width: enemy.hitboxWidth,
+            height: enemy.hitboxHeight
+        };
+
+        return this.areRectanglesColliding(characterHitbox, enemyHitbox);
+    }
+
+    isCharacterBehindEndboss(character, endboss) {
+        const characterHitboxX = character.x + character.hitboxX;
+        const characterHitboxY = character.y + character.hitboxY;
+        const endbossHitboxX = endboss.x + endboss.hitboxX;
+        const endbossHitboxY = endboss.y + endboss.hitboxY;
+
+        return (
+            characterHitboxX > endbossHitboxX + endboss.hitboxWidth &&
+            characterHitboxY + character.hitboxHeight > endbossHitboxY &&
+            characterHitboxY < endbossHitboxY + endboss.hitboxHeight
+        );
+    }
+
+
+
+    reduceEnemyHp(enemy, dmg) {
+        if (!enemy.sperre) {
+            enemy.hp -= dmg
+            if (enemy.isDead()) {
+                this.removeEnemy(enemy);
+            } else {
+                if (enemy instanceof Endboss) {
+                    enemy.hurt()
+                }
+            }
+        }
+    }
+
+    characterIsCollidingEnemy(enemy) {
+        if (this.character.isColliding(enemy)) {
+            return true
+        } else return false
+    }
+
+    enemyIsInSight(enemy) {
+        if (this.character.isInSight(enemy, 550) && enemy instanceof Endboss) {
+
+            this.level.enemies[this.level.enemies.length - 1].bossAktive = true
+            return true
+
+        }
+        else if (this.character.isInSight(enemy, 550) && !enemy.dead && !(enemy instanceof Endboss)) {
+            return true
+        }
+        else return false
+    }
+
+    checkBottleEnemyCollision(bottle, enemy) {
+        if (bottle.isColliding(enemy)) {
+            return true; // Kollision wurde festgestellt
+        }
+        return false; // Keine Kollision
+    }
+
     enemyGetBottleHit(bottle, enemy) {
-        console.log('chicken get dmg')
         bottle.bottleOnGround = true
         bottle.bottleCracking()
         this.reduceEnemyHp(enemy, 20)
     }
 
-    reduceEnemyHp(enemy, dmg) {
-        enemy.hp -= dmg
-        if (enemy.isDead()) {
-            this.removeEnemy(enemy);
-        }
+    areRectanglesColliding(rect1, rect2) {
+        return (
+            rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.y + rect1.height > rect2.y
+        );
     }
 
     removeEnemy(enemy) {
@@ -149,10 +222,17 @@ class World {
         this.addToMap(this.statusBar)
         this.addToMap(this.coinBar)
         this.addToMap(this.bottlesBar)
+        this.addToMap(this.bossBar)
+        this.addToMap(this.bossBarIcon)
+
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.level.enemies)
         this.addToMap(this.character)
         this.addObjectsToMap(this.bottles)
+        this.ctx.translate(-this.camera_x, 0)
+
+        this.ctx.translate(this.camera_x, 0)
+        this.addToMap(this.menu)
         this.ctx.translate(-this.camera_x, 0)
         //Draw wird immer wieder aufgerufen
         self = this;
@@ -168,27 +248,15 @@ class World {
     }
 
     addToMap(mo) {
-        try {
-            if (mo.otherDirection) {
-                mo.flipImage(mo)
-            }
-            mo.draw(this.ctx)
-            mo.drawFrame(this.ctx)
 
-            if (mo.otherDirection) {
-                mo.flipImageBack(mo)
-            }
-        } catch (error) {
-            console.log(error)
-            console.log(mo)
+        if (mo.otherDirection) {
+            mo.flipImage(mo)
         }
-    }
+        mo.draw(this.ctx)
+        mo.drawFrame(this.ctx)
 
-    setCollectableObjects(array) {
-        for (let I = 0; I < array.length; I++) {
-            const objects = array[I];
-            this.CollectableObjects.push(objects)
-
+        if (mo.otherDirection) {
+            mo.flipImageBack(mo)
         }
     }
 

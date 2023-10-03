@@ -1,7 +1,30 @@
+
+    @font-face {
+        font-family: 'zabras';
+        src: url('../fonts/Zabars.ttf') format('truetype');
+    }
+
 body {
+<<<<<<< Updated upstream
     display: flex;
     align-items: center;
+=======
+    font-family:'Courier New', Courier, monospace ;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  
+>>>>>>> Stashed changes
     flex-direction: column;
+}
+
+h1{
+    font-family: 'zabras';
+    font-size: 128px;
+    letter-spacing: 12px;
+    color: sienna;
+    
 }
 
 canvas {

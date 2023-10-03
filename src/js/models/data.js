@@ -4,6 +4,12 @@
 // 
 // 
 // 
+MENU_IMAGES = {
+    main_menu: 'src/img/9_intro_outro_screens/start/startscreen_2.png',
+    start_game_button: 'src/img/9_intro_outro_screens/start/start-game.png',
+    game_over_img: 'src/img/9_intro_outro_screens/game_over/game over!.png',
+}
+
 BACKGROUND_IMAGES = {
     air: 'src/img/5_background/layers/air.png',
     cloud: ' src/img/5_background/layers/4_clouds/1.png',

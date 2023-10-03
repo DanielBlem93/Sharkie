@@ -15,7 +15,4 @@ class Bottle extends CollectableObject {
         this.x = x
         this.y = y
     }
-
-
-
 }
