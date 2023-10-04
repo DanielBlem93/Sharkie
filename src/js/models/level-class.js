@@ -18,6 +18,8 @@ class Level {
         this.mainTheme = mainTheme
         this.playBackgroundSound(bgSound)
         this.playBackgroundSound(mainTheme)
+        this.setBackground()
+
 
     }
 
@@ -29,7 +31,7 @@ class Level {
                 bgSound.play()
 
             });
-        }, 2000);
+        }, 1000);
 
     }
 
@@ -42,4 +44,32 @@ class Level {
         })
 
     }
+
+    setBackground() {
+
+        for (let i = 0; i < levelLength; i++) {
+
+            backgroundObjects.push(
+                new BackgroundObject(BACKGROUND_IMAGES.air, 719 * i),
+                new BackgroundObject(BACKGROUND_IMAGES.layer_3_img_1, 719 * i),
+                new BackgroundObject(BACKGROUND_IMAGES.layer_2_img_1, 719 * i),
+                new BackgroundObject(BACKGROUND_IMAGES.layer_1_img_1, 719 * i)
+            );
+            i++;
+            backgroundObjects.push(
+                new BackgroundObject(BACKGROUND_IMAGES.air, 719 * i),
+                new BackgroundObject(BACKGROUND_IMAGES.layer_3_img_2, 719 * i),
+                new BackgroundObject(BACKGROUND_IMAGES.layer_2_img_2, 719 * i),
+                new BackgroundObject(BACKGROUND_IMAGES.layer_1_img_2, 719 * i)
+            );
+        }
+    }
+
+    spawnEnemies() {
+        enemiesToSpawn.forEach(enemy => {
+            this.enemies.push(enemy)
+        });
+
+    }
 }
+

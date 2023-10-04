@@ -5,9 +5,25 @@ class Button extends DrawableObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.loadImage(image)
+        this.loadImage(image);
+
     }
+
+    isClicked(mouseX, mouseY) {
+        return mouseX >= this.x && mouseX <= this.x + this.width &&
+            mouseY >= this.y && mouseY <= this.y + this.height;
+    }
+
+    onClick() {
+        console.log('game Start');
+        world.level.spawnEnemies()
+        world.menu = null
+        tastaturGesperrt = false
+        gameStart = true
+    }
+
 }
 
+// Im Event-Listener für Mausklicks im Canvas:
 
 

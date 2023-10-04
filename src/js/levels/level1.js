@@ -1,60 +1,7 @@
 let levelLength = 16;
-
-function setBackground() {
-
-    for (let i = 0; i < levelLength; i++) {
-
-        backgroundObjects.push(
-            new BackgroundObject(BACKGROUND_IMAGES.air, 719 * i),
-            new BackgroundObject(BACKGROUND_IMAGES.layer_3_img_1, 719 * i),
-            new BackgroundObject(BACKGROUND_IMAGES.layer_2_img_1, 719 * i),
-            new BackgroundObject(BACKGROUND_IMAGES.layer_1_img_1, 719 * i)
-        );
-        i++;
-        backgroundObjects.push(
-            new BackgroundObject(BACKGROUND_IMAGES.air, 719 * i),
-            new BackgroundObject(BACKGROUND_IMAGES.layer_3_img_2, 719 * i),
-            new BackgroundObject(BACKGROUND_IMAGES.layer_2_img_2, 719 * i),
-            new BackgroundObject(BACKGROUND_IMAGES.layer_1_img_2, 719 * i)
-        );
-    }
-}
-
 const level1 = new Level(
 
-    [
-        // new Chicken(900),
-        // new BabyChicken(800),
-        // new Chicken(2100),
-        // new BabyChicken(2350),
-        // new Chicken(2500),
-        // new Chicken(2750),
-        // new BabyChicken(2850),
-        // new BabyChicken(4000),
-        // new BabyChicken(4200),
-        // new Chicken(4500),
-        // new Chicken(5000),
-        // new BabyChicken(5500),
-        // new Chicken(7000),
-        // new BabyChicken(8500),
-        // new Chicken(9000),
-        // new BabyChicken(9500),
-        // new Chicken(10000),
-        // new BabyChicken(10100),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new Endboss()
-    ],
+    [],
     [
         new Cloud(),
         new Cloud(),
@@ -118,8 +65,44 @@ const level1 = new Level(
         // AUDIOS.crickets
     ],
     [
-        AUDIOS.theme_song
+        AUDIOS.title_song
     ]
 
+
 );
-setBackground()
+
+let enemiesToSpawn = [
+    new Chicken(900),
+    new BabyChicken(800),
+    new Chicken(2100),
+    new BabyChicken(2350),
+    new Chicken(2500),
+    new Chicken(2750),
+    new BabyChicken(2850),
+    new BabyChicken(4000),
+    new BabyChicken(4200),
+    new Chicken(4500),
+    new Chicken(5000),
+    new BabyChicken(5500),
+    new Chicken(7000),
+    new BabyChicken(8500),
+    new Chicken(9000),
+    new BabyChicken(9500),
+    new Chicken(10000),
+    new BabyChicken(10100),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new BabyChicken(),
+    new BabyChicken(),
+    new BabyChicken(),
+    new BabyChicken(),
+    new BabyChicken(),
+    new BabyChicken(),
+    new Endboss()
+]
+
+

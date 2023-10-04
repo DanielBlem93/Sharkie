@@ -10,7 +10,7 @@ class Character extends MovableObjekt {
     speed = 10
     died = false
     jumped = false
-   
+
     CoolDownTime = 2000 //  /1000=sec
     world;
     j = 0
@@ -168,7 +168,7 @@ class Character extends MovableObjekt {
         const currentTime = Date.now();
         const idleTime = currentTime - lastKeyPressTime;
 
-        if (idleTime >= 15000 && this.querrys(1)) {
+        if (idleTime >= 15000 && this.querrys(1) && gameStart) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
             AUDIOS.snoring.play()
         } else { AUDIOS.snoring.pause() }

@@ -1,8 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();;
+let gameStart = false
+let tastaturGesperrt = true;
 let lastKeyPressTime
-let tastaturGesperrt = false;
 const gesperrteTasten = ["w", "a", "s", "d", "f", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
 
@@ -11,6 +12,7 @@ function init() {
     canvas = document.getElementById('canvas')
     world = new World(canvas, keyboard)
     masterAudio.setVolume(1)
+    buttonClickListner()
 }
 
 function tastaturSperren() {
@@ -29,6 +31,21 @@ function allFalse() {
     keyboard.space = false
     keyboard.up = false
     keyboard.throw = false
+}
+
+
+
+function buttonClickListner() {
+    canvas.addEventListener('click', function (event) {
+        const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+        const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+        if (world.menu)
+            world.menu.buttons.forEach(button => {
+                if (button.isClicked(mouseX, mouseY)) {
+                    button.onClick();
+                }
+            });
+    });
 }
 
 

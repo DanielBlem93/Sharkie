@@ -18,7 +18,7 @@ class World {
     bottles = []
     CollectableObjects = []
 
-    constructor(canvas, keyboard) {        
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d')
         this.canvas = canvas
         this.keyboard = keyboard
@@ -26,6 +26,10 @@ class World {
         this.setWorld()
         this.run()
     }
+
+
+
+
 
     setWorld() {
         this.character.world = this
@@ -229,10 +233,12 @@ class World {
         this.addObjectsToMap(this.bottles)
         this.ctx.translate(-this.camera_x, 0)
 
-        this.ctx.translate(this.camera_x, 0)
-        this.addToMap(this.menu)
-        this.addObjectsToMap(this.menu.buttons)
-        this.ctx.translate(-this.camera_x, 0)
+        if (this.menu) {
+            this.ctx.translate(this.camera_x, 0)
+            this.addToMap(this.menu)
+            this.addObjectsToMap(this.menu.buttons)
+            this.ctx.translate(-this.camera_x, 0)
+        }
         //Draw wird immer wieder aufgerufen
         self = this;
         requestAnimationFrame(function () {

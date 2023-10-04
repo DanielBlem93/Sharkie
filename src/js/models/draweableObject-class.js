@@ -12,6 +12,7 @@ class DrawableObject {
     imageCache = {};
 
 
+
     loadImage(path) {
 
         this.img = new Image()
@@ -20,16 +21,12 @@ class DrawableObject {
 
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+
     }
 
     drawFrame(ctx) {
         if (this instanceof MovableObjekt || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject) {
-            //show image size
-            // ctx.beginPath()
-            // ctx.lineWidth = '5'
-            // ctx.strokeStyle = 'blue'
-            // ctx.rect(this.x, this.y, this.width, this.height)
-            // ctx.stroke()
+
             const hitboxX = this.x + this.hitboxX
             const hitboxY = this.y + this.hitboxY
 
@@ -38,6 +35,13 @@ class DrawableObject {
             ctx.strokeStyle = 'red';
             ctx.rect(hitboxX, hitboxY, this.hitboxWidth, this.hitboxHeight);
             ctx.stroke();
+        } else if (this instanceof Button) {
+            //show image size
+            ctx.beginPath()
+            ctx.lineWidth = '5'
+            ctx.strokeStyle = 'blue'
+            ctx.rect(this.x, this.y, this.width, this.height)
+            ctx.stroke()
         }
     }
 
