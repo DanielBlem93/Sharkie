@@ -15,15 +15,21 @@ class Button extends DrawableObject {
     }
 
     onClick() {
+        this.startGame()
+    }
+
+
+
+    startGame() {
         console.log('game Start');
         world.level.spawnEnemies()
         world.menu = null
         tastaturGesperrt = false
         gameStart = true
+        lastKeyPressTime = Date.now()
     }
 
 }
 
-// Im Event-Listener für Mausklicks im Canvas:
 
 

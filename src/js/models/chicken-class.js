@@ -14,12 +14,12 @@ class Chicken extends MovableObjekt {
 
     constructor(x) {
         super()
+        this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.loadImage(CHICKEN_IMAGES.IMAGES_WALKING[1])
         this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
         this.loadImages(CHICKEN_IMAGES.IMAGES_WALKING)
         this.setRandomSpeed(0.5)
         this.randomSound()
-        this.deadSound = AUDIOS.CHICKEN_DEAD_SOUND
         this.animate()
         this.setPosition(x)
     }
@@ -27,8 +27,10 @@ class Chicken extends MovableObjekt {
     animate() {
 
         setInterval(() => {
-            this.moveLeft()
-            this.isDead()
+            if (gameStart) {
+                this.moveLeft()
+                this.isDead()
+            }
         }, 1000 / 60);
 
         this.walk_interval = setInterval(() => {
@@ -56,14 +58,14 @@ class Chicken extends MovableObjekt {
 
             this.loadImage(CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
-        
+
             setTimeout(() => {
                 this.removeFromWorld(); // Hier das Chicken entfernen
             }, 200);
         }
     }
 
- 
+
 
 
 }

@@ -65,7 +65,7 @@ const level1 = new Level(
         // AUDIOS.crickets
     ],
     [
-        AUDIOS.title_song
+        AUDIOS.theme_song
     ]
 
 

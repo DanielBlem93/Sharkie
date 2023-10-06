@@ -23,13 +23,13 @@ class BabyChicken extends MovableObjekt {
         this.animate()
         this.setPosition(x)
     }
-
-
+    
     animate() {
-
         setInterval(() => {
-            this.moveLeft()
-            this.isDead()
+            if (gameStart) {
+                this.moveLeft()
+                this.isDead()
+            }
         }, 1000 / 60);
 
         this.walk_interval = setInterval(() => {
@@ -48,9 +48,9 @@ class BabyChicken extends MovableObjekt {
             }, 50);
             this.loadImage(BABY_CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
-           
+
             setTimeout(() => {
-                this.removeFromWorld(); 
+                this.removeFromWorld();
             }, 200);
         }
     }
@@ -61,10 +61,10 @@ class BabyChicken extends MovableObjekt {
 
     stopChickenSound() {
         if (this.sound) {
-            this.sound.pause(); 
+            this.sound.pause();
             this.deadSound.pause();
-            this.sound.currentTime = 0; 
-            this.deadSound.currentTime = 0; 
+            this.sound.currentTime = 0;
+            this.deadSound.currentTime = 0;
         }
     }
 

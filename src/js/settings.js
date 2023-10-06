@@ -95,7 +95,12 @@ const masterAudio = {
         Object.values(audio_settings).forEach(setting => {
             setting.audio.volume = setting.volume * volume;
         });
+        playTitleSong()
     }
 };
 
+function playTitleSong() {
+    AUDIOS.title_song.loop = true
+    AUDIOS.title_song.play()
+}
 

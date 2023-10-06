@@ -11,7 +11,7 @@ class Character extends MovableObjekt {
     died = false
     jumped = false
 
-    CoolDownTime = 2000 //  /1000=sec
+    CoolDownTime = 2000 //  x/1000=sec
     world;
     j = 0
     s = 0
@@ -128,7 +128,6 @@ class Character extends MovableObjekt {
         }, 1000 / 7);
     }
 
-
     jumping() {
         if (this.world.keyboard.space && !this.isCharacterAboveGround() && !this.dead && !this.jumped && !this.godmode) {
             this.jump()
@@ -168,7 +167,7 @@ class Character extends MovableObjekt {
         const currentTime = Date.now();
         const idleTime = currentTime - lastKeyPressTime;
 
-        if (idleTime >= 15000 && this.querrys(1) && gameStart) {
+        if (idleTime >= 5000 && this.querrys(1) && gameStart) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
             AUDIOS.snoring.play()
         } else { AUDIOS.snoring.pause() }
@@ -226,8 +225,6 @@ class Character extends MovableObjekt {
             }, 10);
         }
     }
-
-
 
     fallDown() {
         setInterval(() => {

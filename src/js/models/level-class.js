@@ -16,8 +16,7 @@ class Level {
         this.bottles_coll = bottles_coll
         this.backgroundSounds = bgSound
         this.mainTheme = mainTheme
-        this.playBackgroundSound(bgSound)
-        this.playBackgroundSound(mainTheme)
+
         this.setBackground()
 
 
@@ -35,14 +34,13 @@ class Level {
 
     }
 
-    setVolume(value, sound) {
-        sound.forEach(Sound => {
-            Sound.volume = value
+    setVolume(value, sounds) {
+        sounds.forEach(sound => {
+            sound.volume = value
         })
-        this.mainTheme.forEach(Sound => {
-            Sound.volume = value
+        this.mainTheme.forEach(sound => {
+            sound.volume = value
         })
-
     }
 
     setBackground() {
@@ -69,6 +67,9 @@ class Level {
         enemiesToSpawn.forEach(enemy => {
             this.enemies.push(enemy)
         });
+        this.playBackgroundSound(this.backgroundSounds)
+        this.playBackgroundSound(this.mainTheme)
+        AUDIOS.title_song.pause()
 
     }
 }
