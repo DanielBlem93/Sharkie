@@ -7,7 +7,10 @@
 MENU_IMAGES = {
     main_menu: 'src/img/9_intro_outro_screens/start/startscreen_2.png',
     start_game_button: 'src/img/9_intro_outro_screens/start/start-game.png',
-    game_over_img: 'src/img/9_intro_outro_screens/game_over/game over!.png',
+    replay_button: 'src/img/9_intro_outro_screens/start/replayButton.png',
+    game_over_img: 'src/img/9_intro_outro_screens/game_over/you lost.png',
+    game_won_img: 'src/img/9_intro_outro_screens/game_over/game over.png',
+
 }
 
 BACKGROUND_IMAGES = {

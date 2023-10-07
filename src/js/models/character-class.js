@@ -68,6 +68,7 @@ class Character extends MovableObjekt {
                 } else {
                     this.died = true
                     this.disableCharacter()
+                    gameOver = true
                 }
             }
         }, 1000 / CHARACTER_IMAGES.IMAGES_DEAD.length);

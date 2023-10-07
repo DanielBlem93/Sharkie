@@ -35,7 +35,8 @@ class DrawableObject {
             ctx.strokeStyle = 'red';
             ctx.rect(hitboxX, hitboxY, this.hitboxWidth, this.hitboxHeight);
             ctx.stroke();
-        } else if (this instanceof Button) {
+        } 
+        else if (this instanceof Button) {
             //show image size
             ctx.beginPath()
             ctx.lineWidth = '5'

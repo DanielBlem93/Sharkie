@@ -6,7 +6,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0
-    menu = new Menu()
+    menu = new Menu(20, 0, 720, 500, MENU_IMAGES.main_menu)
+    gameOverScreen
+    gameWonScreen = new Menu(20, 0, 720, 450, MENU_IMAGES.game_won_img)
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
@@ -26,10 +28,6 @@ class World {
         this.setWorld()
         this.run()
     }
-
-
-
-
 
     setWorld() {
         this.character.world = this
@@ -216,30 +214,12 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, canvas.height)
-        this.ctx.translate(this.camera_x, 0)
-        this.addObjectsToMap(this.level.backgroundObjects)
-        this.addObjectsToMap(this.level.clouds)
-        this.addObjectsToMap(this.CollectableObjects)
-        this.ctx.translate(-this.camera_x, 0)
-        this.addToMap(this.statusBar)
-        this.addToMap(this.coinBar)
-        this.addToMap(this.bottlesBar)
-        this.addToMap(this.bossBar)
-        this.addToMap(this.bossBarIcon)
+        this.drawBackgroundObjects()
+        this.drawBars()
+        this.drawObjects()
+        this.showMenu()
+        this.showGameEndingScreen()
 
-        this.ctx.translate(this.camera_x, 0)
-        this.addObjectsToMap(this.level.enemies)
-        this.addToMap(this.character)
-        this.addObjectsToMap(this.bottles)
-        this.ctx.translate(-this.camera_x, 0)
-
-        if (this.menu) {
-            this.ctx.translate(this.camera_x, 0)
-            this.addToMap(this.menu)
-            this.addObjectsToMap(this.menu.buttons)
-            this.ctx.translate(-this.camera_x, 0)
-        }
-        //Draw wird immer wieder aufgerufen
         self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -262,6 +242,68 @@ class World {
 
         if (mo.otherDirection) {
             mo.flipImageBack(mo)
+        }
+    }
+
+
+    drawBackgroundObjects() {
+        this.ctx.translate(this.camera_x, 0)
+        this.addObjectsToMap(this.level.backgroundObjects)
+        this.addObjectsToMap(this.level.clouds)
+        this.addObjectsToMap(this.CollectableObjects)
+        this.ctx.translate(-this.camera_x, 0)
+    }
+    drawBars() {
+        this.addToMap(this.statusBar)
+        this.addToMap(this.coinBar)
+        this.addToMap(this.bottlesBar)
+        this.addToMap(this.bossBar)
+        this.addToMap(this.bossBarIcon)
+    }
+    drawObjects() {
+        this.ctx.translate(this.camera_x, 0)
+        this.addObjectsToMap(this.level.enemies)
+        this.addToMap(this.character)
+        this.addObjectsToMap(this.bottles)
+        this.ctx.translate(-this.camera_x, 0)
+    }
+
+    showMenu() {
+        if (!this.menu.hideMenu) {
+            this.ctx.translate(this.camera_x, 0)
+            this.addToMap(this.menu)
+            this.addToMap(this.menu.startButton)
+            this.ctx.translate(-this.camera_x, 0)
+        }
+    }
+    showGameEndingScreen() {
+        if (gameOver) {
+            this.showGameOverScreen()
+        } else if (gameWon) {
+            this.ctx.translate(this.camera_x, 0)
+            this.addToMap(this.gameWonScreen)
+
+            this.ctx.translate(-this.camera_x, 0)
+        }
+    }
+
+    showGameOverScreen() {
+        this.ctx.translate(this.camera_x, 0)
+        this.createGameOverScreen()
+        this.addToMap(this.gameOverScreen)
+        this.addToMap(this.gameOverScreen.replayButton)
+
+        this.ctx.translate(-this.camera_x, 0)
+    }
+
+    createGameOverScreen() {
+        let x = this.character.x - 100
+        let x2 = this.character.x + 150
+        if (!this.gameOverScreen) {
+            this.gameOverScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_over_img)
+            this.gameOverScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
+            this.menu.pushButtons(this.gameOverScreen.replayButton)
+            this.gameOverScreen.buttonSperre = true
         }
     }
 
