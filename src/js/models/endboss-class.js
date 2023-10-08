@@ -70,6 +70,7 @@ class Endboss extends MovableObjekt {
         if (this.hp === 0) {
             this.dead = true
             this.disableBoss()
+            gameWon = true
         }
     }
 
@@ -128,13 +129,13 @@ class Endboss extends MovableObjekt {
 
     setAlertIntervall() {
         this.alertIntervall =
-        setInterval(() => {
-            if (this.al < CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length) {
-                this.alertAnimation()
-            }
-        }, 1500 / CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length);
+            setInterval(() => {
+                if (this.al < CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length) {
+                    this.alertAnimation()
+                }
+            }, 1500 / CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length);
     }
-    
+
     showBossHp() {
         world.bossBar.y = world.bossBar.defaultY
         world.bossBarIcon.y = world.bossBarIcon.defaultY
@@ -151,7 +152,7 @@ class Endboss extends MovableObjekt {
             clearInterval(this.jumpAttackIntervall)
         }, 700);
     }
-  
+
     alertAnimation() {
         this.al = this.animateImageOnce(CHICKEN_BOSS_IMAGES.IMAGES_ALERT, this.al);
         if (this.al === 6) {
@@ -258,7 +259,7 @@ class Endboss extends MovableObjekt {
 
 
 
- 
+
 
 
 

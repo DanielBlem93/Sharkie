@@ -7,7 +7,7 @@ class Menu extends DrawableObject {
     hideMenu = false
     startButton
     replayButton
-    buttonSperre = false
+
 
 
 

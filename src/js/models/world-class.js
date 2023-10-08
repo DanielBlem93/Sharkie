@@ -8,7 +8,7 @@ class World {
     camera_x = 0
     menu = new Menu(20, 0, 720, 500, MENU_IMAGES.main_menu)
     gameOverScreen
-    gameWonScreen = new Menu(20, 0, 720, 450, MENU_IMAGES.game_won_img)
+    gameWonScreen
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
@@ -243,6 +243,8 @@ class World {
         if (mo.otherDirection) {
             mo.flipImageBack(mo)
         }
+
+
     }
 
 
@@ -280,10 +282,7 @@ class World {
         if (gameOver) {
             this.showGameOverScreen()
         } else if (gameWon) {
-            this.ctx.translate(this.camera_x, 0)
-            this.addToMap(this.gameWonScreen)
-
-            this.ctx.translate(-this.camera_x, 0)
+            this.showGameWonScreen()
         }
     }
 
@@ -292,7 +291,14 @@ class World {
         this.createGameOverScreen()
         this.addToMap(this.gameOverScreen)
         this.addToMap(this.gameOverScreen.replayButton)
+        this.ctx.translate(-this.camera_x, 0)
+    }
 
+    showGameWonScreen() {
+        this.ctx.translate(this.camera_x, 0)
+        this.createGameWonscreen()
+        this.addToMap(this.gameWonScreen)
+        this.addToMap(this.gameWonScreen.replayButton)
         this.ctx.translate(-this.camera_x, 0)
     }
 
@@ -303,8 +309,29 @@ class World {
             this.gameOverScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_over_img)
             this.gameOverScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
             this.menu.pushButtons(this.gameOverScreen.replayButton)
-            this.gameOverScreen.buttonSperre = true
+
         }
+    }
+    createGameWonscreen() {
+        let x = this.character.x - 100
+        let x2 = this.character.x + 150
+        if (!this.gameWonScreen) {
+            this.gameWonScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_won_img)
+            this.gameWonScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
+            this.menu.pushButtons(this.gameWonScreen.replayButton)
+
+        }
+    }
+
+    createGameEndingScreen(screen) {
+        let x = this.character.x - 100
+        let x2 = this.character.x + 150
+
+        screen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_won_img)
+        screen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
+        screen.pushButtons(screen.replayButton)
+        screen.buttonSperre = true
+
     }
 
     querys(s) {
