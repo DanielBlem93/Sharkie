@@ -10,7 +10,8 @@ class BabyChicken extends MovableObjekt {
     hp = 20
     demage = 20
     sound = AUDIOS.babyChicken
-    walk_interval
+
+
 
 
     constructor(x) {
@@ -23,9 +24,9 @@ class BabyChicken extends MovableObjekt {
         this.animate()
         this.setPosition(x)
     }
-    
+
     animate() {
-        setInterval(() => {
+        this.animate_interval = setInterval(() => {
             if (gameStart) {
                 this.moveLeft()
                 this.isDead()
@@ -35,6 +36,8 @@ class BabyChicken extends MovableObjekt {
         this.walk_interval = setInterval(() => {
             this.playAnimation(BABY_CHICKEN_IMAGES.IMAGES_WALKING)
         }, 1000 / 10);
+        intervals.push(this.animate_interval);
+        intervals.push(this.walk_interval);
     }
 
     isDead() {
@@ -45,7 +48,7 @@ class BabyChicken extends MovableObjekt {
             this.stopChickenSound()
             setTimeout(() => {
                 this.deadSound.play()
-            }, 50);
+            }, 100);
             this.loadImage(BABY_CHICKEN_IMAGES.IMAGES_DEAD[0])
             clearInterval(this.walk_interval)
 

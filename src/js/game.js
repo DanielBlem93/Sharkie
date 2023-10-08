@@ -4,12 +4,20 @@ let keyboard = new Keyboard();;
 let gameStart = false
 let gameOver = false
 let gameWon = false
+let gameRestart = false
 let tastaturGesperrt = true;
 
 let lastKeyPressTime
 const gesperrteTasten = ["w", "a", "s", "d", "f", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+intervals = []
 
 
+// function stopIntervals() {
+//     intervals.forEach(intervalId => {
+//         clearInterval(intervalId);
+//     });
+//     intervals = [];
+// }
 
 function init() {
     canvas = document.getElementById('canvas')
@@ -26,6 +34,25 @@ function tastaturSperren() {
     }, 1500);
 }
 
+
+function newGame() {
+    location.reload();
+}
+
+function buttonClickListner() {
+    canvas.addEventListener('click', function (event) {
+        const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+        const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+        world.menu.buttons.forEach(button => {
+            if (button.isClicked(mouseX, mouseY)) {
+                button.onClick();
+                console.log(button)
+            }
+        });
+    });
+}
+
 function allFalse() {
     keyboard.up = false
     keyboard.left = false
@@ -36,25 +63,6 @@ function allFalse() {
     keyboard.throw = false
 }
 
-
-
-function buttonClickListner() {
-    canvas.addEventListener('click', function (event) {
-        const mouseX = event.clientX - canvas.getBoundingClientRect().left;
-        const mouseY = event.clientY - canvas.getBoundingClientRect().top;
-   
-            world.menu.buttons.forEach(button => {
-                if (button.isClicked(mouseX, mouseY)) {
-                    button.onClick();
-                    console.log(button)
-                }
-            });
-    });
-}
-
-
-
-//keydown
 window.addEventListener('keydown', (e) => {
     if (!tastaturGesperrt) {
 

@@ -50,6 +50,7 @@ class ThrowableObject extends MovableObjekt {
 
         this.bottleCracking()
         world.bottlesBar.setBottles(10, 'remove')
+        intervals.push(this.intervalId);
     }
 
     throwRight() {

@@ -46,17 +46,18 @@ class Endboss extends MovableObjekt {
     }
 
     animate() {
-        setInterval(() => {
+        let animate_interval = setInterval(() => {
             this.walk()
             this.isDead()
             this.alert()
             setTimeout(() => {
                 this.checkBossHp()
-            }, 100);
+            }, 1000);
         }, 1000 / 60);
 
         this.walkInterval()
         this.dieing()
+        intervals.push(animate_interval)
     }
 
     walk() {
@@ -70,7 +71,12 @@ class Endboss extends MovableObjekt {
         if (this.hp === 0) {
             this.dead = true
             this.disableBoss()
-            gameWon = true
+            setTimeout(() => {
+                gameWon = true
+                tastaturGesperrt = true
+                allFalse()
+            }, 1500);
+
         }
     }
 
@@ -102,7 +108,7 @@ class Endboss extends MovableObjekt {
     }
 
     dieing() {
-        setInterval(() => {
+        let die_interval = setInterval(() => {
             if (this.dead) {
                 if (this.d < CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length) {
                     this.playDeathAnimation()
@@ -110,6 +116,7 @@ class Endboss extends MovableObjekt {
                 }
             }
         }, 1000 / CHICKEN_BOSS_IMAGES.IMAGES_DEAD.length);
+        intervals.push(die_interval);
     }
 
     disableBoss() {
@@ -134,6 +141,7 @@ class Endboss extends MovableObjekt {
                     this.alertAnimation()
                 }
             }, 1500 / CHICKEN_BOSS_IMAGES.IMAGES_ALERT.length);
+        intervals.push(this.alertIntervall);
     }
 
     showBossHp() {
@@ -165,10 +173,11 @@ class Endboss extends MovableObjekt {
     }
 
     attackStart() {
-        setInterval(() => {
+        let attack_loop_interval = setInterval(() => {
             clearInterval(this.walk_interval)
             this.attackAnimation()
         }, this.attackLoop); //attacks every 7sec
+        intervals.push(attack_loop_interval);
     }
 
     attackAnimation() {

@@ -15,6 +15,8 @@ class MovableObjekt extends DrawableObject {
     deadSound
     currentSound = 0
     getHit
+    animate_interval
+    walk_interval
 
     // 
     isColliding(mo) {

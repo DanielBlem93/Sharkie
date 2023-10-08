@@ -32,7 +32,7 @@ class Character extends MovableObjekt {
     }
 
     animate() {
-        setInterval(() => {
+        this.animate_interval = setInterval(() => {
             AUDIOS.walking_sound.pause()
             this.walkingRight()
             this.walkingLeft()
@@ -41,16 +41,15 @@ class Character extends MovableObjekt {
 
         }, 1000 / 30);
 
-        setInterval(() => {
+        let check = setInterval(() => {
             this.playWalkAnimation()
             this.hurtAnimation()
+            this.idle()
         }, 100);
 
-        setInterval(() => {
-            this.idle()
-        }, 150);
-
         this.dieing()
+        intervals.push(this.animate_interval);
+        intervals.push(check);
     }
 
     fixCameraOnCharacter() {
@@ -58,7 +57,7 @@ class Character extends MovableObjekt {
     }
 
     dieing() {
-        setInterval(() => {
+        let dieing = setInterval(() => {
             if (this.dead) {
                 if (this.j < CHARACTER_IMAGES.IMAGES_DEAD.length) {
                     this.playDeathAnimation()
@@ -67,18 +66,14 @@ class Character extends MovableObjekt {
 
                 } else {
                     this.died = true
-                    this.disableCharacter()
-                    gameOver = true
+                    setTimeout(() => {
+                        gameOver = true
+                    }, 1000);
+                   
                 }
             }
         }, 1000 / CHARACTER_IMAGES.IMAGES_DEAD.length);
-
-    }
-
-    disableCharacter() {
-        if (this.died) {
-            this.loadImage('src/img/2_character_pepe/5_dead/D-56.png')
-        }
+        intervals.push(dieing);
     }
 
     walkingRight() {
@@ -127,6 +122,7 @@ class Character extends MovableObjekt {
                 this.s++;
             }
         }, 1000 / 7);
+        intervals.push(animation);
     }
 
     jumping() {
@@ -228,9 +224,10 @@ class Character extends MovableObjekt {
     }
 
     fallDown() {
-        setInterval(() => {
+        let fall = setInterval(() => {
             this.y += 3
         }, 1000 / 30);
+        intervals.push(fall);
     }
 
     isHurt() {

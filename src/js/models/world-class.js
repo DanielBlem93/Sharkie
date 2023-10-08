@@ -16,6 +16,7 @@ class World {
     bossBarIcon = new Boss_bar_icon()
 
 
+
     level = level1
     bottles = []
     CollectableObjects = []
@@ -304,33 +305,32 @@ class World {
     }
 
     createEndingScreen() {
-        let x = this.character.x - 100
-        let x2 = this.character.x + 150
-        if (!this.gameOverScreen && gameOver) {
-            this.gameOverScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_over_img)
-            this.gameOverScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
-            this.menu.pushButtons(this.gameOverScreen.replayButton)
+        if ((gameOver && !this.gameOverScreen) || (gameWon && !this.gameWonScreen) && !gameRestart) {
+            let screenType = gameOver ? "game_over" : "game_won";
+            let screenImage = MENU_IMAGES[`${screenType}_img`];
+
+            let screen = this.createScreen(screenImage);
+            this.menu.pushButtons(screen.replayButton);
+
+            if (gameOver) {
+                this.gameOverScreen = screen;
+            } else if (gameWon) {
+                this.gameWonScreen = screen;
+            }
         }
-
-        else if (!this.gameWonScreen && gameWon) {
-            this.gameWonScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_won_img)
-            this.gameWonScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
-            this.menu.pushButtons(this.gameWonScreen.replayButton)
-        }
-
+        gameRestart = true
     }
 
-    createGameOverScreen() {
+    createScreen(screenImage) {
+        let x = this.character.x - 100;
+        let x2 = this.character.x + 150;
 
-        let x = this.character.x - 100
-        let x2 = this.character.x + 150
+        let screen = new Menu(x, 0, 720, 500, screenImage);
+        screen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);
 
+        return screen;
     }
-    createGameWonscreen() {
-        let x = this.character.x - 100
-        let x2 = this.character.x + 150
 
-    }
 
 
     querys(s) {

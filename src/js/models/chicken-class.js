@@ -26,7 +26,7 @@ class Chicken extends MovableObjekt {
 
     animate() {
 
-        setInterval(() => {
+        this.animate_interval = setInterval(() => {
             if (gameStart) {
                 this.moveLeft()
                 this.isDead()
@@ -36,6 +36,8 @@ class Chicken extends MovableObjekt {
         this.walk_interval = setInterval(() => {
             this.playAnimation(CHICKEN_IMAGES.IMAGES_WALKING)
         }, 1000 / 10);
+        intervals.push(this.animate_interval);
+        intervals.push(this.walk_interval);
     }
 
     randomSound() {
@@ -60,7 +62,7 @@ class Chicken extends MovableObjekt {
             clearInterval(this.walk_interval)
 
             setTimeout(() => {
-                this.removeFromWorld(); // Hier das Chicken entfernen
+                this.removeFromWorld();
             }, 200);
         }
     }

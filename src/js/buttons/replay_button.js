@@ -21,6 +21,8 @@ class Replay_button extends Button {
     restartGame() {
         console.log('restart game')
 
-       
+        newGame()
+
+
     }
 }
