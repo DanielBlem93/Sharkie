@@ -8,7 +8,7 @@ class World {
     camera_x = 0
     menu = new Menu(20, 0, 720, 500, MENU_IMAGES.main_menu)
     gameOverScreen
-    gameWonScreen 
+    gameWonScreen
     statusBar = new StatusBar()
     coinBar = new Coinbar()
     bottlesBar = new BottlesBar()
@@ -279,46 +279,59 @@ class World {
         }
     }
     showGameEndingScreen() {
+        this.ctx.translate(this.camera_x, 0)
+
         if (gameOver) {
-            this.showGameOverScreen()
+            this.drawGameEndingScreen('lost')
         } else if (gameWon) {
-            this.showGameWonScreen()
+            this.drawGameEndingScreen('won')
         }
-    }
-
-    showGameOverScreen() {
-        this.ctx.translate(this.camera_x, 0)
-        this.createGameOverScreen()
-        this.addToMap(this.gameOverScreen)
-        this.addToMap(this.gameOverScreen.replayButton)
         this.ctx.translate(-this.camera_x, 0)
     }
 
-    showGameWonScreen() {
-        this.ctx.translate(this.camera_x, 0)
-        this.createGameWonscreen()
-        this.addToMap(this.gameWonScreen)
-        this.addToMap(this.gameWonScreen.replayButton)
-        this.ctx.translate(-this.camera_x, 0)
+    drawGameEndingScreen(ending) {
+        this.createEndingScreen()
+        this.addToMap(this.endingScreen(ending))
+        this.addToMap(this.endingScreen(ending).replayButton)
     }
 
-    createGameOverScreen() {
-        if (!this.gameOverScreen) {
+
+    endingScreen(ending) {
+        if (ending === 'won')
+            return this.gameWonScreen
+        else
+            return this.gameOverScreen
+    }
+
+    createEndingScreen() {
+        let x = this.character.x - 100
+        let x2 = this.character.x + 150
+        if (!this.gameOverScreen && gameOver) {
             this.gameOverScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_over_img)
             this.gameOverScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
             this.menu.pushButtons(this.gameOverScreen.replayButton)
         }
-    }
-    createGameWonscreen() {
 
-        if (!this.gameWonScreen) {
+        else if (!this.gameWonScreen && gameWon) {
             this.gameWonScreen = new Menu(x, 0, 720, 500, MENU_IMAGES.game_won_img)
             this.gameWonScreen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);//x,y,width,height,img
             this.menu.pushButtons(this.gameWonScreen.replayButton)
         }
+
     }
 
-  
+    createGameOverScreen() {
+
+        let x = this.character.x - 100
+        let x2 = this.character.x + 150
+
+    }
+    createGameWonscreen() {
+        let x = this.character.x - 100
+        let x2 = this.character.x + 150
+
+    }
+
 
     querys(s) {
         if (s === 1) {
