@@ -52,7 +52,7 @@ class Endboss extends MovableObjekt {
             this.alert()
             setTimeout(() => {
                 this.checkBossHp()
-            }, 1000);
+            }, 10000);
         }, 1000 / 60);
 
         this.walkInterval()

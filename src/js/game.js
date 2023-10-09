@@ -22,6 +22,7 @@ intervals = []
 function init() {
     canvas = document.getElementById('canvas')
     world = new World(canvas, keyboard)
+  
     masterAudio.setVolume(1)
     buttonClickListner()
 }
@@ -32,6 +33,13 @@ function tastaturSperren() {
     setTimeout(function () {
         tastaturGesperrt = false;
     }, 1500);
+}
+
+function setNewWorld() {
+    if (allImagesLoaded && allAudiosLoaded) {
+       
+    }else
+    console.log('World not created')
 }
 
 

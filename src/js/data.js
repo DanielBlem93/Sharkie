@@ -228,6 +228,38 @@ THROWABLES_IMAGES = {
     ]
 }
 
+const audioPaths = [
+    'src/audio/loca-salsa-song.mp3',
+    'src/audio/Background music.mp3',
+    'src/audio/light-salsa-song.mp3',
+    'src/audio/bossMusic.mp3',
+    'src/audio/game-over.mp3',
+    'src/audio/background_sound_wind.mp3',
+    'src/audio/crickets-sound.mp3',
+    'src/audio/throw.mp3',
+    'src/audio/running.mp3',
+    'src/audio/jump-hoy.mp3',
+    'src/audio/jump-landing.mp3',
+    'src/audio/hurt1.mp3',
+    'src/audio/hurt2.mp3',
+    'src/audio/snoring.mp3',
+    'src/audio/coin-sound.mp3',
+    'src/audio/blop.mp3',
+    'src/audio/bottle-cracking.mp3',
+    'src/audio/quiet-chicken.mp3',
+    'src/audio/Chicken-sound.mp3',
+    'src/audio/chicken-dead.mp3',
+    'src/audio/babychicken.mp3',
+    'src/audio/babychicken-dieing.mp3',
+    'src/audio/boss-chicken.mp3',
+    'src/audio/boss-chicken-hurt.mp3',
+    'src/audio/chicken-dieing.mp3',
+    'src/audio/boss-chicken-attack .mp3',
+    'src/audio/chicken-funny.mp3',
+    'src/audio/Bird Flapping Wings .mp3'
+];
+
+
 AUDIOS = {
 
     //Music
