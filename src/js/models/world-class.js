@@ -93,7 +93,6 @@ class World {
             } else if (this.enemyIsInSight(enemy) && !(enemy instanceof Endboss)) {
                 enemy.playEnemySound();
             } else if (this.isCharacterBehindEndboss(this.character, enemy) && (enemy instanceof Endboss)) {
-                console.log('behind')
                 enemy.otherDirection = true
             } else {
                 enemy.otherDirection = false

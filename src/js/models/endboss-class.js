@@ -39,6 +39,7 @@ class Endboss extends MovableObjekt {
         this.loadImages(CHICKEN_BOSS_IMAGES.IMAGES_DEAD)
         this.animate()
         this.x = 719 * (levelLength - 2);
+        this.speed = 1
     }
 
     isBossAboveGround() {
@@ -53,7 +54,7 @@ class Endboss extends MovableObjekt {
             setTimeout(() => {
                 this.checkBossHp()
             }, 10000);
-        }, 1000 / 60);
+        }, 1000 / 30);
 
         this.walkInterval()
         this.dieing()
@@ -95,7 +96,10 @@ class Endboss extends MovableObjekt {
     }
 
     checkBossHp() {
-        world.bossBar.setHealth(this.hp)
+        if (gameStart) {
+            world.bossBar.setHealth(this.hp)
+        } 
+
     }
 
     walkInterval() {

@@ -21,7 +21,7 @@ intervals = []
 
 function init() {
     canvas = document.getElementById('canvas')
-    world = new World(canvas, keyboard)
+    setNewWorld()
   
     masterAudio.setVolume(1)
     buttonClickListner()
@@ -35,9 +35,10 @@ function tastaturSperren() {
     }, 1500);
 }
 
-function setNewWorld() {
+async function setNewWorld() {
+    await preLoad()
     if (allImagesLoaded && allAudiosLoaded) {
-       
+        world = new World(canvas, keyboard)
     }else
     console.log('World not created')
 }
@@ -55,7 +56,6 @@ function buttonClickListner() {
         world.menu.buttons.forEach(button => {
             if (button.isClicked(mouseX, mouseY)) {
                 button.onClick();
-                console.log(button)
             }
         });
     });

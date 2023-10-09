@@ -23,7 +23,7 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
 
     }
-
+    //showHitbox
     drawFrame(ctx) {
         if (this instanceof MovableObjekt || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject) {
 
@@ -35,7 +35,8 @@ class DrawableObject {
             ctx.strokeStyle = 'red';
             ctx.rect(hitboxX, hitboxY, this.hitboxWidth, this.hitboxHeight);
             ctx.stroke();
-        } 
+        }
+         
         // else if (this instanceof Button) {
         //     //show image size
         //     ctx.beginPath()

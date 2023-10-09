@@ -1,5 +1,5 @@
 class MovableObjekt extends DrawableObject {
-    defaultSpeed = 0.15
+    defaultSpeed = 0.2
     speed = this.defaultSpeed
     speedY = 0
     jumpPower = 27

@@ -1,6 +1,10 @@
 
 let allImagesLoaded = false
 let allAudiosLoaded = false;
+let loadedFiles = 0
+let files
+let counter = 0
+
 
 const objectsWithArrays = [
     STATUSBAR_IMAGES,
@@ -33,12 +37,15 @@ function loadImage(src) {
         };
         image.onerror = reject;
         image.src = src;
+        loadedFiles++
     });
 }
 
 function pushAllPaths() {
     pushArrays(objectsWithArrays)
     pushArrays(objects)
+    files = imagePaths.length + audioPaths.length
+
 }
 
 function pushArrays(array) {
@@ -84,8 +91,10 @@ function createAudioObject(path) {
             const key = path.split('/').pop().split('.')[0];
             LOADED_AUDIOS[key] = audio;
             resolve();
+            loadedFiles++
         });
         audio.addEventListener('error', reject);
+        
     });
 }
 
@@ -106,25 +115,48 @@ async function preLoad() {
     pushAllPaths()
 
     await preloadImages().then(() => {
-        console.log('Bilder wurden geladen:', images);
+        console.log('Bilder wurden geladen:');
         allImagesLoaded = true
 
     });
 
-     await loadAudios().then((success) => {
+    await loadAudios().then((success) => {
         allAudiosLoaded = success;
         if (success) {
-            console.log('Alle Audios wurden geladen:', LOADED_AUDIOS);
+            console.log('Alle Audios wurden geladen:');
         } else {
             console.error('Es gab Fehler beim Laden der Audios.');
         }
     });
 }
 
+function setLoadingscreen() {
+    let loadingscreen = document.getElementById('loading-screen');
+    let loadingscreenContainer = document.getElementById('loading-screen-container');
+    loadingscreen.innerHTML = `${loadedFiles} data out of ${files} loaded `;
+
+    if (loadedFiles === files) {
+        setTimeout(() => {
+            loadingscreen.innerHTML = '';
+            loadingscreenContainer.style.display = 'none';
+        }, 500);
+    } 
+}
 
 
+function watchLoadedFiles() {
+    let previousValue = loadedFiles;
+
+    setInterval(() => {
+        if (loadedFiles !== previousValue) {
+            setLoadingscreen();
+            previousValue = loadedFiles;
+        }
+    }, 100); // Überprüfe alle 100 Millisekunden
+}
 
 
+watchLoadedFiles();
 
 
 

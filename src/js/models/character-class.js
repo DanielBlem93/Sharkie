@@ -182,7 +182,6 @@ class Character extends MovableObjekt {
 
     hit(demage) {
         if (this.godmode) {
-            console.log('Godmode on')
         } else {
             this.takingDamge(demage);
             this.godmodeON();
