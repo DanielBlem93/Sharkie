@@ -34,10 +34,11 @@ function loadImage(src) {
         image.onload = () => {
             images.push(image);
             resolve(image);
+            loadedFiles++
         };
         image.onerror = reject;
         image.src = src;
-        loadedFiles++
+       
     });
 }
 

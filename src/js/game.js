@@ -22,8 +22,6 @@ intervals = []
 function init() {
     canvas = document.getElementById('canvas')
     setNewWorld()
-  
-    masterAudio.setVolume(1)
     buttonClickListner()
 }
 
@@ -39,6 +37,7 @@ async function setNewWorld() {
     await preLoad()
     if (allImagesLoaded && allAudiosLoaded) {
         world = new World(canvas, keyboard)
+        masterAudio.setVolume(1)
     }else
     console.log('World not created')
 }
