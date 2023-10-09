@@ -10,6 +10,9 @@ MENU_IMAGES = {
     replay_button: 'src/img/9_intro_outro_screens/start/replayButton.png',
     game_over_img: 'src/img/9_intro_outro_screens/game_over/you lost.png',
     game_won_img: 'src/img/9_intro_outro_screens/game_over/game over.png',
+    audio_on :'src/img/soundOff.svg',
+    audio_off :'src/img/soundOn.svg',
+    fullscreen :'src/img/fullscreen.svg',
 
 }
 

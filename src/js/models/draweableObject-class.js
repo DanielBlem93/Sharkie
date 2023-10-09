@@ -37,7 +37,7 @@ class DrawableObject {
             ctx.stroke();
         }
          
-        else if (this instanceof Button) {
+        else if (this instanceof Menu) {
             //show image size
             ctx.beginPath()
             ctx.lineWidth = '5'

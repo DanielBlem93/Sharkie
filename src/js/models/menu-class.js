@@ -7,6 +7,9 @@ class Menu extends DrawableObject {
     hideMenu = false
     startButton
     replayButton
+    soundOnButton
+    soundOffButton
+    fullscreenButton
 
 
 
