@@ -7,7 +7,7 @@ class World {
     keyboard;
     camera_x = 0
     menu = new Menu(20, 0, 720, 500, MENU_IMAGES.main_menu)
-    controll_menu = new Menu(460, 5, 250, 50, '')
+
     gameOverScreen
     gameWonScreen
     statusBar = new StatusBar()
@@ -26,7 +26,6 @@ class World {
         this.ctx = canvas.getContext('2d')
         this.canvas = canvas
         this.keyboard = keyboard
-        this.createControllMenu()
         this.draw()
         this.setWorld()
         this.run()
@@ -222,9 +221,9 @@ class World {
         this.drawObjects()
         this.showMenu()
         this.showGameEndingScreen()
-        this.addToMap(this.controll_menu)
-        this.addToMap(this.controll_menu.soundOnButton)
-        this.addToMap(this.controll_menu.fullscreenButton)
+        // this.addToMap(this.controll_menu)
+        // this.addToMap(this.controll_menu.soundOnButton)
+        // this.addToMap(this.controll_menu.fullscreenButton)
         
 
         self = this;
@@ -339,12 +338,12 @@ class World {
         return screen;
     }
 
-    createControllMenu() {
-        this.controll_menu.fullscreenButton = new FullscreenButton(670,5,40,40,MENU_IMAGES.fullscreen)
-        this.controll_menu.soundOnButton = new SoundControll(620, 5, 40, 40, MENU_IMAGES.audio_on)
+    // createControllMenu() {
+    //     this.controll_menu.fullscreenButton = new FullscreenButton(670,5,40,40,MENU_IMAGES.fullscreen)
+    //     this.controll_menu.soundOnButton = new SoundControll(620, 5, 40, 40, MENU_IMAGES.audio_on)
 
 
-    }
+    // }
 
 
 

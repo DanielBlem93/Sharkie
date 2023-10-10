@@ -1,5 +1,5 @@
 class Menu extends DrawableObject {
-    x = 20
+    x = 0
     y = 0
     width = 720;
     height = 480;

@@ -13,6 +13,7 @@ MENU_IMAGES = {
     audio_on :'src/img/soundOff.svg',
     audio_off :'src/img/soundOn.svg',
     fullscreen :'src/img/fullscreen.svg',
+    controlls :'src/img/svgviewer-output.svg',
 
 }
 

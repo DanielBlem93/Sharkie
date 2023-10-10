@@ -1,12 +1,12 @@
 class DrawableObject {
-    x = 50;
-    y = 50;
+    x 
+    y 
     height = 300;
     width = 150;
-    hitboxHeight = 50;
-    hitboxWidth = 50;
-    hitboxX = 50
-    hitboxY = 50
+    hitboxHeight
+    hitboxWidth 
+    hitboxX 
+    hitboxY 
     img;
     currentImage = 0;
     imageCache = {};
@@ -37,10 +37,10 @@ class DrawableObject {
             ctx.stroke();
         }
          
-        else if (this instanceof Menu) {
+        else if (this instanceof Button) {
             //show image size
             ctx.beginPath()
-            ctx.lineWidth = '5'
+            ctx.lineWidth = '1'
             ctx.strokeStyle = 'blue'
             ctx.rect(this.x, this.y, this.width, this.height)
             ctx.stroke()

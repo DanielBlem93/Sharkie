@@ -1,106 +1,41 @@
-const audio_settings = {
+let audioIsMuted = false
 
-    title_song: {
-        audio: AUDIOS.title_song,
-        volume: 0.4
-    },
-    theme_song: {
-        audio: AUDIOS.theme_song,
-        volume: 0.4
-    },
-    boss_song: {
-        audio: AUDIOS.boss_song,
-        volume: 0.8
-    },
-    wind: {
-        audio: AUDIOS.wind,
-        volume: 1
-    },
-    crickets: {
-        audio: AUDIOS.crickets,
-        volume: 0.3
-    },
-    throw_sound: {
-        audio: AUDIOS.throw_sound,
-        volume: 1
-    },
-    bottleCracking_sound: {
-        audio: AUDIOS.bottleCracking_sound,
-        volume: 1
-    },
-    walking_sound: {
-        audio: AUDIOS.walking_sound,
-        volume: 1
-    },
-    jumping_sound: {
-        audio: AUDIOS.jumping_sound,
-        volume: 0.7
-    },
-    jump_landing: {
-        audio: AUDIOS.jump_landing_sound,
-        volume: 0.8
-    },
-    snoring: {
-        audio: AUDIOS.snoring,
-        volume: 0.3
-    },
-    collect_coin: {
-        audio: AUDIOS.collect_coin,
-        volume: 0.4
-    },
-    quiet_chicken: {
-        audio: AUDIOS.CHICKEN_SOUND[0],
-        volume: 0.2
-    },
-    loud_chicken: {
-        audio: AUDIOS.CHICKEN_SOUND[1],
-        volume: 0.2
-    },
-    chickenDeadSound: {
-        audio: AUDIOS.CHICKEN_DEAD_SOUND,
-        volume: 0.5
-    },
-    babyChicken: {
-        audio: AUDIOS.babyChicken,
-        volume: 0.2
-    },
-    BabyChickenDead: {
-        audio: AUDIOS.BabyChickenDead,
-        volume: 0.5
-    },
-    hurt1: {
-        audio: AUDIOS.HURT_SOUNDS[0],
-        volume: 1
-    },
-    hurt2: {
-        audio: AUDIOS.HURT_SOUNDS[1],
-        volume: 1
-    },
-    BossHurt: {
-        audio: AUDIOS.BOSS_CHICKEN_HURT_SOUND,
-        volume: 0.8
-    },
-    BossSound: {
-        audio: AUDIOS.BOSS_CHICKEN_SOUND,
-        volume: 0.6
-    },
-    BossAttack: {
-        audio: AUDIOS.BOSS_CHICKEN_ATTACK_SOUND,
-        volume: 0.3
-    },
-}
+function toggle() {
+    const soundOnImg = document.querySelector('.sound-on-img');
+    const soundOffImg = document.querySelector('.sound-off-img');
 
-const masterAudio = {
-    setVolume(volume) {
-        Object.values(audio_settings).forEach(setting => {
-            setting.audio.volume = setting.volume * volume;
-        });
-        playTitleSong()
+    if (audioIsMuted) {
+        audioIsMuted = false;
+        soundOnImg.style.display = 'unset';
+        soundOffImg.style.display = 'none';
+        masterAudio.setVolume(1);
+    } else {
+        audioIsMuted = true;
+        soundOnImg.style.display = 'none';
+        soundOffImg.style.display = 'unset';
+        masterAudio.setVolume(0);
     }
-};
-
-function playTitleSong() {
-    AUDIOS.title_song.loop = true
-    AUDIOS.title_song.play()
 }
 
+function toggleFullscreen() {
+    let fullscreen = document.getElementById('fullscreen2')
+    enterFullscreen(fullscreen)
+}
+
+function enterFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+        element.webkitRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+}

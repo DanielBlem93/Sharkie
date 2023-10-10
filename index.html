@@ -12,13 +12,47 @@
 </head>
 
 <body onload="init()">
+
+
     <h1>El Pollo Loco</h1>
-    <main>
+    <main id="main">
+        <div id="container">
+            <div id="controlls">
+                <img onclick="toggle()" class="sound-on-img" src="src/img/soundOn.svg" style="display: unset;"
+                    alt="Sound on Button">
+                <img onclick="toggle()" class="sound-off-img" src="src/img/soundOff.svg" style="display: none;"
+                    alt="Sound off Button">
+                <img src="src/img/svgviewer-output.svg" alt="Controlls Button">
+                <img id="fullscreen" onclick="toggleFullscreen()" src="src/img/fullscreen.svg" alt="Fullscreen Button">
+            </div>
+        </div>
         <div id="loading-screen-container">
+
             <div id="loading-screen">0 data out of 171 loaded</div>
         </div>
-        <canvas width="720px" height="480px" id="canvas"></canvas>
+     
+
     </main>
+    <canvas width="720px" height="480px" id="canvas">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32,8 +66,8 @@
     <script src="src/js/models/button-class.js"></script>
     <script src="src/js/buttons/start_button.js"></script>
     <script src="src/js/buttons/replay_button.js"></script>
-    <script src="src/js/buttons/soundControll.js"></script>
-    <script src="src/js/buttons/soundOff_button.js"></script>
+    <!-- <script src="src/js/buttons/soundControll.js"></script> 
+    <script src="src/js/buttons/soundOff_button.js"></script> -->
     <script src="src/js/buttons/fullscreen_button.js"></script>
     <script src="src/js/models/menu-class.js"></script>
     <script src="src/js/models/movable-Object-class.js"></script>
@@ -55,6 +89,7 @@
     <script src="src/js/models/level-class.js"></script>
     <script src="src/js/levels/level1.js"></script>
 
+    <script src="src/js/audio-settings.js"></script>
     <script src="src/js/settings.js"></script>
 
 
@@ -62,7 +97,6 @@
 
 </html>
 
-<a href="https://www.vecteezy.com/free-vector/game-ui">Game Ui Vectors by Vecteezy</a>
+<!-- <a href="https://www.vecteezy.com/free-vector/game-ui">Game Ui Vectors by Vecteezy</a>
 <a href="https://www.flaticon.com/free-icons/mexican-hat" title="mexican-hat icons">Mexican-hat icons created by Freepik
-    - Flaticon</a>
-  
+    - Flaticon</a> -->

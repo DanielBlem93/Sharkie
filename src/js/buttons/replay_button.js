@@ -9,20 +9,13 @@ class Replay_button extends Button {
         this.loadImage(image);
     }
 
-
-
-
     onClick() {
         this.restartGame()
     }
 
 
-
     restartGame() {
         console.log('restart game')
-
         newGame()
-
-
     }
 }

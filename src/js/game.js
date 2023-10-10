@@ -22,7 +22,7 @@ intervals = []
 function init() {
     canvas = document.getElementById('canvas')
     setNewWorld()
-    buttonClickListner()
+    buttonClickListener()
 }
 
 function tastaturSperren() {
@@ -38,8 +38,8 @@ async function setNewWorld() {
     if (allImagesLoaded && allAudiosLoaded) {
         world = new World(canvas, keyboard)
         masterAudio.setVolume(1)
-    }else
-    console.log('World not created')
+    } else
+        console.log('World not created')
 }
 
 
@@ -47,18 +47,23 @@ function newGame() {
     location.reload();
 }
 
-function buttonClickListner() {
+function buttonClickListener() {
     canvas.addEventListener('click', function (event) {
-        const mouseX = event.clientX - canvas.getBoundingClientRect().left;
-        const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+        const scaleX = canvas.width / canvas.offsetWidth;
+        const scaleY = canvas.height / canvas.offsetHeight;
 
+        const mouseX = (event.clientX - canvas.getBoundingClientRect().left) * scaleX;
+        const mouseY = (event.clientY - canvas.getBoundingClientRect().top) * scaleY;
+        console.log(mouseX)
         world.menu.buttons.forEach(button => {
             if (button.isClicked(mouseX, mouseY)) {
                 button.onClick();
+                console.log(button);
             }
         });
     });
 }
+
 
 function allFalse() {
     keyboard.up = false

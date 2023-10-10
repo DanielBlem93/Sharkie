@@ -23,6 +23,7 @@ const imagePaths = [];
 const images = [];
 const LOADED_AUDIOS = {};
 
+//===========Preload IMAGES==================
 
 function preloadImages() {
     return Promise.all(imagePaths.map(loadImage));
@@ -38,7 +39,7 @@ function loadImage(src) {
         };
         image.onerror = reject;
         image.src = src;
-       
+
     });
 }
 
@@ -95,7 +96,7 @@ function createAudioObject(path) {
             loadedFiles++
         });
         audio.addEventListener('error', reject);
-        
+
     });
 }
 
@@ -141,18 +142,19 @@ function setLoadingscreen() {
             loadingscreen.innerHTML = '';
             loadingscreenContainer.style.display = 'none';
         }, 500);
-    } 
+    }
 }
 
 
 function watchLoadedFiles() {
     let previousValue = loadedFiles;
 
-    setInterval(() => {
+    let filesLoaded = setInterval(() => {
         if (loadedFiles !== previousValue) {
             setLoadingscreen();
             previousValue = loadedFiles;
-        }
+        }else if(gameStart)
+        clearInterval(filesLoaded)
     }, 100); // Überprüfe alle 100 Millisekunden
 }
 
