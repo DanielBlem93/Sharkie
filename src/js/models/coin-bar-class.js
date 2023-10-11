@@ -1,7 +1,5 @@
 class Coinbar extends StatusBar {
 
-
-
     coins = 0
 
     constructor() {

@@ -23,6 +23,7 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
 
     }
+    
     //showHitbox
     drawFrame(ctx) {
         if (this instanceof MovableObjekt || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject) {

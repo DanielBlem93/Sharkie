@@ -221,10 +221,6 @@ class World {
         this.drawObjects()
         this.showMenu()
         this.showGameEndingScreen()
-        // this.addToMap(this.controll_menu)
-        // this.addToMap(this.controll_menu.soundOnButton)
-        // this.addToMap(this.controll_menu.fullscreenButton)
-        
 
         self = this;
         requestAnimationFrame(function () {
@@ -244,7 +240,7 @@ class World {
             mo.flipImage(mo)
         }
         mo.draw(this.ctx)
-        mo.drawFrame(this.ctx)
+     
 
         if (mo.otherDirection) {
             mo.flipImageBack(mo)
@@ -333,7 +329,7 @@ class World {
         let x2 = this.character.x + 150;
 
         let screen = new Menu(x, 0, 720, 500, screenImage);
-        screen.replayButton = new Replay_button(x2, 390, 200, 80, MENU_IMAGES.replay_button);
+        screen.replayButton = new Replay_button(x2, 25, 200, 80, MENU_IMAGES.replay_button);
 
         return screen;
     }

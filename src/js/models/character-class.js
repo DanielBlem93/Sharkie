@@ -1,6 +1,6 @@
 class Character extends MovableObjekt {
     x = 120;
-    y = 135;//135
+    y = 135;
     height = 300;
     width = 150;
     hitboxHeight = 150;

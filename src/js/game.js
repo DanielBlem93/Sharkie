@@ -48,16 +48,13 @@ function buttonClickListener() {
 
         const mouseX = (event.clientX - canvas.getBoundingClientRect().left) * scaleX;
         const mouseY = (event.clientY - canvas.getBoundingClientRect().top) * scaleY;
-        console.log(mouseX)
         world.menu.buttons.forEach(button => {
             if (button.isClicked(mouseX, mouseY)) {
                 button.onClick();
-                console.log(button);
             }
         });
     });
 }
-
 
 function allFalse() {
     keyboard.up = false
@@ -127,8 +124,12 @@ window.addEventListener('keyup', (e) => {
 });
 
 function handleButtonTouch(button, action, state) {
+    
     button.addEventListener('touchstart', function () {
+        if (!tastaturGesperrt) {
         keyboard[action] = state;
+        }
+        lastKeyPressTime = Date.now();
     });
     button.addEventListener('touchend', function () {
         keyboard[action] = !state;
