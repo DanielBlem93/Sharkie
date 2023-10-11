@@ -107,15 +107,19 @@ const masterAudio = {
         Object.values(audio_settings).forEach(setting => {
             setting.audio.volume = setting.volume * volume;
         });
-        setTimeout(() => {
-            playTitleSong()
-        }, 3000);
+
+        playTitleSong()
+
 
     }
 };
 
 function playTitleSong() {
-    AUDIOS.title_song.loop = true
-    AUDIOS.title_song.play()
+    if (!gameStart) {
+        AUDIOS.title_song.loop = true
+        AUDIOS.title_song.play()
+    }else
+    AUDIOS.title_song.pause()
+
 }
 

@@ -124,14 +124,16 @@ window.addEventListener('keyup', (e) => {
 });
 
 function handleButtonTouch(button, action, state) {
-    
-    button.addEventListener('touchstart', function () {
+    button.addEventListener('touchstart', function (event) {
+        event.preventDefault();
         if (!tastaturGesperrt) {
-        keyboard[action] = state;
+            keyboard[action] = state;
         }
         lastKeyPressTime = Date.now();
     });
-    button.addEventListener('touchend', function () {
+
+    button.addEventListener('touchend', function (event) {
+        event.preventDefault();
         keyboard[action] = !state;
     });
 }
