@@ -14,6 +14,12 @@ MENU_IMAGES = {
     audio_off :'src/img/soundOn.svg',
     fullscreen :'src/img/fullscreen.svg',
     controlls :'src/img/svgviewer-output.svg',
+    arrowLeft :'src/img/svgviewer-output.svg',
+    arrowRight :'src/img/arrowLeft.svg',
+    arrowUp :'src/img/upArrow.svg',
+    throwButton :'src/img/throwButton.svg',
+    close :'src/img/close.svg',
+    turnPhone :'src/img/turnPhone.jpg',
 
 }
 

@@ -16,24 +16,68 @@
 
     <h1>El Pollo Loco</h1>
     <main id="main">
-        <div id="container">
+        <div class="container">
             <div id="controlls">
                 <img onclick="toggle()" class="sound-on-img" src="src/img/soundOn.svg" style="display: unset;"
                     alt="Sound on Button">
                 <img onclick="toggle()" class="sound-off-img" src="src/img/soundOff.svg" style="display: none;"
                     alt="Sound off Button">
-                <img src="src/img/svgviewer-output.svg" alt="Controlls Button">
-                <img id="fullscreen" onclick="toggleFullscreen()" src="src/img/fullscreen.svg" alt="Fullscreen Button">
+                <img onclick="toggleMenu('.container.info')" src="src/img/svgviewer-output.svg" alt="Controlls Button">
             </div>
         </div>
         <div id="loading-screen-container">
-
-            <div id="loading-screen">0 data out of 171 loaded</div>
+            <div id="loading-screen">0 data out of 178 loaded</div>
         </div>
-     
+        <canvas width="720px" height="480px" id="canvas"></canvas>
 
+
+
+        <div style="display: none;" class="container info">
+            <img onclick="toggleMenu('.container.info')" id="close" src="src/img/close.svg">
+            <h1>Controls</h1>
+            <div id="keys">
+                <div class="key">
+                    <img class="icon" src="src/img/arrowLeft.svg" alt="left arrow">
+                    <span>/A</span>
+                </div>
+                <div class="key">
+                    <img class="icon" src="src/img/arrowRight.svg" alt="right arrow">
+                    <span>/D</span>
+                </div>
+                <div class="key">
+                    <img class="icon" src="src/img/upArrow.svg" alt="right arrow">
+                    <div class="key">/SPACE</div>
+                </div>
+                <div class="key">
+                    <img class="icon" src="src/img/throwButton.svg" alt="right arrow">
+                    <div class="key">/F</div>
+                </div>
+
+
+            </div>
+            <div id="discription">
+                <Span>Move left</Span>
+                <Span>Move right</Span>
+                <Span>Jump</Span>
+                <Span>Throw</Span>
+            </div>
+        </div>
+        <div style="display: none;" id="responsiv-info">
+            <img src="src/img/turnPhone.jpg" alt="">
+            <span>Turn your device for a better experience or change the window size</span>
+        </div>
+
+        <div style="display: none;" id="mobile-controller">
+            <div id="directions">
+                <img id="left" class="button left" src="src/img/arrowLeft.svg">
+                <img id="right" class="button right" src="src/img/arrowRight.svg">
+            </div>
+            <div>
+                <img id="up" class="button up" src="src/img/upArrow.svg">
+                <img id="throw" class="button throw" src="src/img/throwButton.svg">
+            </div>
+        </div>
     </main>
-    <canvas width="720px" height="480px" id="canvas">
 
 
 
@@ -66,9 +110,6 @@
     <script src="src/js/models/button-class.js"></script>
     <script src="src/js/buttons/start_button.js"></script>
     <script src="src/js/buttons/replay_button.js"></script>
-    <!-- <script src="src/js/buttons/soundControll.js"></script> 
-    <script src="src/js/buttons/soundOff_button.js"></script> -->
-    <script src="src/js/buttons/fullscreen_button.js"></script>
     <script src="src/js/models/menu-class.js"></script>
     <script src="src/js/models/movable-Object-class.js"></script>
     <script src="src/js/models/throwableObject-class.js"></script>
@@ -99,4 +140,6 @@
 
 <!-- <a href="https://www.vecteezy.com/free-vector/game-ui">Game Ui Vectors by Vecteezy</a>
 <a href="https://www.flaticon.com/free-icons/mexican-hat" title="mexican-hat icons">Mexican-hat icons created by Freepik
-    - Flaticon</a> -->
+    - Flaticon</a> 
+    <a href="https://www.vecteezy.com/free-vector/rotate-phone">Rotate Phone Vectors by Vecteezy</a>
+-->

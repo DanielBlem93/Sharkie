@@ -107,7 +107,10 @@ const masterAudio = {
         Object.values(audio_settings).forEach(setting => {
             setting.audio.volume = setting.volume * volume;
         });
-        playTitleSong()
+        setTimeout(() => {
+            playTitleSong()
+        }, 3000);
+
     }
 };
 

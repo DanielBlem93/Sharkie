@@ -17,25 +17,37 @@ function toggle() {
     }
 }
 
-function toggleFullscreen() {
-    let fullscreen = document.getElementById('fullscreen2')
-    enterFullscreen(fullscreen)
+function toggleMenu(param) {
+
+    const menu = document.querySelector(`${param}`);
+    menu.style.display = (menu.style.display === 'none') ? 'flex' : 'none';
 }
 
-function enterFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
-        element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
-        element.webkitRequestFullscreen();
+function watchForMobileDevices() {
+    setInterval(function() {
+        isMobileDevices();
+    }, 1000); // Überprüfung alle 1 Sekunde, kann angepasst werden
+}
+
+
+
+function isMobileDevices() {
+    let info = document.getElementById('responsiv-info');
+    if (window.innerWidth < 720 || window.innerHeight < 480) {
+        checkMobileMode()
+    }else
+    info.style.display = 'none';
+}
+
+
+function checkMobileMode(){
+    let info = document.getElementById('responsiv-info');
+    if (info) {
+        info.style.display = isLandscape() ? 'none' : 'flex';
     }
 }
 
-function exitFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    }
+function isLandscape() {
+    return window.innerWidth > window.innerHeight;
 }
+

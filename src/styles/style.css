@@ -11,7 +11,8 @@ body {
     display: flex;
     align-items: center;
     background: url('../img/5_background/background2.jpg');
-    background-size: cover;;
+    background-size: cover;
+    ;
     background-repeat: no-repeat;
     flex-direction: column;
 
@@ -25,10 +26,8 @@ h1 {
 
 }
 
-main {
+#main {
     position: relative;
-    width: 720px;
- 
 }
 
 canvas {
@@ -59,7 +58,7 @@ canvas {
 
 #controlls {
 
-    width: 180px;
+    width: 150px;
     height: 50px;
     background-color: rgba(255, 145, 0, 0.555);
     border-bottom-left-radius: 16px;
@@ -74,6 +73,7 @@ canvas {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    border: solid 1px black;
 }
 
 #controlls img {
@@ -82,7 +82,7 @@ canvas {
     width: 50px;
 }
 
-#container {
+.container {
     pointer-events: none;
     top: 0;
 
@@ -95,16 +95,138 @@ canvas {
     height: 100%;
     z-index: 1;
 }
-#fullscreen{
-    width: 100vw;
-    height: 100vh;
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 102, 0, 0.479);
+    backdrop-filter: blur(10px);
+    gap: 150px;
 }
 
-@media(max-width: 720px) {
-main{
-    width: 100%;
-   
+#close {
+    top: 25px;
+    right: 25px;
+    position: absolute;
+    height: 40px;
+    width: 40px;
 }
+
+.info h1 {
+    letter-spacing: unset;
+    margin: 0;
+    top: 0;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 64px;
+    font-family: 'Courier ';
+    color: black;
+}
+
+.icon {
+    height: 40px;
+    width: 40px;
+    opacity: 50;
+}
+
+
+#keys {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 2rem;
+    gap: 15px;
+}
+
+.key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#discription {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 2rem;
+    gap: 15px;
+}
+
+#responsiv-info {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    opacity: 0.95;
+    height: 100vh;
+    width: 100%;
+}
+
+#responsiv-info img {
+    width: 100%;
+    height: 100%;
+
+}
+
+#responsiv-info span {
+    position: absolute;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+#mobile-controller {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+
+    position: absolute;
+    pointer-events: all;
+}
+
+.button {
+    height: 100px;
+    width: 100px;
+    opacity: 0.5;
+
+}
+
+#directions {
+
+    display: flex;
+
+    align-items: center;
+    display: flex;
+    gap: 30px;
+}
+
+.throw {
+    height: 80px;
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+
+@media(max-width: 720px) {
+    #mobile-controller {
+        display: flex !important;
+    }
+
+    main {
+        width: 100%;
+        height: 100vh;
+
+    }
+
     canvas {
         width: 100%;
         height: 100vh;
@@ -114,6 +236,46 @@ main{
         display: none;
     }
 
-    @media(max-width: 480px) {}
+    .info {
+        width: 100%;
+        height: 100%;
+    }
+}
 
+@media(max-height: 480px) {
+    main{
+        overflow: hidden;
+    }
+
+    canvas {
+        width: 100%;
+        height: 100vh;
+    }
+
+    h1 {
+        display: none;
+    }
+}
+
+@media(max-width: 480px) {
+
+    .button {
+        height: 70px;
+        width: 70px;
+    }
+
+    #keys {
+        font-size: 1.3rem;
+    }
+
+    #discription {
+        font-size: 1.3rem;
+    }
+
+    .throw {
+        height: 50px;
+        width: 50px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
 }

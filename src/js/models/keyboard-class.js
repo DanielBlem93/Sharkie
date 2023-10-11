@@ -1,12 +1,10 @@
-class Keyboard{
-left
-right
-up
-down
-space
-throw
+class Keyboard {
+    left
+    right
+    space
+    throw
 
-constructor(){
+    constructor() {
 
-}
+    }
 }

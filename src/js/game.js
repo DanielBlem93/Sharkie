@@ -12,17 +12,11 @@ const gesperrteTasten = ["w", "a", "s", "d", "f", "ArrowUp", "ArrowDown", "Arrow
 intervals = []
 
 
-// function stopIntervals() {
-//     intervals.forEach(intervalId => {
-//         clearInterval(intervalId);
-//     });
-//     intervals = [];
-// }
-
 function init() {
     canvas = document.getElementById('canvas')
     setNewWorld()
     buttonClickListener()
+    watchForMobileDevices()
 }
 
 function tastaturSperren() {
@@ -77,110 +71,76 @@ function allFalse() {
 
 window.addEventListener('keydown', (e) => {
     if (!tastaturGesperrt) {
-
-        if (e.key === 'w' || e.key === 'W') {
-            keyboard.up = true
-
-        }
-
-        else if (e.key === 'a' || e.key === 'A') {
-            keyboard.left = true
-
-        }
-
-        else if (e.key === 's' || e.key === 'S') {
-            keyboard.down = true
-
-        }
-
-        else if (e.key === 'd' || e.key === 'D') {
-            keyboard.right = true
-
-        }
-
-        else if (e.code === 'Space') {
-            keyboard.space = true
-
-        }
-
-        else if (e.key === 'ArrowUp') {
-            keyboard.up = true
-
-        }
-
-        else if (e.key === 'ArrowLeft') {
-            keyboard.left = true
-
-        }
-
-        else if (e.key === 'ArrowDown') {
-            keyboard.down = true
-
-        }
-
-        else if (e.key === 'ArrowRight') {
-            keyboard.right = true
-
-        }
-        else if (e.key === 'f') {
-            keyboard.throw = true
-
+        switch (e.code) {
+            case 'KeyW':
+            case 'ArrowUp':
+                keyboard.up = true;
+                break;
+            case 'KeyA':
+            case 'ArrowLeft':
+                keyboard.left = true;
+                break;
+            case 'KeyS':
+            case 'ArrowDown':
+                keyboard.down = true;
+                break;
+            case 'KeyD':
+            case 'ArrowRight':
+                keyboard.right = true;
+                break;
+            case 'Space':
+                keyboard.space = true;
+                break;
+            case 'KeyF':
+                keyboard.throw = true;
+                break;
         }
     }
-})
+});
 
-
-// keyup
 window.addEventListener('keyup', (e) => {
-
-    if (e.key === 'w' || e.key === 'W') {
-        keyboard.up = false
-
+    switch (e.code) {
+        case 'KeyW':
+        case 'ArrowUp':
+            keyboard.up = false;
+            break;
+        case 'KeyA':
+        case 'ArrowLeft':
+            keyboard.left = false;
+            break;
+        case 'KeyS':
+        case 'ArrowDown':
+            keyboard.down = false;
+            break;
+        case 'KeyD':
+        case 'ArrowRight':
+            keyboard.right = false;
+            break;
+        case 'Space':
+            keyboard.space = false;
+            break;
+        case 'KeyF':
+            keyboard.throw = false;
+            break;
     }
+    lastKeyPressTime = Date.now();
+});
 
-    else if (e.key === 'a' || e.key === 'A') {
-        keyboard.left = false
+function handleButtonTouch(button, action, state) {
+    button.addEventListener('touchstart', function () {
+        keyboard[action] = state;
+    });
+    button.addEventListener('touchend', function () {
+        keyboard[action] = !state;
+    });
+}
 
-    }
+let buttonUp = document.getElementById('up')
+let buttonLeft = document.getElementById('left')
+let buttonRight = document.getElementById('right')
+let buttonThrow = document.getElementById('throw')
 
-    else if (e.key === 's' || e.key === 'S') {
-        keyboard.down = false
-
-    }
-
-    else if (e.key === 'd' || e.key === 'D') {
-        keyboard.right = false
-    }
-
-    else if (e.code === 'Space') {
-        keyboard.space = false
-
-    }
-
-    else if (e.key === 'ArrowUp') {
-        keyboard.up = false
-
-    }
-
-    else if (e.key === 'ArrowLeft') {
-        keyboard.left = false
-
-    }
-
-    else if (e.key === 'ArrowDown') {
-        keyboard.down = false
-
-    }
-
-    else if (e.key === 'ArrowRight') {
-        keyboard.right = false
-
-    }
-    else if (e.key === 'f') {
-        keyboard.throw = false
-
-    }
-    lastKeyPressTime = Date.now()
-
-
-})
+handleButtonTouch(buttonUp, 'space', true);
+handleButtonTouch(buttonLeft, 'left', true);
+handleButtonTouch(buttonRight, 'right', true);
+handleButtonTouch(buttonThrow, 'throw', true);
