@@ -1,3 +1,25 @@
+
+
+<!--========================LIES MICH !!!!!!!!!!!!!==========================-->
+
+<!-- Information an den der es kontrolliert:
+
+   -Die kleine Verzögerung wenn man erneut springen möchte ist gewollt.
+
+   -1 oder 2 methoden wurden bewusst nicht gekürzt
+   
+   -Der Startbutton und der Replay button werden mit JS ins canvas gezeichnet.
+    daher auch kein cursor: pointer (beim nächsten mal würde ich das auch anders machen) 
+
+   -intro Musik wurde entfernt(probleme mit IOS geräten)
+
+   -ich weiß nicht wie ich ohne  location.reload(); das spiel neustarten soll. Einfach init() nochmal ausführen klappt nicht. Ich hab mit startNewGame()
+   da einen Ansatz wie ich es versucht habe, aber es leider nicht funktioniert. Bitte um Hilfe dabei
+
+   -druch die ganzen JS Doc kommentare sind meine JS Datein ziemlich lang geworden 
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +34,7 @@
 </head>
 
 <body onload="init()">
+    <a id="impressum" href="impressum.html">Impressum</a>
 
     <h1>El Pollo Loco</h1>
     <main id="main">
@@ -25,7 +48,7 @@
             </div>
         </div>
         <div id="loading-screen-container">
-            <div id="loading-screen">0 data out of 178 loaded</div>
+            <div id="loading-screen">0 files / 178 loaded</div>
         </div>
         <canvas width="720px" height="480px" id="canvas"></canvas>
 
@@ -75,28 +98,6 @@
         </div>
     </main>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="src/js/data.js"></script>
     <script src="src/js/preload.js"></script>
     <script src="src/js/models/world-class.js"></script>
@@ -133,9 +134,3 @@
 </body>
 
 </html>
-
-<!-- <a href="https://www.vecteezy.com/free-vector/game-ui">Game Ui Vectors by Vecteezy</a>
-<a href="https://www.flaticon.com/free-icons/mexican-hat" title="mexican-hat icons">Mexican-hat icons created by Freepik
-    - Flaticon</a> 
-    <a href="https://www.vecteezy.com/free-vector/rotate-phone">Rotate Phone Vectors by Vecteezy</a>
--->

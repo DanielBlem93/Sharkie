@@ -214,6 +214,17 @@ canvas {
     width: 80px;
     margin-bottom: 10px;
 }
+
+#impressum {
+    align-self: start;
+    text-decoration: none;
+    color: white;
+}
+
+#impressum:hover {
+    text-decoration: underline;
+}
+
 @media(max-width: 1024px) {
     #mobile-controller {
         display: flex !important;
@@ -221,7 +232,9 @@ canvas {
 }
 
 @media(max-width: 720px) {
-  
+    #impressum {
+        font-size: 0.7rem;
+    }
 
     main {
         width: 100%;
@@ -245,7 +258,7 @@ canvas {
 }
 
 @media(max-height: 480px) {
-    main{
+    main {
         overflow: hidden;
     }
 

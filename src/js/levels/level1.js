@@ -1,7 +1,17 @@
+/**
+ * Length of the level in units.
+ * @type {number}
+ */
 let levelLength = 16;
-const level1 = new Level(
 
+/**
+ * Represents the first level of the game.
+ * @type {Level}
+ */
+const level1 = new Level(
+    //enemies
     [],
+    //clouds
     [
         new Cloud(),
         new Cloud(),
@@ -14,6 +24,7 @@ const level1 = new Level(
         new Cloud(),
         new Cloud()
     ],
+    //Background objects
     backgroundObjects =
     [
         new BackgroundObject(BACKGROUND_IMAGES.air, -719),
@@ -21,6 +32,7 @@ const level1 = new Level(
         new BackgroundObject(BACKGROUND_IMAGES.layer_2_img_2, -719),
         new BackgroundObject(BACKGROUND_IMAGES.layer_1_img_2, -719)
     ],
+    //Coins
     [
         new Coin(550, 250),
         new Coin(650, 250),
@@ -45,6 +57,7 @@ const level1 = new Level(
 
 
     ],
+    //Bottles
     [
         new Bottle(700, 340),
         new Bottle(1800, 330),
@@ -60,17 +73,22 @@ const level1 = new Level(
         new Bottle(10700, 330),
         new Bottle(10500, 330),
     ],
+    //Background sound effects
     [
         AUDIOS.wind,
         // AUDIOS.crickets
     ],
+    //Background music
     [
         AUDIOS.theme_song
     ]
 
 
 );
-
+/**
+ * Array of enemies to be spawned in the level.
+ * @type {Enemy[]}
+ */
 let enemiesToSpawn = [
     new Chicken(900),
     new BabyChicken(800),

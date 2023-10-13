@@ -1,3 +1,6 @@
+/**
+ * Configuration for different audio settings.
+ */
 const audio_settings = {
 
     title_song: {
@@ -102,24 +105,17 @@ const audio_settings = {
     },
 }
 
+/**
+ * Master audio controller for setting the volume.
+ */
 const masterAudio = {
+    /**
+     * Sets the volume for all audio settings.
+     * @param {number} volume - The volume level (0 to 1).
+     */
     setVolume(volume) {
         Object.values(audio_settings).forEach(setting => {
             setting.audio.volume = setting.volume * volume;
         });
-
-        playTitleSong()
-
-
     }
 };
-
-function playTitleSong() {
-    if (!gameStart) {
-        AUDIOS.title_song.loop = true
-        AUDIOS.title_song.play()
-    }else
-    AUDIOS.title_song.pause()
-
-}
-

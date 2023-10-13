@@ -1,3 +1,7 @@
+/**
+ * Initializes the game, sets up canvas and world.
+ */
+
 let canvas;
 let world;
 let keyboard = new Keyboard();;
@@ -6,41 +10,79 @@ let gameOver = false
 let gameWon = false
 let gameRestart = false
 let tastaturGesperrt = true;
-
 let lastKeyPressTime
+
 const gesperrteTasten = ["w", "a", "s", "d", "f", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 intervals = []
-
-
 function init() {
-    canvas = document.getElementById('canvas')
-    setNewWorld()
-    buttonClickListener()
-    watchForMobileDevices()
+    canvas = document.getElementById('canvas');
+    setNewWorld();
+    buttonClickListener();
+    watchForMobileDevices();
 }
 
+// Function to start a new game.(not finished)
+// function startNewGame() {
+//     clearArray();
+//     clearIntervals();
+//     gameStart = false;
+//     gameOver = false;
+//     gameWon = false;
+//     gameRestart = false;
+//     tastaturGesperrt = true;
+//     init();
+// }
+
+/**
+ * Clears all intervals in the intervals array.
+ */
+function clearIntervals() {
+    intervals.forEach(element => {
+        clearInterval(element);
+    });
+}
+
+/**
+ * Clears the enemies array in the world's level.
+ */
+function clearArray() {
+    world.level.enemies = [];
+}
+
+/**
+ * Locks the keyboard for a short duration.
+ */
 function tastaturSperren() {
-    tastaturGesperrt = true
-    allFalse()
+    tastaturGesperrt = true;
+    allFalse();
     setTimeout(function () {
         tastaturGesperrt = false;
     }, 1500);
 }
 
+/**
+ * Asynchronously sets up a new world after preloading resources.
+ */
 async function setNewWorld() {
-    await preLoad()
+    await preLoad();
     if (allImagesLoaded && allAudiosLoaded) {
-        world = new World(canvas, keyboard)
-        masterAudio.setVolume(1)
-    } else
-        console.log('World not created')
+        world = new World(canvas, keyboard);
+        masterAudio.setVolume(1);
+    } else {
+        console.log('World not created');
+    }
 }
 
-
+/**
+ * Starts a new game by reloading the page.
+ */
 function newGame() {
     location.reload();
 }
 
+/**
+ * Adds click event listener to the canvas for menu buttons.
+ */
 function buttonClickListener() {
     canvas.addEventListener('click', function (event) {
         const scaleX = canvas.width / canvas.offsetWidth;
@@ -56,16 +98,20 @@ function buttonClickListener() {
     });
 }
 
+/**
+ * Sets all keyboard properties to false.
+ */
 function allFalse() {
-    keyboard.up = false
-    keyboard.left = false
-    keyboard.down = false
-    keyboard.right = false
-    keyboard.space = false
-    keyboard.up = false
-    keyboard.throw = false
+    keyboard.up = false;
+    keyboard.left = false;
+    keyboard.down = false;
+    keyboard.right = false;
+    keyboard.space = false;
+    keyboard.up = false;
+    keyboard.throw = false;
 }
 
+// Event listener for keydown
 window.addEventListener('keydown', (e) => {
     if (!tastaturGesperrt) {
         switch (e.code) {
@@ -95,6 +141,7 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+// Event listener for keyup
 window.addEventListener('keyup', (e) => {
     switch (e.code) {
         case 'KeyW':
@@ -123,6 +170,12 @@ window.addEventListener('keyup', (e) => {
     lastKeyPressTime = Date.now();
 });
 
+/**
+ * Handles touch events on buttons.
+ * @param {HTMLElement} button - The button element.
+ * @param {string} action - The action (e.g., 'space' or 'left').
+ * @param {boolean} state - The state (true for touchstart, false for touchend).
+ */
 function handleButtonTouch(button, action, state) {
     button.addEventListener('touchstart', function (event) {
         event.preventDefault();
@@ -138,11 +191,13 @@ function handleButtonTouch(button, action, state) {
     });
 }
 
-let buttonUp = document.getElementById('up')
-let buttonLeft = document.getElementById('left')
-let buttonRight = document.getElementById('right')
-let buttonThrow = document.getElementById('throw')
+// Buttons for touch controls
+let buttonUp = document.getElementById('up');
+let buttonLeft = document.getElementById('left');
+let buttonRight = document.getElementById('right');
+let buttonThrow = document.getElementById('throw');
 
+// Assign touch event handlers
 handleButtonTouch(buttonUp, 'space', true);
 handleButtonTouch(buttonLeft, 'left', true);
 handleButtonTouch(buttonRight, 'right', true);

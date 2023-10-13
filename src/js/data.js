@@ -20,7 +20,6 @@ MENU_IMAGES = {
     throwButton :'src/img/throwButton.svg',
     close :'src/img/close.svg',
     turnPhone :'src/img/turnPhone.jpg',
-
 }
 
 BACKGROUND_IMAGES = {
