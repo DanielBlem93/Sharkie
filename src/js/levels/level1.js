@@ -10,7 +10,7 @@ let level1
  */
 level1 = new Level(
 
-    //enemies
+   
     [],//enemies will added on start of the game,
     createClouds(),
     createBackgroundObjects(),
@@ -20,6 +20,10 @@ level1 = new Level(
     [AUDIOS.theme_song]    //Background music
 );
 
+/**
+ * Creates Clouds for the game
+ * @returns array with clouds
+ */
 function createClouds() {
     return clouds = [
         new Cloud(),
@@ -34,6 +38,10 @@ function createClouds() {
         new Cloud()
     ]
 }
+/**
+ * Creates the backgroundobjects for the game
+ * @returns array with backgroundobjects
+ */
 function createBackgroundObjects() {
     return backgroundObjects =
         [
@@ -43,6 +51,10 @@ function createBackgroundObjects() {
             new BackgroundObject(BACKGROUND_IMAGES.layer_1_img_2, -719)
         ]
 }
+/**
+ * Creates the collactable bottles for the game
+ * @returns array with bottles
+ */
 function createBottles() {
     return [
         new Bottle(700, 340),
@@ -60,6 +72,10 @@ function createBottles() {
         new Bottle(10500, 330),
     ]
 }
+/**
+ * Creates the collactable coins for the game
+ * @returns array with backgroundobjects
+ */
 function createCoins() {
 
     return [

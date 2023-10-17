@@ -152,15 +152,4 @@ class Level {
 
     }
 
-    setEnemiesToSpawn(enemies) {
-        this.enemiesToSpawn = enemies;
-    }
-    resetEnemies() {
-        this.enemies = [];
-        for (const enemyData of this.enemiesToSpawn) {
-            const enemy = new enemyData.type(enemyData.x); // Hier musst du den tatsächlichen Konstruktor und die Klasse verwenden
-            this.enemies.push(enemy);
-        }
-    }
-
 }
