@@ -4,34 +4,54 @@
 
 let canvas;
 let world;
+let currentLevel
 let keyboard = new Keyboard();;
 let gameStart = false
 let gameOver = false
 let gameWon = false
 let gameRestart = false
+let endingMenu = false
 let tastaturGesperrt = true;
 let lastKeyPressTime
 
 const gesperrteTasten = ["w", "a", "s", "d", "f", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 intervals = []
 function init() {
+
     canvas = document.getElementById('canvas');
     setNewWorld();
     buttonClickListener();
     watchForMobileDevices();
 }
 
-// Function to start a new game.(not finished)
-// function startNewGame() {
-//     clearArray();
-//     clearIntervals();
-//     gameStart = false;
-//     gameOver = false;
-//     gameWon = false;
-//     gameRestart = false;
-//     tastaturGesperrt = true;
-//     init();
-// }
+
+function startNewGame() {
+    clearIntervals();
+    gameStart = false;
+    gameOver = false;
+    gameWon = false;
+    gameRestart = false
+    endingMenu = null
+    world.gameOverScreen = null
+    world.gameWonScreen = null
+
+    resetCharacter()
+    let currentEnemies = createLevel1Enemies()
+    world.level.enemies = currentEnemies
+    gameStart = true
+}
+
+function resetCharacter() {
+    world.character.dead = false
+    world.character.died = false
+    tastaturGesperrt = false;
+    world.character.x = 120
+    world.character.y = 135
+    world.character.j = 0
+    world.character.animate()
+}
+
+
 
 /**
  * Clears all intervals in the intervals array.
@@ -42,12 +62,6 @@ function clearIntervals() {
     });
 }
 
-/**
- * Clears the enemies array in the world's level.
- */
-function clearArray() {
-    world.level.enemies = [];
-}
 
 /**
  * Locks the keyboard for a short duration.
@@ -64,9 +78,12 @@ function tastaturSperren() {
  * Asynchronously sets up a new world after preloading resources.
  */
 async function setNewWorld() {
+
     await preLoad();
     if (allImagesLoaded && allAudiosLoaded) {
+        currentLevel = level1
         world = new World(canvas, keyboard);
+
         masterAudio.setVolume(1);
     } else {
         console.log('World not created');
@@ -77,7 +94,7 @@ async function setNewWorld() {
  * Starts a new game by reloading the page.
  */
 function newGame() {
-    location.reload();
+    startNewGame()
 }
 
 /**

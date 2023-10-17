@@ -32,6 +32,7 @@ class Replay_button extends Button {
      * Restarts the game when called.
      */
     restartGame() {
+        endingMenu = true
         console.log('restart game')
         newGame()
     }

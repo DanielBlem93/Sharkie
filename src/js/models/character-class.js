@@ -169,9 +169,8 @@ class Character extends MovableObjekt {
                 this.fallDown()
             } else {
                 this.died = true
-                setTimeout(() => {
-                    gameOver = true
-                }, 1000);
+                gameOver = true
+
             }
         }
     }
@@ -296,7 +295,7 @@ class Character extends MovableObjekt {
         const currentTime = Date.now();
         const idleTime = currentTime - lastKeyPressTime;
 
-        if (idleTime >= 5000 && this.querrys(1) && gameStart) {
+        if (idleTime >= 10000 && this.querrys(1) && gameStart) {
             this.playAnimation(CHARACTER_IMAGES.IMAGES_LONG_IDLE);
             AUDIOS.snoring.play()
         } else { AUDIOS.snoring.pause() }
@@ -342,9 +341,9 @@ class Character extends MovableObjekt {
             this.playHurtSound()
         }
     }
-/**
- * Initiates character falling back animation.
- */
+    /**
+     * Initiates character falling back animation.
+     */
 
     fallBack() {
         if (!this.isCharacterAboveGround() && !this.dead) {
@@ -361,19 +360,19 @@ class Character extends MovableObjekt {
             }, 10);
         }
     }
-/**
- * Initiates character falling down animation.
- */
+    /**
+     * Initiates character falling down animation.
+     */
     fallDown() {
         let fall = setInterval(() => {
             this.y += 3
         }, 1000 / 30);
         intervals.push(fall);
     }
-/**
- * Checks if the character is currently hurt.
- * @returns {boolean} - Returns true if the character is currently hurt, otherwise false.
- */
+    /**
+     * Checks if the character is currently hurt.
+     * @returns {boolean} - Returns true if the character is currently hurt, otherwise false.
+     */
     isHurt() {
 
         let timepassed = new Date().getTime() - this.lastHit // differece in ms
@@ -381,11 +380,11 @@ class Character extends MovableObjekt {
 
         return timepassed < 1
     }
-/**
- * Handles specific queries (q) related to character animations and movement. Located here because of the long querry for a better reading aspect
- * @param {number} q - The query to perform.
- * @returns {boolean} - Returns true if the query condition is met, otherwise false.
- */
+    /**
+     * Handles specific queries (q) related to character animations and movement. Located here because of the long querry for a better reading aspect
+     * @param {number} q - The query to perform.
+     * @returns {boolean} - Returns true if the query condition is met, otherwise false.
+     */
     querrys(q) {
         if (q === 1) {
             //checks is any other animation/move running

@@ -71,6 +71,7 @@ class Level {
         this.mainTheme = mainTheme;
         this.level_end_x = 719 * (levelLength - 1);
         this.setBackground();
+        // this.restartLevel(enemmies, clouds, bgo, coins, bottles_coll, bgSound, mainTheme)
     }
 
     /**
@@ -141,11 +142,25 @@ class Level {
      * Spawns enemies in the level and starts playing background sounds.
      */
     spawnEnemies() {
+
         enemiesToSpawn.forEach(enemy => {
             this.enemies.push(enemy);
         });
         this.playBackgroundSound(this.backgroundSounds);
         this.playBackgroundSound(this.mainTheme);
         AUDIOS.title_song.pause();
+
     }
+
+    setEnemiesToSpawn(enemies) {
+        this.enemiesToSpawn = enemies;
+    }
+    resetEnemies() {
+        this.enemies = [];
+        for (const enemyData of this.enemiesToSpawn) {
+            const enemy = new enemyData.type(enemyData.x); // Hier musst du den tatsächlichen Konstruktor und die Klasse verwenden
+            this.enemies.push(enemy);
+        }
+    }
+
 }

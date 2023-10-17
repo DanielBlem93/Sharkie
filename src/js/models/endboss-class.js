@@ -204,14 +204,14 @@ class Endboss extends MovableObjekt {
      * Checks if the end boss is dead.
      */
     isDead() {
-        if (this.hp === 0) {
+        if (this.hp === 0 && !gameWon) {
             this.dead = true
             this.disableBoss()
             setTimeout(() => {
                 gameWon = true
                 tastaturGesperrt = true
                 allFalse()
-            }, 1500);
+            }, 500);
 
         }
     }

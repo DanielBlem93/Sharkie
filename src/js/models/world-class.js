@@ -84,7 +84,7 @@ class World {
      * The current level configuration.
      * @type {Level}
      */
-    level = level1;
+    level = currentLevel;
 
     /**
      * Array of throwable bottles in the world.
@@ -471,14 +471,19 @@ class World {
      * Shows the game ending screen on the canvas.
      */
     showGameEndingScreen() {
-        this.ctx.translate(this.camera_x, 0)
 
-        if (gameOver) {
-            this.drawGameEndingScreen('lost')
-        } else if (gameWon) {
-            this.drawGameEndingScreen('won')
+        if (!endingMenu) {
+            this.ctx.translate(this.camera_x, 0)
+            if (gameOver) {
+                this.drawGameEndingScreen('lost')
+
+            } else if (gameWon) {
+                this.drawGameEndingScreen('won')
+
+            }
+
+            this.ctx.translate(-this.camera_x, 0)
         }
-        this.ctx.translate(-this.camera_x, 0)
     }
 
     /**
