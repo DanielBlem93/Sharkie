@@ -7,97 +7,81 @@ class World {
      * @type {Character}
      */
     character = new Character();
-
     /**
      * The canvas element for rendering.
      * @type {HTMLCanvasElement}
      */
     canvas;
-
     /**
      * The canvas rendering context.
      * @type {CanvasRenderingContext2D}
      */
     ctx;
-
     /**
      * The keyboard input for controlling the game.
      * @type {Keyboard}
      */
     keyboard;
-
     /**
      * The x-coordinate of the camera.
      * @type {number}
      */
     camera_x = 0;
-
     /**
      * The menu for the game.
      * @type {Menu}
      */
     menu = new Menu(20, 0, 720, 500, MENU_IMAGES.main_menu);
-
     /**
      * The game over screen.
      * @type {GameOverScreen}
      */
     gameOverScreen;
-
     /**
      * The game won screen.
      * @type {GameWonScreen}
      */
     gameWonScreen;
-
     /**
      * The status bar displaying health.
      * @type {StatusBar}
      */
     statusBar = new StatusBar();
-
     /**
      * The coin bar displaying collected coins.
      * @type {Coinbar}
      */
     coinBar = new Coinbar();
-
     /**
      * The bottles bar displaying available bottles.
      * @type {BottlesBar}
      */
     bottlesBar = new BottlesBar();
-
     /**
      * The boss bar for end boss.
      * @type {Bossbar}
      */
     bossBar = new Bossbar();
-
     /**
      * The boss bar icon for end boss.
      * @type {Boss_bar_icon}
      */
     bossBarIcon = new Boss_bar_icon();
-
     /**
      * The current level configuration.
      * @type {Level}
      */
     level = currentLevel;
-
     /**
      * Array of throwable bottles in the world.
      * @type {ThrowableObject[]}
      */
     bottles = [];
-
     /**
      * Array of collectable objects in the world.
      * @type {CollectableObject[]}
      */
     CollectableObjects = [];
-
     /**
      * Creates a new World instance.
      * @param {HTMLCanvasElement} canvas - The canvas element for rendering.
@@ -111,8 +95,6 @@ class World {
         this.setWorld();
         this.run();
     }
-
-
     /**
      * Sets up the world, initializes character properties and collects objects.
      */
@@ -122,7 +104,6 @@ class World {
         this.setCollectableObjects(this.level.bottles_coll);
         lastKeyPressTime = Date.now(); // Important for idle animation
     }
-
     /**
      * Runs the game loop to check collisions, throw objects, and perform jump kills.
      */
@@ -133,7 +114,6 @@ class World {
             this.checkJumpKill();
         }, 50);
     }
-
     /**
      * Adds objects to the CollectableObjects array.
      * @param {CollectableObject[]} array - The array of collectable objects to be added.
@@ -144,7 +124,6 @@ class World {
             this.CollectableObjects.push(object);
         }
     }
-
     /**
      * Checks for collisions between character and enemies or collectable objects.
      */
@@ -152,7 +131,6 @@ class World {
         this.enemyCollisionHandler();
         this.collectablesCollisionHandler();
     }
-
     /**
      * Checks for player input to throw objects.
      */
@@ -167,14 +145,12 @@ class World {
             this.bottles.push(bottle);
         }
     }
-
     /**
      * Checks if character jump can cause damage to enemies.
      */
     checkJumpKill() {
         const character = this.character;
         const enemies = this.level.enemies;
-
         if (character.jumped && character.speedY < 0 && !character.godmode) {
             for (let i = 0; i < enemies.length; i++) {
                 const enemy = enemies[i];
@@ -184,8 +160,6 @@ class World {
             }
         }
     }
-
-
     /**
   * Handles collisions with enemies.
   */
@@ -203,7 +177,6 @@ class World {
             this.bottleCollisonHandler(enemy)
         });
     }
-
     /**
      * Handles collisions between bottles and enemies.
      * @param {Enemy} enemy - The enemy object.
@@ -215,7 +188,6 @@ class World {
             }
         });
     }
-
     /**
      * Handles collisions with collectable objects.
      */
@@ -226,7 +198,6 @@ class World {
             }
         });
     }
-
     /**
      * Checks if character is colliding with an enemy.
      * @param {Character} character - The character object.
@@ -238,7 +209,6 @@ class World {
         const enemyHitbox = this.setEnemyHitbox(enemy)
         return this.areRectanglesColliding(characterHitbox, enemyHitbox);
     }
-
     /**
      * Sets the hitbox for the character.
      * @param {Character} character - The character object.
@@ -252,7 +222,6 @@ class World {
             height: character.hitboxHeight
         };
     }
-
     /**
      * Sets the hitbox for an enemy.
      * @param {Enemy} enemy - The enemy object.
@@ -266,7 +235,6 @@ class World {
             height: enemy.hitboxHeight
         };
     }
-
     /**
      * Checks if the character is behind an endboss.
      * @param {Character} character - The character object.
@@ -278,14 +246,12 @@ class World {
         const characterHitboxY = character.y + character.hitboxY;
         const endbossHitboxX = endboss.x + endboss.hitboxX;
         const endbossHitboxY = endboss.y + endboss.hitboxY;
-
         return (
             characterHitboxX > endbossHitboxX + endboss.hitboxWidth &&
             characterHitboxY + character.hitboxHeight > endbossHitboxY &&
             characterHitboxY < endbossHitboxY + endboss.hitboxHeight
         );
     }
-
     /**
      * Reduces enemy HP and handles enemy death.
      * @param {Enemy} enemy - The enemy object.
@@ -303,7 +269,6 @@ class World {
             }
         }
     }
-
     /**
      * Checks if the character is colliding with an enemy.
      * @param {Enemy} enemy - The enemy object.
@@ -314,7 +279,6 @@ class World {
             return true
         } else return false
     }
-
     /**
      * Checks if enemy is in sight of the character.
      * @param {Enemy} enemy - The enemy object.
@@ -330,7 +294,6 @@ class World {
         }
         else return false
     }
-
     /**
      * Checks if bottle is colliding with enemy.
      * @param {ThrowableObject} bottle - The bottle object.
@@ -343,7 +306,6 @@ class World {
         }
         return false; // No collision
     }
-
     /**
      * Handles bottle hit on enemy.
      * @param {ThrowableObject} bottle - The bottle object.
@@ -354,7 +316,6 @@ class World {
         bottle.bottleCracking()
         this.reduceEnemyHp(enemy, 20)
     }
-
     /**
      * Checks if two rectangles are colliding.
      * @param {Object} rect1 - The first rectangle object.
@@ -369,7 +330,6 @@ class World {
             rect1.y + rect1.height > rect2.y
         );
     }
-
     /**
      * Removes an enemy from the level.
      * @param {Enemy} enemy - The enemy object.
@@ -380,7 +340,6 @@ class World {
             this.level.enemies.splice(index, 1);
         }
     }
-
     /**
      * Draws the game elements on the canvas.
      */
@@ -396,7 +355,6 @@ class World {
             self.draw();
         })
     }
-
     /**
      * Adds multiple objects to the map.
      * @param {Array} obc - Array of objects to add.
@@ -406,13 +364,11 @@ class World {
             this.addToMap(o);
         });
     }
-
     /**
      * Adds an object to the map.
      * @param {MovableObject} mo - The movable object.
      */
     addToMap(mo) {
-
         if (mo.otherDirection) {
             mo.flipImage(mo)
         }
@@ -421,7 +377,6 @@ class World {
             mo.flipImageBack(mo)
         }
     }
-
     /**
    * Draws background objects on the canvas.
    */
@@ -432,7 +387,6 @@ class World {
         this.addObjectsToMap(this.CollectableObjects)
         this.ctx.translate(-this.camera_x, 0)
     }
-
     /**
      * Draws status bars on the canvas.
      */
@@ -443,7 +397,6 @@ class World {
         this.addToMap(this.bossBar)
         this.addToMap(this.bossBarIcon)
     }
-
     /**
      * Draws objects on the canvas.
      */
@@ -454,7 +407,6 @@ class World {
         this.addObjectsToMap(this.bottles)
         this.ctx.translate(-this.camera_x, 0)
     }
-
     /**
      * Shows the menu on the canvas.
      */
@@ -466,26 +418,20 @@ class World {
             this.ctx.translate(-this.camera_x, 0)
         }
     }
-
     /**
      * Shows the game ending screen on the canvas.
      */
     showGameEndingScreen() {
-
         if (!endingMenu) {
             this.ctx.translate(this.camera_x, 0)
             if (gameOver) {
                 this.drawGameEndingScreen('lost')
-
             } else if (gameWon) {
                 this.drawGameEndingScreen('won')
-
             }
-
             this.ctx.translate(-this.camera_x, 0)
         }
     }
-
     /**
      * Draws the game ending screen based on the ending type.
      * @param {string} ending - The type of ending (either 'won' or 'lost').
@@ -495,7 +441,6 @@ class World {
         this.addToMap(this.endingScreen(ending))
         this.addToMap(this.endingScreen(ending).replayButton)
     }
-
     /**
      * Returns the corresponding game ending screen based on the ending type.
      * @param {string} ending - The type of ending (either 'won' or 'lost').
@@ -507,7 +452,6 @@ class World {
         else
             return this.gameOverScreen
     }
-
     /**
      * Creates the game ending screen.
      */
@@ -525,7 +469,6 @@ class World {
         }
         gameRestart = true
     }
-
     /**
      * Creates a screen with a replay button.
      * @param {Image} screenImage - The image for the screen.
@@ -534,13 +477,10 @@ class World {
     createScreen(screenImage) {
         let x = this.character.x - 100;
         let x2 = this.character.x + 150;
-
         let screen = new Menu(x, 0, 720, 500, screenImage);
         screen.replayButton = new Replay_button(x2, 25, 200, 80, MENU_IMAGES.replay_button);
-
         return screen;
     }
-
     /**
      * Handles query conditions for throwing objects.
      * @param {number} s - The query condition number.
@@ -551,13 +491,11 @@ class World {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && !this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
             // Don't allow any other move when throwing to the right.
         }
-
         else if (s === 2) {
             return this.keyboard.throw && !this.character.isCharacterAboveGround() && !this.character.isHurt() && !this.character.dead && this.character.otherDirection && this.bottlesBar.checkBottleBar() && this.character.setCooldown()
             // Don't allow any other move when throwing to the left.
         }
     }
-
 }
 
 

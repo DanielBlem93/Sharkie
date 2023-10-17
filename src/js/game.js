@@ -16,15 +16,67 @@ let lastKeyPressTime
 
 const gesperrteTasten = ["w", "a", "s", "d", "f", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 intervals = []
+
+/**
+ * starts when body is loaded and prepare game for start
+ */
 function init() {
 
     canvas = document.getElementById('canvas');
     setNewWorld();
     buttonClickListener();
     watchForMobileDevices();
+    console.log(`Information an den der es kontrolliert:
+
+    -Die kleine Verzögerung wenn man erneut springen möchte ist gewollt.
+    
+    -Der Startbutton und der Replay button werden mit JS ins canvas gezeichnet.
+     daher auch kein cursor: pointer (beim nächsten mal würde ich das auch anders machen)
+     das ganze Canvas hat jetzt cursort:pointer bekommen 
+ 
+    -intro Musik wurde entfernt(probleme mit IOS geräten)
+
+    -druch die ganzen JS Doc kommentare sind meine JS Datein ziemlich lang geworden. Meine World Datei
+    auf eine neue Datei auszulagern würde sehr viel Arbeit bedeuten da sich so viele variablen und Funktionen auf die World beziehen.
+    Vielleicht kann man da ein Auge zudrücken? `)
+}
+/**
+ * Asynchronously sets up a new world after preloading resources.
+ */
+
+async function setNewWorld() {
+
+    await preLoad();
+    if (allImagesLoaded && allAudiosLoaded) {
+        currentLevel = level1
+        world = new World(canvas, keyboard);
+        masterAudio.setVolume(1);
+    } else {
+        console.log('World not created');
+    }
+}
+/**
+ * Adds click event listener to the canvas for menu buttons.
+ */
+
+function buttonClickListener() {
+    canvas.addEventListener('click', function (event) {
+        const scaleX = canvas.width / canvas.offsetWidth;
+        const scaleY = canvas.height / canvas.offsetHeight;
+
+        const mouseX = (event.clientX - canvas.getBoundingClientRect().left) * scaleX;
+        const mouseY = (event.clientY - canvas.getBoundingClientRect().top) * scaleY;
+        world.menu.buttons.forEach(button => {
+            if (button.isClicked(mouseX, mouseY)) {
+                button.onClick();
+            }
+        });
+    });
 }
 
-
+/**
+ * resets all varaibales and restarts the game
+ */
 function startNewGame() {
     clearIntervals();
     gameStart = false;
@@ -34,13 +86,44 @@ function startNewGame() {
     endingMenu = null
     world.gameOverScreen = null
     world.gameWonScreen = null
-
-    resetCharacter()
-    let currentEnemies = createLevel1Enemies()
-    world.level.enemies = currentEnemies
     gameStart = true
+    resetLevel()
+    resetCharacter()
+    resetBoss()
 }
+/**
+ * resets the level to the begining state
+ */
+function resetLevel() {
+    let currentEnemies = createLevel1Enemies()
+    let currenClouds = createClouds()
+    world.level.enemies = currentEnemies
+    world.level.clouds = currenClouds
+    resetCollectableObjects()
 
+}
+/**
+ * respawns all collactable objects
+ */
+function resetCollectableObjects() {
+    let currentCoins = createCoins()
+    let currentBotlles = createBottles()
+    world.CollectableObjects = []
+    pushCollectableObjects(currentCoins)
+    pushCollectableObjects(currentBotlles)
+
+}
+/**
+ * pushes all collectables to the rendering array
+ */
+function pushCollectableObjects(CollectableObject) {
+    CollectableObject.forEach(Object => {
+        world.CollectableObjects.push(Object)
+    });
+}
+/**
+ * resets the character and statusbars to the begining state
+ */
 function resetCharacter() {
     world.character.dead = false
     world.character.died = false
@@ -48,9 +131,26 @@ function resetCharacter() {
     world.character.x = 120
     world.character.y = 135
     world.character.j = 0
+    world.character.energy = 100
     world.character.animate()
+    world.statusBar.setHealth(100)
+    world.bottlesBar.bottles = 20
+    world.bottlesBar.setBottles(0)
+    world.coinBar.coins = 0
+    world.coinBar.setCoins(0)
 }
 
+/**
+ * resets the boss and the bar to the begining state
+ */
+function resetBoss() {
+    world.bossBar = new Bossbar()
+    world.bossBarIcon = new Boss_bar_icon()
+    AUDIOS.boss_song.pause()
+    AUDIOS.boss_song.currentTime = 0
+    AUDIOS.theme_song.currentTime = 0
+    AUDIOS.theme_song.play()
+}
 
 
 /**
@@ -74,46 +174,7 @@ function tastaturSperren() {
     }, 1500);
 }
 
-/**
- * Asynchronously sets up a new world after preloading resources.
- */
-async function setNewWorld() {
 
-    await preLoad();
-    if (allImagesLoaded && allAudiosLoaded) {
-        currentLevel = level1
-        world = new World(canvas, keyboard);
-
-        masterAudio.setVolume(1);
-    } else {
-        console.log('World not created');
-    }
-}
-
-/**
- * Starts a new game by reloading the page.
- */
-function newGame() {
-    startNewGame()
-}
-
-/**
- * Adds click event listener to the canvas for menu buttons.
- */
-function buttonClickListener() {
-    canvas.addEventListener('click', function (event) {
-        const scaleX = canvas.width / canvas.offsetWidth;
-        const scaleY = canvas.height / canvas.offsetHeight;
-
-        const mouseX = (event.clientX - canvas.getBoundingClientRect().left) * scaleX;
-        const mouseY = (event.clientY - canvas.getBoundingClientRect().top) * scaleY;
-        world.menu.buttons.forEach(button => {
-            if (button.isClicked(mouseX, mouseY)) {
-                button.onClick();
-            }
-        });
-    });
-}
 
 /**
  * Sets all keyboard properties to false.
@@ -219,3 +280,5 @@ handleButtonTouch(buttonUp, 'space', true);
 handleButtonTouch(buttonLeft, 'left', true);
 handleButtonTouch(buttonRight, 'right', true);
 handleButtonTouch(buttonThrow, 'throw', true);
+
+

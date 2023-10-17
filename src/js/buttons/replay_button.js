@@ -34,6 +34,6 @@ class Replay_button extends Button {
     restartGame() {
         endingMenu = true
         console.log('restart game')
-        newGame()
+        startNewGame()
     }
 }

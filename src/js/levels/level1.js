@@ -11,26 +11,15 @@ let level1
 level1 = new Level(
 
     //enemies
-    [],
-    //clouds
+    [],//enemies will added on start of the game,
     createClouds(),
-    //Background objects
     createBackgroundObjects(),
-
-
     createCoins(),
     createBottles(),
-    //Background sound effects
-    [
-        AUDIOS.wind,
-    ],
-    //Background music
-    [
-        AUDIOS.theme_song
-    ]
-
-
+    [AUDIOS.wind,], //background sounds
+    [AUDIOS.theme_song]    //Background music
 );
+
 function createClouds() {
     return clouds = [
         new Cloud(),
